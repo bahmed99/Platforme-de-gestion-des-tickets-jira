@@ -16,12 +16,12 @@ def login():
   return User().login()
 
 @user_api.route('/forgot-password', methods=['POST'])
-def login():
+def forgot_password():
   return User().forgot_password()
 
 
 @user_api.route('/new-password', methods=['POST'])
-def login():
+def reset_password():
   return User().new_password()
 
 

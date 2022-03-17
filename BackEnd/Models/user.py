@@ -1,11 +1,16 @@
+from sqlite3 import Date
 from flask import  jsonify, request
 from passlib.hash import pbkdf2_sha256
-from app import db
+from app import db,mail
 from jira.client import JIRA
 import uuid
 import jwt
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from utils import secret_key
+from datetime import date
+from datetime import timedelta,datetime
+from flask_mail import Message
+
 
 class User :
 
@@ -55,8 +60,7 @@ class User :
 
         if not(pbkdf2_sha256.verify(request.json.get('password'), user['password'])):
             return jsonify({ "error": "Invalid password" }), 401 
-
-         
+  
         
         token = jwt.encode({'user': user['_id']},secret_key)      
         
@@ -64,13 +68,49 @@ class User :
         return jsonify({"token": token}), 200   
 
     
-    def forgot_password():
+    def forgot_password(self):
+        user = db.users.find_one({
+                "email": request.json.get('email')
+                })
 
-          s = Serializer(secret_key, 360000)
-          token=s.dumps({'user_id':"5015005egegeggegr"}).decode('utf-8')
-          
-
-    def new_password():
-        print("hello")  
+        if not(user):
+            return jsonify({ "error": "Invalid email" }), 401  
 
 
+        token = Serializer(secret_key, 360000)
+        token=token.dumps({'user_id':user["_id"]}).decode('utf-8')
+
+       
+
+        db.users.find_one_and_update({"_id":user["_id"]},{'$set':{"reset_token":token,"expire_token":datetime.now()+timedelta(1/24)}})
+        
+        try:
+
+            msg = Message(subject="Hello",
+                        sender="idrivegears@gmail.com",
+                        recipients=user["email"].split())
+            msg.html='<p>you requested for password reset</p> <h5> click on this <a href="http://localhost:3000/reset/{token}"> Link </a> to reset your password</h5>'
+                        
+            mail.send(msg)
+            return jsonify({ "message": "Token sent" }), 200
+        except :
+            return jsonify({ "error": "Token not sent" }), 400
+
+
+    def new_password(self):
+        token= request.json.get('token')
+        password=request.json.get('password')
+
+        user = db.users.find_one({
+        "reset_token": token,
+        "expire_token":{'$gt': datetime.now()}
+        })
+        print(user)
+
+        if not(user):
+            return jsonify({ "error": "Session expired" }), 401
+
+        
+        db.users.find_one_and_update({"_id":user["_id"]},{'$set':{"password":pbkdf2_sha256.encrypt(password) ,"reset_token":"","expire_token":""}})
+
+        return jsonify({ "message": "Password updated" }), 201
