@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import logo from "../../assets/images/1.png";
-import image from "../../assets/images/2.jpg";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
 
-import "../../assets/css/Signup.style.css";
+import "../../Assets/css/Signup.style.css";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
