@@ -1,0 +1,90 @@
+.containerSignup {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+.form-box-Signup {
+
+  max-width: 500px;
+  max-height: 700px;
+  background-color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  opacity: 0.85;
+  border-radius: 2%;
+}
+.photo-Mod {
+  padding-top: 10px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ContainerInput {
+  padding-top: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.input-Style {
+  background-color: transparent;
+  border: 2px solid white;
+  height: 40px;
+  line-height: 0;
+  font-size: 17px;
+  width: 90%;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  border-radius: 60px;
+  letter-spacing: 0.01em;
+  position: relative;
+  margin-left: 15px;
+
+  color: white;
+}
+.InputName {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 35px;
+  font-size: 16px;
+}
+.ContainerCheck {
+  padding-top: 20px !important;
+}
+.labelStyle {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 15px;
+  font-size: 16px;
+}
+
+.btn-Style {
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: #ff0000; /* Green */
+  border: 1px solid rgb(128, 30, 0);
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-Style:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+.btn-Style:hover {
+  background-color: #cc0519;
+}
+
+.legendStyle
+{
+  font-size: 15px;
+}
+
