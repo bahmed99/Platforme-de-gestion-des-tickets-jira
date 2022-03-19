@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import NewpPassword from './Views/pages/New-password';
-import Reset from './Views/pages/Reset';
+import Reset from './Views/components/Reset';
 import Signin from './Views/pages/Signin';
 import Signup from './Views/pages/Signup';
 

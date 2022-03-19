@@ -1,10 +1,10 @@
 import React from 'react'
-import NewpPasswordComponent from '../components/NewPassword'
+import NewPasswordComponent from '../components/NewPassword'
 
 export default function NewpPassword() {
   return (
     <div>
-        <NewpPasswordComponent />
+        <NewPasswordComponent />
     </div>
   )
 }

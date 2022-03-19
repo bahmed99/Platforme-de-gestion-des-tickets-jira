@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import logo from "../../Assets/images/1.png";
-import image from "../../Assets/images/2.jpg";
+import logo from "../../assets/images/1.png";
+import image from "../../assets/images/2.jpg";
 import { Link, useNavigate  } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
-import "../../Assets/css/Signin.style.css";
+import "../../assets/css/Signin.style.css";
 import axios from "axios";
 
 export default function Signin() {
