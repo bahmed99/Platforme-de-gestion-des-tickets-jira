@@ -7,12 +7,17 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "compass-mixins": "^0.12.11",
+    "material-design-icons": "^3.0.1",
+    "mdi": "^2.2.43",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.1",
     "react-dom": "^17.0.2",
+    "react-i18next": "^11.16.1",
     "react-loading": "^2.0.3",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "sass": "^1.49.9",
     "web-vitals": "^2.1.4",
     "yarn": "^1.22.17"
   },
@@ -39,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@mdi/font": "^6.5.95",
+    "node-sass": "^7.0.1"
   }
 }

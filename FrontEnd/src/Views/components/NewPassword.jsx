@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import logo from "../../assets/images/1.png";
-import image from "../../assets/images/2.jpg";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
-import "../../assets/css/NewPassword.style.css";
+import "../../Assets/css/NewPassword.style.css";
 import axios from "axios";
 
 export default function NewpPassword() {

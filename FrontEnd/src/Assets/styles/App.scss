@@ -1,0 +1,61 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* === Plugin styles === */
+
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+@import "./variables";
+@import "~compass-mixins/lib/compass";
+@import "~compass-mixins/lib/animate";
+@import "~bootstrap/scss/bootstrap";
+@import "./fonts";
+@import "./functions";
+
+/* === Icon fonts === */
+
+@import "~@mdi/font/scss/materialdesignicons";
+
+/* === Template mixins === */
+@import "./mixins/animation";
+@import "./mixins/badges";
+@import "./mixins/buttons";
+@import "./mixins/misc";
+@import "./mixins/color-functions";
+@import "./mixins/blockqoute";
+
+
+/* === Core Styles === */
+@import "./typography";
+@import "./reset";
+@import "./responsive";
+@import "./misc";
+@import "./utilities";
+@import "./demo";
+@import "./spinner";
+
+
+/* === Components === */
+
+@import "./components/checkbox-radio";
+@import "./components/forms";
+@import "./components/icons";
+@import "./components/tables";
+@import "./components/buttons";
+@import "./components/breadcrumbs";
+@import "./components/badges";
+@import "./components/preview";
+@import "./components/lists";
+@import "./components/dropdowns";
+
+
+/* === Plugin Overrides === */
+@import "./components/plugin-overrides/slick-carousel";
+@import "./components/plugin-overrides/jquery-jvectormap";
+
+/* === Layout === */
+@import "./navbar";
+@import "./sidebar";
+@import "./footer";
+@import "./layout";
