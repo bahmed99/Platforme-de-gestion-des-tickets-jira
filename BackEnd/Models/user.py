@@ -15,7 +15,6 @@ from flask_mail import Message
 class User :
 
     def signup(self):
-            
             user = {
                 "_id": uuid.uuid4().hex,
                 "name": request.json.get('name'),
@@ -79,6 +78,7 @@ class User :
 
         token = Serializer(secret_key, 360000)
         token=token.dumps({'user_id':user["_id"]}).decode('utf-8')
+        print(token)
 
        
 
@@ -89,7 +89,7 @@ class User :
             msg = Message(subject="Hello",
                         sender="idrivegears@gmail.com",
                         recipients=user["email"].split())
-            msg.html='<p>you requested for password reset</p> <h5> click on this <a href="http://localhost:3000/reset/{token}"> Link </a> to reset your password</h5>'
+            msg.html='<p>you requested for password reset</p> <h5> click on this <a href="http://localhost:3000/reset/{}"> Link </a> to reset your password</h5>'.format(token)
                         
             mail.send(msg)
             return jsonify({ "message": "Token sent" }), 200

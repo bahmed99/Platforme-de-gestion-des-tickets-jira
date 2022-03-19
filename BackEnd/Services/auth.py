@@ -2,11 +2,13 @@ from Models.user import User
 from flask import Blueprint
 from flask import  g
 from utils import require_login
-
+from flask_cors import CORS,cross_origin
 
 user_api = Blueprint('user_api', __name__)
 
+
 @user_api.route('/signup', methods=['POST'])
+@cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
 def signup():
   return User().signup()
 

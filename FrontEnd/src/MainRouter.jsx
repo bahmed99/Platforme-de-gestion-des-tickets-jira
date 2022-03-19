@@ -1,19 +1,21 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
+import NewpPassword from './Views/pages/New-password';
+import Reset from './Views/pages/Reset';
+import Signin from './Views/pages/Signin';
+import Signup from './Views/pages/Signup';
 
 
 export default function MainRouter() {
   return (
 
     <Routes>
-      <Route exact path={"/s"} element={<Home />} >
-        ezgezfegergerg
-      </Route>
+      <Route exact path={"/signup"} element={<Signup />} />
+      <Route exact path={"/signin"} element={<Signin />} />
+      <Route exact path={"/Reset"} element={<Reset />} />
+      <Route exact path={"/reset/:token"} element={<NewpPassword />} />
+      
     </Routes>
 
   )
-}
-
-function Home() {
-  return <>dezgezg</>
 }
