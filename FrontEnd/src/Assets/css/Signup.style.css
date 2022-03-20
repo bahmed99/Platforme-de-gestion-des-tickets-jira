@@ -18,6 +18,11 @@
   opacity: 0.85;
   border-radius: 2%;
 }
+
+
+.form-box-Signup img {
+  cursor: pointer;
+}
 .photo-Mod {
   padding-top: 10px;
   width: 200px;

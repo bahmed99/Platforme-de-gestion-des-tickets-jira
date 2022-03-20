@@ -1,0 +1,7 @@
+.NavbarHome{
+    transition: left 0px !important;
+}
+
+.NavbarHome .navbar{
+    background-color: #262626;
+}

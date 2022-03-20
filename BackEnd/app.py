@@ -28,9 +28,11 @@ mail = Mail(app)
 
 
 from Services.auth import user_api
+from Services.upload_file import file_api
 api = Api(app)
 
 app.register_blueprint(user_api, url_prefix='/user')
+app.register_blueprint(file_api, url_prefix='/file')
 
 
 @app.route('/', methods=['GET'])

@@ -26,6 +26,12 @@ def forgot_password():
 def reset_password():
   return User().new_password()
 
+@user_api.route('/change-password', methods=['POST'])
+@require_login
+def change_password():
+  return User().change_password(g.user["email"])
+
+
 
 @user_api.route('/', methods=['GET'])
 @require_login
