@@ -4,6 +4,8 @@ from flask import  g
 from utils import require_login
 from flask_cors import CORS,cross_origin
 
+
+
 user_api = Blueprint('user_api', __name__)
 
 
@@ -30,6 +32,7 @@ def reset_password():
 @user_api.route('/', methods=['GET'])
 @require_login
 def Test():
-  return "g.user"
+  print(g.user)
+  return g.user['jira_domaine']
 
 

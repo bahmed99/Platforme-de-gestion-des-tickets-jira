@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Collapse, Dropdown } from 'react-bootstrap';
+import { Button, Collapse, Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
+
+import "../../Assets/css/Sidebar.style.css"
 
 class Sidebar extends Component {
 
@@ -219,8 +221,23 @@ class Sidebar extends Component {
               </div>
             </Collapse>
           </li>
+
+          <li className='nav-item menu-items liStyleSidebar'>
+          <div >
+            <div className={ this.state.addPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link' } onClick={ () => this.toggleMenuState('addPagesMenuOpen') } data-toggle="collapse">
+              
+              <span className="menu-icon divStyleSidebar">
+                <i className="mdi mdi-plus" ></i>
+              </span>
+              <span className="menu-title spanStyleSidebar"><Trans>Add new project</Trans></span>
+              <i className="menu-arrow"></i>
+              </div>
+            </div>
+          </li>
           
         </ul>
+        
+          
       </nav>
     );
   }

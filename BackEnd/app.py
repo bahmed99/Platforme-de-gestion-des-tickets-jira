@@ -28,14 +28,37 @@ mail = Mail(app)
 
 
 from Services.auth import user_api
+from Services.gestionProjects import projects_api
 api = Api(app)
 
 app.register_blueprint(user_api, url_prefix='/user')
-
+app.register_blueprint(projects_api, url_prefix='/projects')
 
 @app.route('/', methods=['GET'])
 def hello():
   return "It works"
+
+
+import requests
+from requests.auth import HTTPBasicAuth
+import json
+@app.route('/allprojects', methods=['GET'])
+def Salut():
+  url = "https://oussama-kordoghli99.atlassian.net/rest/api/3/project"
+
+  auth = HTTPBasicAuth("oussama.kordoghli@ensi-uma.tn", "XYJ4FaLRi8amFclMq5es78FB")
+
+  headers = {
+    "Accept": "application/json"
+  }
+
+  response = requests.request(
+    "GET",
+    url,
+    headers=headers,
+    auth=auth
+  )
+  return str(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
 
   
 
