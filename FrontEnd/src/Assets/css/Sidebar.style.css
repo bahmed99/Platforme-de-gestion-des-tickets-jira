@@ -1,0 +1,41 @@
+.ButtonStyleSideBar
+{
+    border-radius: 50%;
+    background-color: red;
+    border-color: red;
+    margin-top: 10%;
+    margin-left: 35%;
+}
+.liStyleSidebar
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30%;
+    
+}
+.divStyleSidebar
+{
+    background-color: red !important;
+}
+.spanStyleSidebar
+{
+    color: red !important;
+}
+
+.CardStyle
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 300px;
+}
+.CardButtonStyle
+{
+    margin-top: 100px ;
+    height: 40px;
+    width: 150px !important;
+}
+
+

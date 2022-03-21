@@ -42,8 +42,8 @@ export default function MainRouter() {
   return (
 
     <Routes>
-      <Route exact path={"/sign-up"} element={<Signup />} />
-      <Route exact path={"/sign-in"} element={<Signin />} />
+      <Route exact path={"/Signup"} element={<Signup />} />
+      <Route exact path={"/Signin"} element={<Signin />} />
       <Route exact path={"/forgot-password"} element={<Reset />} />
       <Route exact path={"/reset/:token"} element={<NewpPassword />} />
 

@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import '../../Assets/styles/App.scss'
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
-import FileUpload from "../components/inputs/FileUpload";
+
+import SelectProjects from '../components/SelectProjects';
+
 
 
 export default function Home() {
+  const [data, setData] = useState([])
+
+
+    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(true)
+    const [selectInfoData, setSelectInfoData] = useState(null);
 
 
   return (
@@ -19,9 +26,15 @@ export default function Home() {
       </div>
       <div className="main-panel">
         <div className="content-wrapper">
-          <FileUpload />
  
         </div>
+        <SelectProjects isOpen={ajoutSeanceModalOpen}
+                    setModal={setAjoutSeanceModalOpen}
+                    selectInfoData={selectInfoData}
+                    fetchSeances={data}
+                    setData={setData}
+                    
+                />
       </div>
     </div>
 
