@@ -1,4 +1,4 @@
-.navbar {
+.navbar1 {
   font-weight: normal;
   background: #262626;
   left: $sidebar-width-lg;
@@ -336,7 +336,7 @@
   }
 }
 @media (max-width:991px) {
-  .navbar {
+  .navbar1 {
     flex-direction: row;
     .navbar-brand-wrapper {
       width: 75px;
@@ -356,7 +356,7 @@
   }
 }
 @media (max-width:480px) {
-  .navbar {
+  .navbar1 {
     .navbar-brand-wrapper {
       width: 55px;
       .brand-logo-mini{
@@ -365,3 +365,4 @@
     }
   }
 }
+

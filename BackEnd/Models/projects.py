@@ -13,14 +13,14 @@ import requests
 from requests.auth import HTTPBasicAuth
 import json
 
-from user import User
+from Models.user import User
 
 from mongoengine import *
 
 class Projects(User) :
-    user = ReferenceField(User)
-    ListProjects = ListField(StringField(max_length=70))
-    SelectedProjects = ListField(StringField(max_length=70))
+    # user = ReferenceField(User)
+    # ListProjects = ListField(StringField(max_length=70))
+    # SelectedProjects = ListField(StringField(max_length=70))
     
     def GetAllProjects(self,jira_domaine,email,jira_token):
         url = "{}rest/api/3/project".format(jira_domaine)
@@ -40,7 +40,7 @@ class Projects(User) :
         return str(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
     
 
-    
+
 
   
 

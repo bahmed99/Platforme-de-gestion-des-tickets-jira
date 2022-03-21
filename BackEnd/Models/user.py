@@ -17,13 +17,13 @@ from mongoengine import *
 # connect('tumblelog')
 
 class User :
-    name = StringField(required=True)
-    email= StringField(max_length=50 , Required=True)
-    password = StringField(max_length=50,required=True)
-    jira_token = StringField(max_length=100)
-    jira_domaine = StringField(max_length=100)
-    reset_token = StringField(max_length=100)
-    expire_token = DateTimeField()
+    # name = StringField(required=True)
+    # email= StringField(max_length=50 , Required=True)
+    # password = StringField(max_length=50,required=True)
+    # jira_token = StringField(max_length=100)
+    # jira_domaine = StringField(max_length=100)
+    # reset_token = StringField(max_length=100)
+    # expire_token = DateTimeField()
     def signup(self):
             user = {
                 "_id": uuid.uuid4().hex,
@@ -88,7 +88,6 @@ class User :
 
         token = Serializer(secret_key, 360000)
         token=token.dumps({'user_id':user["_id"]}).decode('utf-8')
-        print(token)
 
        
 
@@ -124,3 +123,54 @@ class User :
         db.users.find_one_and_update({"_id":user["_id"]},{'$set':{"password":pbkdf2_sha256.encrypt(password) ,"reset_token":"","expire_token":""}})
 
         return jsonify({ "message": "Password updated" }), 201
+
+
+    def change_password(self ,user_email):
+        user = db.users.find_one({
+        "email": user_email
+        })
+
+
+        if not(pbkdf2_sha256.verify(request.json.get('password'), user['password'])):
+            return jsonify({ "error": "Invalid password" }), 401 
+
+        token = Serializer(secret_key, 360000)
+        token=token.dumps({'user_email':user_email}).decode('utf-8')
+
+        db.users.find_one_and_update({"email":user_email},{'$set':{"reset_token":token,"expire_token":datetime.now()+timedelta(1/24)}})
+
+
+        try:
+
+            msg = Message(subject="Hello",
+                        sender="idrivegears@gmail.com",
+                        recipients=user["email"].split())
+            msg.html='<p>you requested for password reset</p> <h5>Code: {} ></h5>'.format(token)
+                        
+            mail.send(msg)
+            return jsonify({ "message": "Token sent" }), 200
+        except :
+            return jsonify({ "error": "Token not sent" }), 400
+
+
+    def change_token(self,user_id):
+        user = db.users.find_one({
+            "_id": user_id
+            })
+
+        if not(pbkdf2_sha256.verify(request.json.get('password'), user['password'])):
+            return jsonify({ "error": "Invalid password" }), 401
+
+        
+        try :
+            auth_jira = JIRA(basic_auth=(user["email"], request.json.get('token')),options={'server': user["jira_domaine"]})
+
+        except :
+            return jsonify({ "error": "Invalid token" }), 400
+
+        
+        db.users.find_one_and_update({"_id":user_id},{'$set':{"jira_token":request.json.get('token')}})
+
+
+        return jsonify({ "message": "Jira token updated" }), 200
+

@@ -6,13 +6,17 @@ import Alert from "react-bootstrap/Alert";
 
 import "../../Assets/css/Reset.style.css";
 import axios from "axios";
+import ReactLoading from "react-loading";
 
 export default function Reset() {
   const Navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const PostData = () => {
+  const PostData = (e) => {
+    e.preventDefault()
+    setLoading(true)
     axios
       .post(
         "http://localhost:5000/user/forgot-password",
@@ -27,12 +31,14 @@ export default function Reset() {
         }
       )
       .then((res) => {
+        setLoading(false)
         setSuccess(true);
         setTimeout(() => setSuccess(false), 2500);
-        setInterval(function(){ Navigate('/Signin') }, 2000);
+        setInterval(function(){ Navigate('/sign-in') }, 2000);
         //Navigate("/");
       })
       .catch((err) => {
+        setLoading(false)
         setError(true);
         setTimeout(() => setError(false), 2500);
       });
@@ -52,29 +58,41 @@ export default function Reset() {
     >
         <br />
       <Alert show={success} variant={"success"} style={{width:"400px",height:"70",margin:"auto auto"}}>
-        {"Success Login"}
+        {"Check your email"}
       </Alert>
       <Alert show={error} variant={"danger"} style={{width:"400px",height:"70",margin:"auto auto"}}>
-        {"failed connection"}
+        {"Account not found"}
       </Alert>
+      <form onSubmit={(e) => PostData(e)}>
       <div className="containerReset">
         <div className="form-box-Reset">
-          <img alt="" src={logo} className="photo-Mod-Reset" />
+          <img alt="" src={logo} className="photo-Mod-Reset" onClick={()=>Navigate("/")}/>
           <div className="ContainerInputReset" style={{ paddingTop: "70px" }}>
             <label className="InputNameReset">Email</label>
             <input
-              type="text"
+              type="email"
               className="input-Style-Reset"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <button className="btn-Style-Reset" onClick={() => PostData()}>
-            Submit{" "}
+          <button className="btn-Style-Reset" type="submit" >
+          {loading ? (
+                <ReactLoading
+                    height={"30px"}
+                    width={"30px"}
+                    type="spin"
+                    className="loadingSpin"
+                />
+            ) : (
+                "Submit"
+            )}
           </button>
         </div>
       </div>
+
+      </form>
     </div>
   );
 }
