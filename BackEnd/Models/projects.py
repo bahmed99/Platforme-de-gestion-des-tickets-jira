@@ -17,7 +17,7 @@ from Models.user import User
 
 import datetime
 from app import db
-
+import os
 
 
 class Projects() :
@@ -53,14 +53,28 @@ class Projects() :
 
             return jsonify({ "error": "Signup failed" }), 400
 
-    def GetReponse(self,id_user):
+    def GetReponse(self,id_user,jira_domaine):
         projects = db.projects.find_one({
                 "id_user": id_user
                 })
+       
+        if(jira_domaine==""):
 
-        if not(projects):
-            return jsonify({ "message": True }), 200
-        return jsonify({"message": False}), 200
+            if(not(os.path.isdir('./data_files/{}'.format(id_user)))):
+                return jsonify({ "message": True ,"file":True}), 200
+            else :
+                return jsonify({"message": False,"file":False,"user":"file"}), 200
+
+
+        else:
+            if not(projects):
+                return jsonify({ "message": True ,"file":False}), 200
+            else :
+                return jsonify({"message": False,"file":False,"user":"jira"}), 200
+
+
+
+        
     
     def GetSelectedProjects(self,id_user):
         projects = db.projects.find_one({

@@ -3,3 +3,5 @@
 /BackEnd/__pycache__/
 
 /BackEnd/env
+
+/BackEnd/data_files/*

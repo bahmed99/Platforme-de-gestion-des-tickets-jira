@@ -20,7 +20,7 @@ export default function SelectProjects(props) {
   const [projets, setProjets] = useState([]);
   const [selectedprojects , setSelectedprojects] = useState([])
   const [selectedoptions, setSelectedoptions] = useState([]);
-  const [options, setOptions] = useState([{ label: "salut", value: "salue" }]);
+  const [options, setOptions] = useState([]);
 
 
   function onChange(value, event) {
@@ -49,7 +49,7 @@ export default function SelectProjects(props) {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/projects/projects`, {
+    fetch(`http://127.0.0.1:5000/projects/projects`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -92,14 +92,20 @@ export default function SelectProjects(props) {
         })
         .then((result) => {
           props.setModal(false)
+        
+        props.setData(selectedprojects)
         })
         .catch((err) => {
           
         });
 
-        props.setData(selectedprojects)
+
   };
 
+      }
+
+
+  
 
 
   return (
