@@ -215,7 +215,7 @@ export default function Navbar() {
                       <i className="mdi mdi-logout text-danger"></i>
                     </div>
                   </div>
-                  <div className="preview-item-content" onClick={()=>Disconnect()}>
+                  <div className="preview-item-content" onClick={Disconnect}>
                     <p className="preview-subject mb-1" >Log Out</p>
                   </div>
                 </Dropdown.Item>

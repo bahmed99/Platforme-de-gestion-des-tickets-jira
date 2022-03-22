@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 
 import SelectProjects from '../components/SelectProjects';
 import { useEffect } from 'react';
+import ModelFileUpload from '../components/Models/ModelFileUpload';
 
 
 
@@ -15,6 +16,7 @@ export default function Home() {
 
 
     const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
+    const [uploadFile, setUploadFile] = useState(false)
     const [selectInfoData, setSelectInfoData] = useState(null);
     useEffect(() => {
       fetch(`http://localhost:5000/projects/GetReponse`, {
@@ -28,7 +30,10 @@ export default function Home() {
         .then((result) => {
           if (result.message === true)
           {
-            setAjoutSeanceModalOpen(true)
+            if(result.file===false)
+              setAjoutSeanceModalOpen(true)
+            else
+              setUploadFile(true)
           }
         })
         
@@ -50,12 +55,11 @@ export default function Home() {
         <div className="content-wrapper">
  
         </div>
-        <SelectProjects isOpen={ajoutSeanceModalOpen}
+        {ajoutSeanceModalOpen ?<SelectProjects isOpen={ajoutSeanceModalOpen}
                     setModal={setAjoutSeanceModalOpen}
-                    selectInfoData={selectInfoData}
-                    
-                    
-                />
+                    selectInfoData={selectInfoData}/>:""}
+
+        {uploadFile ?<ModelFileUpload isOpen={uploadFile} setModal={setUploadFile} />:""}
       </div>
     </div>
 

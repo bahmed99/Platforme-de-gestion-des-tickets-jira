@@ -22,7 +22,7 @@ def SaveProjects():
 @projects_api.route('/GetReponse', methods=['GET'])
 @require_login
 def GetAnswer():
-    return Projects().GetReponse(g.user["_id"])
+    return Projects().GetReponse(g.user["_id"],g.user["jira_domaine"])
 
 @projects_api.route('/GetSelectedProjects', methods=['GET'])
 @require_login

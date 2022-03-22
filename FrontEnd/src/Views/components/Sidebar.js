@@ -28,7 +28,7 @@ function Sidebar(props) {
     // if (props.location !== prevProps.location) {
     //   onRouteChanged();
     // }
-    fetch(`http://localhost:5000/projects/GetSelectedProjects`, {
+    fetch(`http://127.0.0.1:5000/projects/GetSelectedProjects`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
