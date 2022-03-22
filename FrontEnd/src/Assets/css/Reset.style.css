@@ -19,6 +19,9 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+  .form-box-Reset img {
+    cursor: pointer;
+  }
   .photo-Mod-Reset {
     padding-top: 20px;
     width: 200px;

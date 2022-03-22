@@ -6,4 +6,4 @@ from utils import secret_key
 
 class Visuals :
     def register_visuals(self) :
-        return 0
+        return True

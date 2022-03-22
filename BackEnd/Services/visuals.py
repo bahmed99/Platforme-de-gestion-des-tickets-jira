@@ -6,10 +6,6 @@ from flask_cors import CORS,cross_origin
 
 visuals_api = Blueprint('user_api', __name__)
 
-@visuals_api.route('/', methods=['GET'])
-@require_login
-def Test():
-  return "g.user"
 
 @visuals_api.route('/', methods=['POST'])
 @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])

@@ -3,16 +3,27 @@ import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Trans } from 'react-i18next';
 
-class Navbar extends Component {
-  toggleOffcanvas() {
+import {useNavigate} from 'react-router-dom'
+export default function Navbar() {
+
+  const Navigate = useNavigate()
+
+ function toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
-  toggleRightSidebar() {
+ function toggleRightSidebar() {
     document.querySelector('.right-sidebar').classList.toggle('open');
   }
-  render () {
+
+  function Disconnect() {
+    localStorage.clear()
+    Navigate("/")
+    window.location.reload();
+  }
+
+  
     return (
-      <nav className="navbar p-0 fixed-top d-flex flex-row">
+      <nav className="navbar1 navbar p-0 fixed-top d-flex flex-row">
        
         <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
           <button className="navbar-toggler align-self-center" type="button" onClick={ () => document.body.classList.toggle('sidebar-icon-only') }>
@@ -204,8 +215,8 @@ class Navbar extends Component {
                       <i className="mdi mdi-logout text-danger"></i>
                     </div>
                   </div>
-                  <div className="preview-item-content">
-                    <p className="preview-subject mb-1"><Trans>Log Out</Trans></p>
+                  <div className="preview-item-content" onClick={()=>Disconnect()}>
+                    <p className="preview-subject mb-1" >Log Out</p>
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
@@ -213,13 +224,13 @@ class Navbar extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </ul>
-          <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" onClick={this.toggleOffcanvas}>
+          <button className="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" onClick={toggleOffcanvas}>
             <span className="mdi mdi-format-line-spacing"></span>
           </button>
         </div>
       </nav>
     );
-  }
+  
 }
 
-export default Navbar;
+

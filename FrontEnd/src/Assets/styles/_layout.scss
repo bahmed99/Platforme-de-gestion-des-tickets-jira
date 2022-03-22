@@ -1,6 +1,6 @@
 /* Layouts */
 
-.navbar {
+.navbar1 {
   &.fixed-top {
     + .page-body-wrapper {
       padding-top: $navbar-height;
@@ -12,7 +12,7 @@
 // Sidebar Mini
 .sidebar-mini {
   @media (min-width: 992px) {
-    .navbar {
+    .navbar1 {
       left: $sidebar-width-mini;
       .navbar-brand-wrapper {
         width: $sidebar-width-mini;
@@ -163,7 +163,7 @@
 // Sidebar Icon Only
 .sidebar-icon-only {
   @media (min-width: 992px) {
-    .navbar {
+    .navbar1 {
       left: $sidebar-width-icon;
       .navbar-menu-wrapper {
         width: 100%;
@@ -418,7 +418,7 @@
       background: #737373;
       padding: 0 calc((100% - #{$boxed-container-width}) / 2);
     }
-    .navbar {
+    .navbar1 {
       right: calc((100% - #{$boxed-container-width}) / 2);
       left:  calc(((100% - #{$boxed-container-width}) / 2) + #{$sidebar-width-lg});
       &.fixed-top {
@@ -489,7 +489,7 @@
       outline: 1px solid slategrey;
     }
   }
-  .navbar {
+  .navbar1 {
     @media (min-width: 992px) {
     right: $sidebar-width-lg;
     left: 0;

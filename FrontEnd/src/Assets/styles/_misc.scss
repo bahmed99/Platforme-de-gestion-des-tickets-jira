@@ -5,9 +5,9 @@ html {
   padding-right: 0; // resets padding right added by Bootstrap modal
 }
 
-body {
-  background: white;
-}
+// body {
+//   background: white;
+// }
 
 *:-moz-full-screen,
 *:-webkit-full-screen,
@@ -78,6 +78,7 @@ body {
   overflow: hidden;
   display: flex;
   position: relative;
+  
 }
 
 pre {

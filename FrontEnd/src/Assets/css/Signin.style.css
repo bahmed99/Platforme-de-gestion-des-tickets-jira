@@ -19,6 +19,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.form-box-Signin img {
+  cursor: pointer;
+}
 .photo-Mod-Signin {
   padding-top: 20px;
   width: 200px;
@@ -80,4 +83,8 @@
   cursor: pointer;
   margin-left: auto;
   padding-right: 50px;
+}
+
+.loadingSpin{
+  margin: auto auto;
 }
