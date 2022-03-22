@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Card,
@@ -11,19 +11,34 @@ import {
   Label,
 } from "reactstrap";
 
-
-
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
 import axios from "axios";
 
 export default function SelectProjects(props) {
   const [title, setTitle] = useState("");
-  const user = JSON.parse(localStorage.getItem("user"));
-  const [projets, setProjets] = useState([])
-  const [options, setOptions] = useState([])
+  const [projets, setProjets] = useState([]);
+  const [selectedprojects , setSelectedprojects] = useState([])
+  const [selectedoptions, setSelectedoptions] = useState([]);
+  const [options, setOptions] = useState([{ label: "salut", value: "salue" }]);
 
 
+  function onChange(value, event) {
+    if (event.action === "select-option" && event.option.value === "*") {
+      this.setState(this.options);
+    } else if (
+      event.action === "deselect-option" &&
+      event.option.value === "*"
+    ) {
+      this.setState([]);
+    } else if (event.action === "deselect-option") {
+      this.setState(value.filter((o) => o.value !== "*"));
+    } else if (value.length === this.options.length - 1) {
+      this.setState(this.options);
+    } else {
+      this.setState(value);
+    }
+  }
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -31,14 +46,57 @@ export default function SelectProjects(props) {
       color: state.selectProps.menuColor,
     }),
 
-
   };
 
-  const onClickAjouterSeance = async () => {
+  useEffect(() => {
     fetch(`http://localhost:5000/projects/projects`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        for (let i = 0; i < result.length; i++) {
+          setProjets((prevProjets) => [...prevProjets, result[i].name]);
+
+          setOptions((prevProjets) => [
+            ...prevProjets,
+            { label: result[i].name, value: result[i].name },
+          ]);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    setSelectedprojects([])
+    for (let i=0 ; i<selectedoptions.length ; i++)
+    {
+      const B = selectedoptions[i].label
+      setSelectedprojects((prevValue) => [...prevValue, B]);
+    }
+  }, [selectedoptions]);
+
+  const onClickAjouterSeance = async () => {
+      const data = {
+        all_projects: projets,
+        selected_projects: selectedprojects,
+      };
+      axios
+        .post("http://localhost:5000/projects/SaveProjects", data, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("jwt"),
+          },
+        })
+        .then((result) => {
+          props.setModal(false)
+        })
+        .catch((err) => {
+          
+        });
+
         "Authorization": localStorage.getItem("jwt")
       },
     }).then(res => res.json())
@@ -50,14 +108,18 @@ export default function SelectProjects(props) {
 
         }
       })
+
   };
+
+
 
   return (
     <Modal
-      className="modal-dialog-centered"
-      size="sm"
+
+      className=" modal-dialog-centered "
+      size=""
+
       isOpen={props.isOpen}
-      style={{ marginRight: "auto", marginLeft: "auto" }}
       toggle={() => {
         props.setModal(!props.isOpen);
       }}
@@ -74,6 +136,9 @@ export default function SelectProjects(props) {
                 styles={customStyles}
                 width="300px"
                 menuColor="black"
+                value={selectedoptions}
+                onChange={onChange}
+                setState={setSelectedoptions}
               />
 
               <div className="text-center">

@@ -50,26 +50,26 @@ def hello():
   return "It works"
 
 
-import requests
-from requests.auth import HTTPBasicAuth
-import json
-@app.route('/allprojects', methods=['GET'])
-def Salut():
-  url = "https://oussama-kordoghli99.atlassian.net/rest/api/3/project"
+# import requests
+# from requests.auth import HTTPBasicAuth
+# import json
+# @app.route('/allprojects', methods=['GET'])
+# def Salut():
+#   url = "https://oussama-kordoghli99.atlassian.net/rest/api/3/project"
 
-  auth = HTTPBasicAuth("oussama.kordoghli@ensi-uma.tn", "XYJ4FaLRi8amFclMq5es78FB")
+#   auth = HTTPBasicAuth("oussama.kordoghli@ensi-uma.tn", "XYJ4FaLRi8amFclMq5es78FB")
 
-  headers = {
-    "Accept": "application/json"
-  }
+#   headers = {
+#     "Accept": "application/json"
+#   }
 
-  response = requests.request(
-    "GET",
-    url,
-    headers=headers,
-    auth=auth
-  )
-  return str(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+#   response = requests.request(
+#     "GET",
+#     url,
+#     headers=headers,
+#     auth=auth
+#   )
+#   return str(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
 
   
 

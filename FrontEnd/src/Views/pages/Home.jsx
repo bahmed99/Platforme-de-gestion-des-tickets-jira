@@ -6,16 +6,38 @@ import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 
 import SelectProjects from '../components/SelectProjects';
+import { useEffect } from 'react';
 
 
 
 export default function Home() {
-  const [data, setData] = useState([])
 
 
-    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(true)
+
+    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
     const [selectInfoData, setSelectInfoData] = useState(null);
+    useEffect(() => {
+      fetch(`http://localhost:5000/projects/GetReponse`, {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem("jwt"),
+        },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.message === true)
+          {
+            setAjoutSeanceModalOpen(true)
+          }
+        })
+        
+      
+        
+    }, []);
 
+
+    
 
   return (
     <div className="container-scroller">
@@ -31,8 +53,7 @@ export default function Home() {
         <SelectProjects isOpen={ajoutSeanceModalOpen}
                     setModal={setAjoutSeanceModalOpen}
                     selectInfoData={selectInfoData}
-                    fetchSeances={data}
-                    setData={setData}
+                    
                     
                 />
       </div>
