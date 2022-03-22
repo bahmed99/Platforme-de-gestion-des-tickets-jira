@@ -12,18 +12,9 @@ from datetime import date
 from datetime import timedelta,datetime
 from flask_mail import Message
 
-from mongoengine import *
-
-# connect('tumblelog')
 
 class User :
-    # name = StringField(required=True)
-    # email= StringField(max_length=50 , Required=True)
-    # password = StringField(max_length=50,required=True)
-    # jira_token = StringField(max_length=100)
-    # jira_domaine = StringField(max_length=100)
-    # reset_token = StringField(max_length=100)
-    # expire_token = DateTimeField()
+
     def signup(self):
             user = {
                 "_id": uuid.uuid4().hex,

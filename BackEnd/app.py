@@ -14,6 +14,8 @@ cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 db=ConnexionBD()
 
+
+
 mail_settings = {
     "MAIL_SERVER": 'smtp.gmail.com',
     "MAIL_PORT": 465,

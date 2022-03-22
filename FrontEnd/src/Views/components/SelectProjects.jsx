@@ -23,7 +23,7 @@ export default function SelectProjects(props) {
   const [projets, setProjets] = useState([])
   const [options, setOptions] = useState([])
 
-  
+
 
   const customStyles = {
     menu: (provided, state) => ({
@@ -31,31 +31,30 @@ export default function SelectProjects(props) {
       color: state.selectProps.menuColor,
     }),
 
-    
+
   };
 
   const onClickAjouterSeance = async () => {
     fetch(`http://localhost:5000/projects/projects`, {
-            method: "get",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": localStorage.getItem("jwt")
-            },
-        }).then(res => res.json())
-            .then(result => {
-                for(let i=0 ; i<result.length ; i++)
-                {
-                  setProjets(prevProjets => ([...prevProjets, result[i].name]))
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("jwt")
+      },
+    }).then(res => res.json())
+      .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          setProjets(prevProjets => ([...prevProjets, result[i].name]))
 
-                  setOptions(prevProjets => ([...prevProjets, {label: result[i].name, value: result[i].name } ]))
+          setOptions(prevProjets => ([...prevProjets, { label: result[i].name, value: result[i].name }]))
 
-                }
-            })
+        }
+      })
   };
 
   return (
     <Modal
-      className=" modal-dialog-centered "
+      className="modal-dialog-centered"
       size="sm"
       isOpen={props.isOpen}
       style={{ marginRight: "auto", marginLeft: "auto" }}
@@ -64,7 +63,7 @@ export default function SelectProjects(props) {
       }}
     >
       <div className="modal-body p-0 row align-self-center">
-        <Card className=" shadow border-0 CardStyle">
+        <Card className="shadow border-0 CardStyle">
           <CardHeader className="bg-transparent pb-1">
             <h3>Select Projects</h3>
           </CardHeader>
