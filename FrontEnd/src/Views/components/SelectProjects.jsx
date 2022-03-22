@@ -22,6 +22,7 @@ export default function SelectProjects(props) {
   const [selectedoptions, setSelectedoptions] = useState([]);
   const [options, setOptions] = useState([{ label: "salut", value: "salue" }]);
 
+
   function onChange(value, event) {
     if (event.action === "select-option" && event.option.value === "*") {
       this.setState(this.options);
@@ -44,6 +45,7 @@ export default function SelectProjects(props) {
       ...provided,
       color: state.selectProps.menuColor,
     }),
+
   };
 
   useEffect(() => {
@@ -94,21 +96,36 @@ export default function SelectProjects(props) {
         .catch((err) => {
           
         });
+
+        "Authorization": localStorage.getItem("jwt")
+      },
+    }).then(res => res.json())
+      .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          setProjets(prevProjets => ([...prevProjets, result[i].name]))
+
+          setOptions(prevProjets => ([...prevProjets, { label: result[i].name, value: result[i].name }]))
+
+        }
+      })
+
   };
 
 
 
   return (
     <Modal
+
       className=" modal-dialog-centered "
       size=""
+
       isOpen={props.isOpen}
       toggle={() => {
         props.setModal(!props.isOpen);
       }}
     >
       <div className="modal-body p-0 row align-self-center">
-        <Card className=" shadow border-0 CardStyle">
+        <Card className="shadow border-0 CardStyle">
           <CardHeader className="bg-transparent pb-1">
             <h3>Select Projects</h3>
           </CardHeader>

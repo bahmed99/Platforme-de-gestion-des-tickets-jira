@@ -12,11 +12,9 @@ from datetime import date
 from datetime import timedelta,datetime
 from flask_mail import Message
 
-from mongoengine import *
-
-# connect('tumblelog')
 
 class User :
+
     def signup(self):
             user = {
                 "_id": uuid.uuid4().hex,
