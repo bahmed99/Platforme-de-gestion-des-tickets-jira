@@ -14,7 +14,7 @@ import ModelFileUpload from '../components/Models/ModelFileUpload';
 export default function Home() {
 
 
-
+    const[ data , setData] = useState([])
     const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
     const [uploadFile, setUploadFile] = useState(false)
     const [selectInfoData, setSelectInfoData] = useState(null);
@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <div className="container-scroller">
-      <Sidebar />
+      <Sidebar data={data}  setData= {setData}/>
       <div className="container-fluid page-body-wrapper">
         <Navbar />
 
@@ -57,9 +57,14 @@ export default function Home() {
         </div>
         {ajoutSeanceModalOpen ?<SelectProjects isOpen={ajoutSeanceModalOpen}
                     setModal={setAjoutSeanceModalOpen}
+
+                    selectInfoData={selectInfoData}
+                    data={data}  setData= {setData}
+                
                     selectInfoData={selectInfoData}/>:""}
 
         {uploadFile ?<ModelFileUpload isOpen={uploadFile} setModal={setUploadFile} />:""}
+
       </div>
     </div>
 

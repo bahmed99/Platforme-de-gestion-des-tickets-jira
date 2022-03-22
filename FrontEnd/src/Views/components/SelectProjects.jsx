@@ -92,12 +92,18 @@ export default function SelectProjects(props) {
         })
         .then((result) => {
           props.setModal(false)
+        
+        props.setData(selectedprojects)
         })
         .catch((err) => {
           
         });
 
+
+  };
+
       }
+
 
   
 
