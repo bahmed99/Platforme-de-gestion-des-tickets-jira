@@ -97,18 +97,7 @@ export default function SelectProjects(props) {
           
         });
 
-        "Authorization": localStorage.getItem("jwt")
-      },
-    }).then(res => res.json())
-      .then(result => {
-        for (let i = 0; i < result.length; i++) {
-          setProjets(prevProjets => ([...prevProjets, result[i].name]))
-
-          setOptions(prevProjets => ([...prevProjets, { label: result[i].name, value: result[i].name }]))
-
-        }
-      })
-
+        props.setData(selectedprojects)
   };
 
 

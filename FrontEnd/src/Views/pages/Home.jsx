@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 export default function Home() {
 
 
-
+    const[ data , setData] = useState([])
     const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
     const [selectInfoData, setSelectInfoData] = useState(null);
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="container-scroller">
-      <Sidebar />
+      <Sidebar data={data}  setData= {setData}/>
       <div className="container-fluid page-body-wrapper">
         <Navbar />
 
@@ -53,7 +53,7 @@ export default function Home() {
         <SelectProjects isOpen={ajoutSeanceModalOpen}
                     setModal={setAjoutSeanceModalOpen}
                     selectInfoData={selectInfoData}
-                    
+                    data={data}  setData= {setData}
                     
                 />
       </div>

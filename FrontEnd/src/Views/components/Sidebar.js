@@ -37,7 +37,7 @@ function Sidebar(props) {
     })
       .then((res) => res.json())
       .then((result) => {
-       setSelectedprojects(result.projects.selected_projects)
+       props.setData(result.projects.selected_projects)
         
       });
      
@@ -148,7 +148,7 @@ function Sidebar(props) {
             <Trans>Navigation</Trans>
           </span>
         </li>
-        {selectedprojects.map((item) => {
+        {props.data.map((item) => {
           return (
             <li className="nav-item menu-items">
           <Link className="nav-link" to="/dashboard">
