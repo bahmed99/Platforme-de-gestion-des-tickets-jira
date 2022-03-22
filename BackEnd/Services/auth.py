@@ -39,6 +39,6 @@ def change_password():
 @require_login
 def Test():
   print(g.user)
-  return g.user['jira_domaine']
+  return g.user
 
 
