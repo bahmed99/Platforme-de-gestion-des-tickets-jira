@@ -30,12 +30,14 @@ mail = Mail(app)
 
 
 from Services.auth import user_api
+from Services.choosevisuals import visuals_api
 
 from Services.gestionProjects import projects_api
 api = Api(app)
 
 app.register_blueprint(user_api, url_prefix='/user')
 app.register_blueprint(projects_api, url_prefix='/projects')
+app.register_blueprint(visuals_api,url_prefix='/projects')
 
 from Services.upload_file import file_api
 
