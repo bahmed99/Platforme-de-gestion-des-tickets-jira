@@ -10,13 +10,19 @@ import "../../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
     const { id } = useParams();
-    const [visuals, setVisuals] = useState([]);
+    const [checked,setChecked] = useState([]);
     const [error, setError] = useState(false);
 
-    const AjoutChamps = (event, newValue) => {
-        setVisuals([...visuals, newValue]);
-    };
-    console.log(visuals);
+    const handleCheck = (event) => {
+        var updatedList = [...checked];
+        if (event.target.checked) {
+          updatedList = [...checked, event.target.value];
+        } else {
+          updatedList.splice(checked.indexOf(event.target.value), 1);
+        }
+        setChecked(updatedList);
+      };
+    console.log(checked);
     const [data, setData] = useState([]);
     useEffect(() => {
         fetch(`http://localhost:5000/projects/GetSelectedProjects`, {
@@ -36,16 +42,17 @@ export default function Filterbar() {
     const PostData = () => {
         axios
           .post(
-            `http://localhost:5000/user/visuals`,
+            `http://localhost:5000/projects/SaveVisuals`,
     
             {
             
-              projects : data, 
-              visuals : visuals,
+              selected_projects : data, 
+              visuals : checked,
             },
             {
               headers: {
                 "Content-Type": "application/json",
+                Authorization: localStorage.getItem("jwt"),
               },
             }
           )
@@ -64,67 +71,67 @@ export default function Filterbar() {
                     <FormControl component="fieldset">
                         <FormGroup aria-label="position" row>
                             <FormControlLabel
-                                value="start"
+                                value="Suivi des bugs"
                                 control={<Checkbox />}
                                 label="Suivi des bugs"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Gestion des incidents"
                                 control={<Checkbox />}
                                 label="Gestion des incidents"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Analyse de la productivité"
                                 control={<Checkbox />}
                                 label="Analyse de la productivité"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Suivi des temps planifiés"
                                 control={<Checkbox />}
                                 label="Suivi des temps planifiés"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Nombre de demandes par priorité"
                                 control={<Checkbox />}
                                 label="Nombre de demandes par priorité"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Nombre total de tickets par type"
                                 control={<Checkbox />}
                                 label="Nombre total de tickets par type"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Nombre total de tickets par intervenant"
                                 control={<Checkbox />}
                                 label="Nombre total de tickets par intervenant"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Tikcte par priorité et par mois"
                                 control={<Checkbox />}
                                 label="Tikcte par priorité et par mois"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
                             <FormControlLabel
-                                value="start"
+                                value="Ticket par statut et par client"
                                 control={<Checkbox />}
                                 label="Ticket par statut et par client"
                                 labelPlacement="start"
-                                onChange={(e) => AjoutChamps(e.target.label)}
+                                onChange={handleCheck}
                             />
 
 

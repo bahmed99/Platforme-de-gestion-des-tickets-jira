@@ -44,6 +44,7 @@ export default function Home() {
               setModal={setAjoutSeanceModalOpen}
               selectInfoData={selectInfoData}
             />
+            <Filterbar/>
           </div>
 
         </div>
