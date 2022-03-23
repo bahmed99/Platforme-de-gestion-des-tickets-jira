@@ -1,4 +1,5 @@
-import React from 'react'
+import React ,{useState} from 'react'
+
 import {
     Button,
     Card,
@@ -12,6 +13,7 @@ import {
 } from "reactstrap";
 import FileUpload from "../inputs/FileUpload.jsx"
 import "../../../Assets/css/Inputs.css"
+
 // import 'bootstrap/dist/css/bootstrap.min.css';
 export default function ModelFileUpload(props) {
     return (
@@ -25,7 +27,7 @@ export default function ModelFileUpload(props) {
                     </CardHeader>
                     <CardBody className="px-lg-5 py-lg-10">
                         <Form role="form">
-                            <FileUpload />
+                            <FileUpload data={props.data}  setData= {props.setData} setModal={props.setModal}/>
                         </Form>
                     </CardBody>
                 </Card>

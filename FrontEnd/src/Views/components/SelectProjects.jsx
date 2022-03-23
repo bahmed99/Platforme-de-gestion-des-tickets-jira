@@ -102,11 +102,6 @@ export default function SelectProjects(props) {
 
   };
 
-
-
-  
-
-
   return (
     <Modal
 
