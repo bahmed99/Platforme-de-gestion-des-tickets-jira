@@ -59,9 +59,7 @@ export default function Home() {
                     setModal={setAjoutSeanceModalOpen}
 
                     selectInfoData={selectInfoData}
-                    data={data}  setData= {setData}
-                
-                    selectInfoData={selectInfoData}/>:""}
+                    data={data}  setData= {setData} />:""}
 
         {uploadFile ?<ModelFileUpload isOpen={uploadFile} setModal={setUploadFile} />:""}
 

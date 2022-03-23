@@ -86,6 +86,22 @@ class Projects() :
         return jsonify({"projects": projects}), 200
     
 
+    def Updateprojects(self, id_user):
+        selected_projects=request.json.get('selected_projects')
+
+        projects = db.projects.find_one({
+        "id_user": id_user
+        })
+
+        if not(projects):
+            return jsonify({ "error": "Session expired" }), 401
+
+        
+        db.projects.find_one_and_update({"id_user":id_user},{'$set':{"selected_projects":selected_projects}})
+
+        return jsonify({ "message": "Password updated" }), 201
+    
+
 
 
   

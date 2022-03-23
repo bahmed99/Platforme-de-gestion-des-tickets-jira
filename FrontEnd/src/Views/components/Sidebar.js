@@ -3,13 +3,19 @@ import { Link, withRouter } from "react-router-dom";
 import { Button, Collapse, Dropdown } from "react-bootstrap";
 import { Trans } from "react-i18next";
 
+import ModelAddProject from "./Models/ModelAddProject";
 import "../../Assets/css/Sidebar.style.css";
 
 function Sidebar(props) {
+
+    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
+    const [uploadFile, setUploadFile] = useState(false)
+    const [selectInfoData, setSelectInfoData] = useState(null);
   const [state, setState] = useState({});
 
   const [selectedprojects, setSelectedprojects] = useState([]);
-
+  const [allprojects, setAllProject] = useState([]);
+  const [difference,setDifference] = useState([])
 
   function toggleMenuState(menuState) {
     if (state[menuState]) {
@@ -38,6 +44,7 @@ function Sidebar(props) {
       .then((res) => res.json())
       .then((result) => {
        props.setData(result.projects.selected_projects)
+       setAllProject(result.projects.all_projects)
         
       });
      
@@ -63,6 +70,12 @@ function Sidebar(props) {
     Object.keys(state).forEach((i) => {
       setState({ [i]: false });
     });
+  }
+  const addProjects =() =>{
+    setAjoutSeanceModalOpen(true)
+    setDifference(allprojects.filter(x => !props.data.includes(x)));
+    console.log(difference)
+
   }
   
 
@@ -336,7 +349,7 @@ function Sidebar(props) {
               <span className="menu-icon divStyleSidebar">
                 <i className="mdi mdi-plus"></i>
               </span>
-              <span className="menu-title spanStyleSidebar">
+              <span className="menu-title spanStyleSidebar" onClick={()=>addProjects()}>
                 <Trans>Add new project</Trans>
               </span>
               <i className="menu-arrow"></i>
@@ -344,6 +357,13 @@ function Sidebar(props) {
           </div>
         </li>
       </ul>
+      {(difference !== [])? <ModelAddProject isOpen={ajoutSeanceModalOpen}
+                    setModal={setAjoutSeanceModalOpen}
+
+                    selectInfoData={selectInfoData}
+                    difference={difference} setDifference={setDifference}
+                    data={props.data} setData={props.setData}
+                    />:""}
     </nav>
   );
 }

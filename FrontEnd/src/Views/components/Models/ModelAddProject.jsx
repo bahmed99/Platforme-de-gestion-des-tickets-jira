@@ -15,13 +15,24 @@ import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
 
 import axios from "axios";
 
-export default function SelectProjects(props) {
+export default function ModelAddProject(props) {
   const [title, setTitle] = useState("");
   const [projets, setProjets] = useState([]);
   const [selectedprojects , setSelectedprojects] = useState([])
   const [selectedoptions, setSelectedoptions] = useState([]);
   const [options, setOptions] = useState([]);
+  useEffect(() => {
+    setOptions([])
+      for (let i=0 ; i<props.difference.length ; i++)
+      {
+        setOptions((prevProjets) => [...prevProjets,{label: props.difference[i],value: props.difference[i]}]);
+      }
+      setProjets(props.data)
+      
 
+  }, [props.difference])
+
+  
 
   function onChange(value, event) {
     if (event.action === "select-option" && event.option.value === "*") {
@@ -49,42 +60,22 @@ export default function SelectProjects(props) {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/projects/projects`, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        for (let i = 0; i < result.length; i++) {
-          setProjets((prevProjets) => [...prevProjets, result[i].name]);
-
-          setOptions((prevProjets) => [
-            ...prevProjets,
-            { label: result[i].name, value: result[i].name },
-          ]);
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    setSelectedprojects([])
+    setSelectedprojects(props.data)
     for (let i=0 ; i<selectedoptions.length ; i++)
     {
       const B = selectedoptions[i].label
       setSelectedprojects((prevValue) => [...prevValue, B]);
     }
+    
+    
   }, [selectedoptions]);
-
-  const onClickAjouterSeance = async () => {
-      const data = {
-        all_projects: projets,
+  function AddProject() {
+      
+      const info = {
         selected_projects: selectedprojects,
       };
       axios
-        .post("http://localhost:5000/projects/SaveProjects", data, {
+        .put("http://localhost:5000/projects/UpdateProjects", info, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": localStorage.getItem("jwt"),
@@ -93,14 +84,15 @@ export default function SelectProjects(props) {
         .then((result) => {
           props.setModal(false)
         
-        props.setData(selectedprojects)
+          props.setData(selectedprojects)
+          console.log("yes");
         })
         .catch((err) => {
           
         });
-
-
-  };
+      
+  }
+  
 
 
 
@@ -140,7 +132,7 @@ export default function SelectProjects(props) {
                   className="btn btn-outline-danger   CardButtonStyle"
                   color="transparent"
                   type="button"
-                  onClick={(e) => onClickAjouterSeance()}
+                  onClick={()=>AddProject()}
                 >
                   Ajouter
                 </Button>

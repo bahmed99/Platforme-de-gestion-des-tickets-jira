@@ -29,4 +29,10 @@ def GetAnswer():
 def SelectedProject():
     return Projects().GetSelectedProjects(g.user["_id"])
 
+@projects_api.route('/UpdateProjects', methods=['PUT'])
+@require_login
+def UpdateSelectedProject():
+    return Projects().Updateprojects(g.user["_id"])
+
+
   
