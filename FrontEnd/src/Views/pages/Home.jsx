@@ -75,13 +75,8 @@ export default function Home() {
           </div>
         </div>
 
-        {ajoutSeanceModalOpen ?<SelectProjects isOpen={ajoutSeanceModalOpen}
-                    setModal={setAjoutSeanceModalOpen}
-
-                    selectInfoData={selectInfoData}
-                    data={data}  setData= {setData} />:""}
-
-        {uploadFile ?<ModelFileUpload isOpen={uploadFile} setModal={setUploadFile} />:""}
+       
+        
 
  
       ) : (

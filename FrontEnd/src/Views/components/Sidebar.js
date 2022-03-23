@@ -187,158 +187,184 @@ function Sidebar(props) {
               </li>
             );
           })}</div>: (
-        <div className="Spinner"><Spinner animation="border" role="status" variant="danger" /></div>
-        
-         
-        
-      )}
-          <li className="nav-item menu-items">
-            <Link className="nav-link" to="/dashboard">
-              <span className="menu-icon">
-                <i className="mdi mdi-speedometer"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>Dashboard</Trans>
-              </span>
-            </Link>
-          </li>
+        <div className="Spinner"><Spinner animation="border" role="status" variant="danger" /></div>)}
 
-          <li className="nav-item menu-items">
-            <div
-              className="nav-link"
-              onClick={() => toggleMenuState("formElementsMenuOpen")}
-              data-toggle="collapse"
-            >
-              <span className="menu-icon">
-                <i className="mdi mdi-playlist-play"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>Element 2</Trans>
-              </span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={state.formElementsMenuOpen}>
-              <div>
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    {" "}
-                    <Link
-                      className="nav-link"
-                      to="/form-elements/basic-elements"
-                    >
-                      <Trans>Element 2 1</Trans>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-          <li className="nav-item menu-items">
-            <div
-              className={
-                state.chartsMenuOpen ? "nav-link menu-expanded" : "nav-link"
-              }
-              onClick={() => toggleMenuState("chartsMenuOpen")}
-              data-toggle="collapse"
-            >
-              <span className="menu-icon">
-                <i className="mdi mdi-chart-bar"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>Element 4</Trans>
-              </span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={state.chartsMenuOpen}>
-              <div>
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    {" "}
-                    <Link className="nav-link" to="/charts/chart-js">
-                      <Trans>Chart Js</Trans>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-          <li className="nav-item menu-items">
-            <div
-              className="nav-link"
-              onClick={() => toggleMenuState("iconsMenuOpen")}
-              data-toggle="collapse"
-            >
-              <span className="menu-icon">
-                <i className="mdi mdi-contacts"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>Element 5</Trans>
-              </span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={state.iconsMenuOpen}>
-              <div>
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    {" "}
-                    <Link className={"nav-link"} to="/icons/mdi">
-                      <Trans>Material</Trans>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-          <li className="nav-item menu-items">
-            <div
-              className="nav-link"
-              onClick={() => toggleMenuState("userPagesMenuOpen")}
-              data-toggle="collapse"
-            >
-              <span className="menu-icon">
-                <i className="mdi mdi-security"></i>
-              </span>
-              <span className="menu-title">
-                <Trans>Element 6</Trans>
-              </span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={state.userPagesMenuOpen}>
-              <div>
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    {" "}
-                    <Link className="nav-link" to="/user-pages/login-1">
-                      <Trans>Login</Trans>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    {" "}
-                    <Link className="nav-link" to="/user-pages/register-1">
-                      <Trans>Register</Trans>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-          <li className="nav-item nav-category">
-            <span className="nav-link">
-              <Trans>More</Trans>
+
+
+                  <li className="nav-item menu-items">
+          <Link className="nav-link" to="/dashboard">
+            <span className="menu-icon">
+              <i className="mdi mdi-speedometer"></i>
             </span>
-          </li>
-          <li className="nav-item menu-items">
+            <span className="menu-title">
+              <Trans>Dashboard</Trans>
+            </span>
+          </Link>
+        </li>
+       
+        <li className="nav-item menu-items">
+          <div
+            className="nav-link"
+            onClick={() => toggleMenuState("formElementsMenuOpen")}
+            data-toggle="collapse"
+          >
+            <span className="menu-icon">
+              <i className="mdi mdi-playlist-play"></i>
+            </span>
+            <span className="menu-title">
+              <Trans>Element 2</Trans>
+            </span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={state.formElementsMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {" "}
+                  <Link className="nav-link" to="/form-elements/basic-elements">
+                    <Trans>Element 2 1</Trans>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        <li className="nav-item menu-items">
+          <div
+            className={
+              state.chartsMenuOpen ? "nav-link menu-expanded" : "nav-link"
+            }
+            onClick={() => toggleMenuState("chartsMenuOpen")}
+            data-toggle="collapse"
+          >
+            <span className="menu-icon">
+              <i className="mdi mdi-chart-bar"></i>
+            </span>
+            <span className="menu-title">
+              <Trans>Element 4</Trans>
+            </span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={state.chartsMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {" "}
+                  <Link className="nav-link" to="/charts/chart-js">
+                    <Trans>Chart Js</Trans>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        <li className="nav-item menu-items">
+          <div
+            className="nav-link"
+            onClick={() => toggleMenuState("iconsMenuOpen")}
+            data-toggle="collapse"
+          >
+            <span className="menu-icon">
+              <i className="mdi mdi-contacts"></i>
+            </span>
+            <span className="menu-title">
+              <Trans>Element 5</Trans>
+            </span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={state.iconsMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {" "}
+                  <Link className={"nav-link"} to="/icons/mdi">
+                    <Trans>Material</Trans>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        <li className="nav-item menu-items">
+          <div
+            className="nav-link"
+            onClick={() => toggleMenuState("userPagesMenuOpen")}
+            data-toggle="collapse"
+          >
+            <span className="menu-icon">
+              <i className="mdi mdi-security"></i>
+            </span>
+            <span className="menu-title">
+              <Trans>Element 6</Trans>
+            </span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={state.userPagesMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {" "}
+                  <Link className="nav-link" to="/user-pages/login-1">
+                    <Trans>Login</Trans>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  {" "}
+                  <Link className="nav-link" to="/user-pages/register-1">
+                    <Trans>Register</Trans>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+        <li className="nav-item nav-category">
+          <span className="nav-link">
+            <Trans>More</Trans>
+          </span>
+        </li>
+        <li className="nav-item menu-items">
+          <div
+            className={
+              state.errorPagesMenuOpen ? "nav-link menu-expanded" : "nav-link"
+            }
+            onClick={() => toggleMenuState("errorPagesMenuOpen")}
+            data-toggle="collapse"
+          >
+            <span className="menu-icon">
+              <i className="mdi mdi-lock"></i>
+            </span>
+            <span className="menu-title">
+              <Trans>Error Pages</Trans>
+            </span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={state.errorPagesMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  {" "}
+                  <Link className="nav-link" to="/error-pages/error-404">
+                    404
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
+        </li>
+
+        <li className="nav-item menu-items liStyleSidebar">
+          <div>
             <div
               className={
-                state.errorPagesMenuOpen ? "nav-link menu-expanded" : "nav-link"
+                state.addPagesMenuOpen ? "nav-link menu-expanded" : "nav-link"
               }
-              onClick={() => toggleMenuState("errorPagesMenuOpen")}
+              onClick={() => toggleMenuState("addPagesMenuOpen")}
               data-toggle="collapse"
             >
-              <span className="menu-icon">
-                <i className="mdi mdi-lock"></i>
+              <span className="menu-icon divStyleSidebar">
+                <i className="mdi mdi-plus"></i>
               </span>
-
               <span className="menu-title spanStyleSidebar" onClick={()=>addProjects()}>
                 <Trans>Add new project</Trans>
               </span>
@@ -354,47 +380,6 @@ function Sidebar(props) {
                     difference={difference} setDifference={setDifference}
                     data={props.data} setData={props.setData}
                     />:""}
-
-              <span className="menu-title">
-                <Trans>Error Pages</Trans>
-              </span>
-              <i className="menu-arrow"></i>
-            </div>
-            <Collapse in={state.errorPagesMenuOpen}>
-              <div>
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    {" "}
-                    <Link className="nav-link" to="/error-pages/error-404">
-                      404
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </Collapse>
-          </li>
-
-          <li className="nav-item menu-items liStyleSidebar">
-            <div>
-              <div
-                className={
-                  state.addPagesMenuOpen ? "nav-link menu-expanded" : "nav-link"
-                }
-                onClick={() => toggleMenuState("addPagesMenuOpen")}
-                data-toggle="collapse"
-              >
-                <span className="menu-icon divStyleSidebar">
-                  <i className="mdi mdi-plus"></i>
-                </span>
-                <span className="menu-title spanStyleSidebar">
-                  <Trans>Add new project</Trans>
-                </span>
-                <i className="menu-arrow"></i>
-              </div>
-            </div>
-          </li>
-        </ul>
-
     </nav>
   );
 }
