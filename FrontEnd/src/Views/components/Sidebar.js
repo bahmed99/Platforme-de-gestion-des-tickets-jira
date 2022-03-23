@@ -3,13 +3,22 @@ import { Link, withRouter } from "react-router-dom";
 import { Button, Collapse, Dropdown, Spinner } from "react-bootstrap";
 import { Trans } from "react-i18next";
 
+import ModelAddProject from "./Models/ModelAddProject";
 import "../../Assets/css/Sidebar.style.css";
 
 function Sidebar(props) {
+
+    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
+    const [uploadFile, setUploadFile] = useState(false)
+    const [selectInfoData, setSelectInfoData] = useState(null);
   const [state, setState] = useState({});
   const [loading, setLoading] = useState(true);
 
   const [selectedprojects, setSelectedprojects] = useState([]);
+
+  const [allprojects, setAllProject] = useState([]);
+  const [difference,setDifference] = useState([])
+
 
   function toggleMenuState(menuState) {
     if (state[menuState]) {
@@ -28,6 +37,8 @@ function Sidebar(props) {
     // if (props.location !== prevProps.location) {
     //   onRouteChanged();
     // }
+
+
     if (props.loading === false) {
       fetch(`http://127.0.0.1:5000/projects/GetSelectedProjects`, {
         method: "get",
@@ -40,8 +51,10 @@ function Sidebar(props) {
         .then((result) => {
           setLoading(false);
           props.setData(result.projects.selected_projects);
+          setAllProject(result.projects.all_projects)
         });
     }
+
     onRouteChanged();
     // add class 'hover-open' to sidebar navitem while hover in sidebar-icon-only menu
     const body = document.querySelector("body");
@@ -65,6 +78,15 @@ function Sidebar(props) {
       setState({ [i]: false });
     });
   }
+
+  const addProjects =() =>{
+    setAjoutSeanceModalOpen(true)
+    setDifference(allprojects.filter(x => !props.data.includes(x)));
+    console.log(difference)
+
+  }
+  
+
 
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -316,6 +338,23 @@ function Sidebar(props) {
               <span className="menu-icon">
                 <i className="mdi mdi-lock"></i>
               </span>
+
+              <span className="menu-title spanStyleSidebar" onClick={()=>addProjects()}>
+                <Trans>Add new project</Trans>
+              </span>
+              <i className="menu-arrow"></i>
+            </div>
+          </div>
+        </li>
+      </ul>
+      {(difference !== [])? <ModelAddProject isOpen={ajoutSeanceModalOpen}
+                    setModal={setAjoutSeanceModalOpen}
+
+                    selectInfoData={selectInfoData}
+                    difference={difference} setDifference={setDifference}
+                    data={props.data} setData={props.setData}
+                    />:""}
+
               <span className="menu-title">
                 <Trans>Error Pages</Trans>
               </span>
@@ -355,7 +394,7 @@ function Sidebar(props) {
             </div>
           </li>
         </ul>
-    
+
     </nav>
   );
 }
