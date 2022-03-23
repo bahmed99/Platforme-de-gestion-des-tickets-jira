@@ -18,7 +18,7 @@ from Models.user import User
 import datetime
 from app import db
 import os
-
+import pandas as pd
 
 class Projects() :
     def GetAllProjects(self,jira_domaine,email,jira_token):
@@ -57,6 +57,8 @@ class Projects() :
         projects = db.projects.find_one({
                 "id_user": id_user
                 })
+
+        
        
         if(jira_domaine==""):
 
@@ -86,6 +88,21 @@ class Projects() :
         return jsonify({"projects": projects}), 200
     
 
+    def GetProject(self,user_id):
+        data =pd.read_csv("./data_files/{}/data.csv".format(user_id))
+        projects=list(set(data['Nom du projet']))
+        projects = {
+                "_id": uuid.uuid4().hex,
+                "id_user":user_id,
+                "all_projects": projects,
+                "selected_projects": projects
+                }
+            
+
+        db.projects.insert_one(projects)
+       
+           
+        return jsonify({"projects":projects["selected_projects"]}), 200
 
 
   

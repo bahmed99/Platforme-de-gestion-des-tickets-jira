@@ -29,4 +29,7 @@ def GetAnswer():
 def SelectedProject():
     return Projects().GetSelectedProjects(g.user["_id"])
 
-  
+@projects_api.route('/GetProjectsFromFile', methods=['GET'])
+@require_login
+def GetProjectFromFile():
+    return Projects().GetProject(g.user["_id"])  

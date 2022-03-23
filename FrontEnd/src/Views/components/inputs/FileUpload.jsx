@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
 import axios from 'axios';
 import ReactLoading from "react-loading";
 import Alert from "react-bootstrap/Alert";
 
 
-export default function FileUpload() {
+export default function FileUpload(props) {
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -28,9 +28,25 @@ export default function FileUpload() {
                     "Authorization": localStorage.getItem("jwt")
                 },
             }).then(res => {
-                setSuccess(true)
-                setLoading(false)
-                setTimeout(() => setSuccess(false), 2000);
+                
+                
+                axios.get("http://127.0.0.1:5000/projects/GetProjectsFromFile",{
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": localStorage.getItem("jwt"),
+                      }
+                }).then(res=>{
+                    props.setData(res.data.projects)
+                    props.setModal(false)
+                    setLoading(false)
+                    setSuccess(true)
+                    setTimeout(() => setSuccess(false), 2000);
+
+                    
+                }).catch(err=>{
+                    console.log(err)
+                })
 
             }).catch(err => {
                 setLoading(false)

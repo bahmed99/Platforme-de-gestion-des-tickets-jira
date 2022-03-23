@@ -7,7 +7,7 @@ import ReactLoading from "react-loading";
 import "../../Assets/css/NewPassword.style.css";
 import axios from "axios";
 
-export default function NewpPassword() {
+export default function NewPassword() {
   useEffect(() => {
     localStorage.clear();
   }, []);

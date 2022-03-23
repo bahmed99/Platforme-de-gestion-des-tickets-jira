@@ -1,11 +1,12 @@
 import React ,{ useEffect } from 'react'
 import { Routes, Route, useNavigate ,useLocation} from 'react-router-dom';
-import NewpPassword from './Views/pages/New-password';
+import NewPassword from './Views/pages/New-password';
 import Reset from './Views/components/Reset';
 import Signin from './Views/pages/Signin';
 import Signup from './Views/pages/Signup';
 import Home from './Views/pages/Home';
 import HomePage from './Views/pages/HomePage';
+import Project from './Views/pages/Project';
 
 export default function MainRouter() {
   const jwt = localStorage.getItem("jwt");
@@ -45,8 +46,9 @@ export default function MainRouter() {
       <Route exact path={"/Signup"} element={<Signup />} />
       <Route exact path={"/Signin"} element={<Signin />} />
       <Route exact path={"/forgot-password"} element={<Reset />} />
-      <Route exact path={"/reset/:token"} element={<NewpPassword />} />
-
+      <Route exact path={"/reset/:token"} element={<NewPassword />} />
+      
+      <Route exact path={"/project/:project"} element={<Project />} />
 
       {jwt ?<Route exact path={"/"} element={<Home />} /> :
       <Route exact path={"/"} element={<HomePage />} />}
