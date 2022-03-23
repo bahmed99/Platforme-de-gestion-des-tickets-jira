@@ -1,5 +1,8 @@
 /FrontEnd/node_modules
 
 /BackEnd/__pycache__/
+/BackEnd/Controllers__pycache__/
+/BackEnd/Models__pycache__/
+/BackEnd/Services__pycache__/
 
 /BackEnd/env
