@@ -68,7 +68,7 @@ function Sidebar(props) {
 
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
-      {loading === false || props.data.length!==0 ? (
+    
         <ul className="nav">
           <li className="nav-item profile">
             <div className="profile-desc">
@@ -149,6 +149,8 @@ function Sidebar(props) {
               <Trans>Navigation</Trans>
             </span>
           </li>
+          {loading === false || props.data.length!==0 ? 
+          <div>
           {props.data.map((item, i) => {
             return (
               <li className="nav-item menu-items" key={i}>
@@ -162,7 +164,12 @@ function Sidebar(props) {
                 </Link>
               </li>
             );
-          })}
+          })}</div>: (
+        <div className="Spinner"><Spinner animation="border" role="status" variant="danger" /></div>
+        
+         
+        
+      )}
           <li className="nav-item menu-items">
             <Link className="nav-link" to="/dashboard">
               <span className="menu-icon">
@@ -348,12 +355,7 @@ function Sidebar(props) {
             </div>
           </li>
         </ul>
-      ) : (
-        <div className="Spinner"><Spinner animation="border" role="status" variant="danger" /></div>
-        
-         
-        
-      )}
+    
     </nav>
   );
 }
