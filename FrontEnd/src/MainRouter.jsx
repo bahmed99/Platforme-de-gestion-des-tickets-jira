@@ -1,12 +1,12 @@
 import React ,{ useEffect } from 'react'
 import { Routes, Route, useNavigate ,useLocation} from 'react-router-dom';
-import NewPassword from './Views/pages/New-password';
-import Reset from './Views/components/Reset';
-import Signin from './Views/pages/Signin';
-import Signup from './Views/pages/Signup';
-import Home from './Views/pages/Home';
-import HomePage from './Views/pages/HomePage';
-import Project from './Views/pages/Project';
+import NewPassword from './pages/New-password';
+import Reset from './pages/Reset';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
+import Home from './pages/Home';
+import HomePage from './pages/HomePage';
+import Project from './pages/Project';
 
 export default function MainRouter() {
   const jwt = localStorage.getItem("jwt");

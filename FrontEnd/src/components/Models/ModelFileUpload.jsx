@@ -12,7 +12,7 @@ import {
     Label,
 } from "reactstrap";
 import FileUpload from "../inputs/FileUpload.jsx"
-import "../../../Assets/css/Inputs.css"
+import "../../Assets/css/Inputs.css"
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 export default function ModelFileUpload(props) {
