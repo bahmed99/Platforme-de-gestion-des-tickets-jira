@@ -15,7 +15,7 @@ def GetAllProjects(jira_domaine,email,jira_token):
 
     headers = {
         "Accept": "application/json"
-        }
+    }
 
     response = requests.request(
         "GET",
@@ -76,7 +76,7 @@ def Updateprojects(id_user):
         return jsonify({ "error": "Session expired" }), 401
 
     
-    Projects.objects.update(selected_projects=selected_projects)
+    projects.objects.update(selected_projects=selected_projects)
 
     return jsonify({ "message": "Password updated" }), 201
 

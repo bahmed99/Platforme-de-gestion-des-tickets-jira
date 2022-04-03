@@ -69,6 +69,8 @@ def login_service():
 
 def forgot_password_service():
         user=User.objects.get(email=request.json.get('email'))
+        print(user.email)
+
 
         if not(user):
             return jsonify({ "error": "Invalid email" }), 401  
@@ -79,7 +81,7 @@ def forgot_password_service():
 
        
 
-        User.objects.update(reset_token=token,expire_token=datetime.now()+timedelta(1/24))
+        user.update(reset_token=token,expire_token=datetime.now())
         
         try:
 
@@ -100,7 +102,8 @@ def new_password_service():
 
         user = User.objects.get(
         reset_token= token,
-        expire_token={'$gt': datetime.now()})
+        expire_token__gte=datetime.now())
+        
 
         
 
@@ -108,7 +111,7 @@ def new_password_service():
             return jsonify({ "error": "Session expired" }), 401
 
         
-        user.objects.update(password=pbkdf2_sha256.encrypt(password) ,reset_token="",expire_token=datetime.now())
+        user.update(password=pbkdf2_sha256.encrypt(password) ,reset_token="",expire_token=datetime.now())
 
         return jsonify({ "message": "Password updated" }), 201
 
@@ -123,7 +126,7 @@ def change_password_service(user_email):
     token = Serializer(secret_key, 360000)
     token=token.dumps({'user_email':user_email}).decode('utf-8')
 
-    User.objects.update(reset_token=token,expire_token=datetime.now()+timedelta(1/24))
+    user.update(reset_token=token,expire_token=datetime.now())
 
 
     try:
@@ -153,7 +156,7 @@ def change_token_service(user_email):
             return jsonify({ "error": "Invalid token" }), 400
 
         
-        User.objects.update(jira_token=request.json.get('token'))
+        user.update(jira_token=request.json.get('token'))
 
 
         return jsonify({ "message": "Jira token updated" }), 200

@@ -6,7 +6,7 @@ import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
 import "../Assets/css/Signin.style.css";
 import PostData from "../Actions/SigninAction"
-import axios from "axios";
+
 
 export default function Signin() {
   const Navigate = useNavigate();
@@ -16,41 +16,7 @@ export default function Signin() {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const informations={"email":email,"password":password,"error":error,"success":success,"loading":loading,"setEmail":setEmail,"setPassword":setPassword,"setError":setError,"setSuccess":setSuccess,"setLoading":setLoading,"Navigate":Navigate}
-  // const PostData = (e) => {
-  //   e.preventDefault()
-  //   setLoading(true)
-  //   axios
-  //     .post(
-  //       "http://localhost:5000/user/login",
-
-  //       {
-  //         email: email,
-  //         password: password,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       setLoading(false)
-
-  //       localStorage.setItem("jwt", res.data.token);
-  //       setSuccess(true);
-  //       setTimeout(() => setSuccess(false), 2500);
-  //       setTimeout(() => Navigate("/"), 500);
-  //       setTimeout(() => window.location.reload(), 500);
-
-  //     })
-  //     .catch((err) => {
-  //       setError(true)
-  //       setLoading(false)
-
-  //       setTimeout(() => setError(false), 2500);
-  //     });
-  // };
-
+  
   return (
     <div
       style={{

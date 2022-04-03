@@ -7,6 +7,7 @@ import ReactLoading from "react-loading";
 
 import "../Assets/css/Signup.style.css";
 import { useNavigate } from "react-router-dom";
+import PostData from "../Actions/SignupAction"
 
 export default function Signup() {
   const Navigate = useNavigate()
@@ -19,52 +20,10 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [jira_token, setJira_token] = useState("");
   const [jira_domaine, setJira_domaine] = useState("");
-  const onClickSubmit = async (e) => {
-    e.preventDefault()
-    
-    if (name && email && password) {
-      let dataform = new FormData()
-      dataform.append('name', name)
-      dataform.append('email', email)
-      dataform.append('password', password)
-      dataform.append("jira_token", jira_token)
-      dataform.append("jira_domaine", jira_domaine)
-      setLoading(true);
-      const data = {
-        name: name,
-        email: email,
-        password: password,
-        token: jira_token,
-        domaine: jira_domaine,
-      };
-      console.log(data)
-      axios
-        .post("http://localhost:5000/user/signup", data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((result) => {
-          setSuccess(true)
-          setLoading(false);
+  
 
-          setName("");
-          setEmail("");
-          setPassword("");
-          setTimeout(() => setSuccess(false), 2500);
-          Navigate("/sign-in");
-        })
-        .catch((err) => {
-          setLoading(false);
-          setError(true);
-          setTimeout(() => setError(false), 2500);
+  const informations={"setName":setName,"name":name,"setJira_token":setJira_token,"setJira_domaine":setJira_domaine,"jira_token":jira_token,"jira_domaine":jira_domaine,"email":email,"password":password,"error":error,"success":success,"loading":loading,"setEmail":setEmail,"setPassword":setPassword,"setError":setError,"setSuccess":setSuccess,"setLoading":setLoading,"Navigate":Navigate}
 
-          setName("");
-          setEmail("");
-          setPassword("");
-        });
-    }
-  };
 
   const [checkvalue, setCheckvalue] = useState("");
   const AjoutChamps = () => {
@@ -92,7 +51,7 @@ export default function Signup() {
       <Alert show={error} variant={"danger"} style={{ width: "400px", height: "70", margin: "auto auto" }}>
         {"Check your informations"}
       </Alert>
-      <form onSubmit={(e) => onClickSubmit(e)}>
+      <form onSubmit={(e) => {e.preventDefault();PostData(informations)}}>
       <div className="containerSignup">
         <div className="form-box-Signup">
           <img alt="" src={logo} className="photo-Mod" onClick={()=>Navigate("/")}/>

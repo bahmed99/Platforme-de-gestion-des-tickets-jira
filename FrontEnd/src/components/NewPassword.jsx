@@ -5,12 +5,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
 import "../Assets/css/NewPassword.style.css";
-import axios from "axios";
+import PostData from "../Actions/NewPasswordAction"
 
 export default function NewPassword() {
   useEffect(() => {
     localStorage.clear();
   }, []);
+
+
   const Navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [repeatpassword, setRepeatpassword] = useState("");
@@ -20,43 +22,7 @@ export default function NewPassword() {
 
   const { token } = useParams();
 
-  const PostData = (e) => {
-    if (password === repeatpassword) {
-      e.preventDefault()
-      setLoading(true)
-      axios
-        .post(
-          "http://localhost:5000/user/new-password",
-
-          {
-            password: password,
-            token: token,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          setLoading(false)
-          setSuccess(true);
-          setTimeout(() => setSuccess(false), 2500);
-          setInterval(function () {
-            Navigate("/sign-in");
-          }, 2000);
-          
-        })
-        .catch((err) => {
-          setLoading(false)
-
-          setError(true);
-          setTimeout(() => setError(false), 2500);
-        });
-    } else {
-
-    }
-  };
+  const informations={"password":password,"repeatpassword":repeatpassword,"token":token,"error":error,"success":success,"loading":loading,"setError":setError,"setSuccess":setSuccess,"setLoading":setLoading,"Navigate":Navigate}
 
   return (
     <div
@@ -84,7 +50,7 @@ export default function NewPassword() {
       >
         {"Token expiried"}
       </Alert>
-      <form onSubmit={(e) => PostData(e)} >
+      <form onSubmit={(e) =>{e.preventDefault();PostData(informations)}} >
         <div className="containerNewPassword">
           <div className="form-box-NewPassword">
             <img alt="" src={logo} className="photo-Mod-NewPassword" onClick={()=>Navigate("/")} />

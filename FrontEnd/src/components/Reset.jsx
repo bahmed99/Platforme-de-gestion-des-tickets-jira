@@ -5,8 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
 import "../Assets/css/Reset.style.css";
-import axios from "axios";
 import ReactLoading from "react-loading";
+import PostData from "../Actions/ResetPasswordAction"
 
 export default function Reset() {
   const Navigate = useNavigate();
@@ -14,35 +14,10 @@ export default function Reset() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const PostData = (e) => {
-    e.preventDefault()
-    setLoading(true)
-    axios
-      .post(
-        "http://localhost:5000/user/forgot-password",
 
-        {
-          email: email,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setLoading(false)
-        setSuccess(true);
-        setTimeout(() => setSuccess(false), 2500);
-        setInterval(function(){ Navigate('/sign-in') }, 2000);
-        //Navigate("/");
-      })
-      .catch((err) => {
-        setLoading(false)
-        setError(true);
-        setTimeout(() => setError(false), 2500);
-      });
-  };
+  const informations={"email":email,"error":error,"success":success,"loading":loading,"setEmail":setEmail,"setError":setError,"setSuccess":setSuccess,"setLoading":setLoading,"Navigate":Navigate}
+
+  
 
   return (
     <div
@@ -63,7 +38,7 @@ export default function Reset() {
       <Alert show={error} variant={"danger"} style={{width:"400px",height:"70",margin:"auto auto"}}>
         {"Account not found"}
       </Alert>
-      <form onSubmit={(e) => PostData(e)}>
+      <form onSubmit={(e) => {e.preventDefault();PostData(informations)}}>
       <div className="containerReset">
         <div className="form-box-Reset">
           <img alt="" src={logo} className="photo-Mod-Reset" onClick={()=>Navigate("/")}/>
