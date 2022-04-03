@@ -4,7 +4,7 @@ import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
 import "../../Assets/styles/Home.scss";
 import Sidebar from "../components/Sidebar";
-import "../../Assets/styles/Home.scss";
+import "../Assets/styles/Home.scss";
 export default function Project() {
   const { project } = useParams();
 

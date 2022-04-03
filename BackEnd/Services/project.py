@@ -15,7 +15,7 @@ def GetAllProjects(jira_domaine,email,jira_token):
 
     headers = {
         "Accept": "application/json"
-    }
+        }
 
     response = requests.request(
         "GET",
@@ -95,4 +95,3 @@ def GetProject(user_id):
         project.save()
            
         return jsonify({"projects":projects["selected_projects"]}), 200
-

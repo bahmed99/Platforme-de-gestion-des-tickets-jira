@@ -4,7 +4,7 @@ import { Button, Collapse, Dropdown, Spinner } from "react-bootstrap";
 import { Trans } from "react-i18next";
 
 import ModelAddProject from "./Models/ModelAddProject";
-import "../../Assets/css/Sidebar.style.css";
+import "../Assets/css/Sidebar.style.css";
 
 function Sidebar(props) {
 
@@ -98,7 +98,7 @@ function Sidebar(props) {
                 <div className="count-indicator">
                   <img
                     className="img-xs rounded-circle "
-                    src={require("../../Assets/images/faces/face15.jpg")}
+                    src={require("../Assets/images/faces/face15.jpg")}
                     alt="profile"
                   />
                   <span className="count bg-success"></span>

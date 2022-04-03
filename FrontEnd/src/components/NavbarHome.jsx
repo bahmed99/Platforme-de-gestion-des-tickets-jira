@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Navbar, Nav } from "react-bootstrap"
-import "../../Assets/css/NavbarHome.css"
+import "../Assets/css/NavbarHome.css"
 export default function NavbarHome() {
     return (
         <div className="NavbarHome">
