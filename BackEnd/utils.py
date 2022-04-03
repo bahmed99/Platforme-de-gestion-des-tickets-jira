@@ -238,12 +238,6 @@ def update_issues_by_creator_jira(jira,l,last_ticket,project):
 
 
 
-
-
-
-
-
-
 def transform_date(D):
     if (D.find("déc") != -1):
         A=D.replace("déc",'Dec')
