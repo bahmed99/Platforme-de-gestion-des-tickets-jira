@@ -6,7 +6,7 @@ import axios from "axios";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import "../../Assets/css/Filterbar.styles.css";
+import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
     const { id } = useParams();

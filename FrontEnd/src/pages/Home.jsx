@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useEffect } from 'react';
 
 
-import "../../Assets/styles/Home.scss";
+import "../Assets/styles/Home.scss";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
@@ -12,7 +12,7 @@ import SelectProjects from "../components/SelectProjects";
 
 import ModelFileUpload from "../components/Models/ModelFileUpload";
 import Spinner from "../components/Spinner/Spinner";
-import "../../Assets/css/Spinner.css";
+import "../Assets/css/Spinner.css";
 
 export default function Home() {
 

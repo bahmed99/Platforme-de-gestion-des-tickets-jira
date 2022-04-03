@@ -97,7 +97,7 @@ export default function Navbar() {
                   <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()} className="preview-item">
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
-                        <img src={require('../../Assets/images/faces/face4.jpg')} alt="profile" className="rounded-circle profile-pic" />
+                        <img src={require('../Assets/images/faces/face4.jpg')} alt="profile" className="rounded-circle profile-pic" />
                       </div>
                     </div>
                     <div className="preview-item-content">
@@ -109,7 +109,7 @@ export default function Navbar() {
                   <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()} className="preview-item">
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
-                        <img src={require('../../Assets/images/faces/face2.jpg')} alt="profile" className="rounded-circle profile-pic" />
+                        <img src={require('../Assets/images/faces/face2.jpg')} alt="profile" className="rounded-circle profile-pic" />
                       </div>
                     </div>
                     <div className="preview-item-content">
@@ -121,7 +121,7 @@ export default function Navbar() {
                   <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()} className="preview-item">
                     <div className="preview-thumbnail">
                       <div className="preview-icon bg-dark rounded-circle">
-                        <img src={require('../../Assets/images/faces/face3.jpg')} alt="profile" className="rounded-circle profile-pic" />
+                        <img src={require('../Assets/images/faces/face3.jpg')} alt="profile" className="rounded-circle profile-pic" />
                       </div>
                     </div>
                     <div className="preview-item-content">
@@ -189,7 +189,7 @@ export default function Navbar() {
             <Dropdown alignRight as="li" className="nav-item">
               <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
                 <div className="navbar-profile">
-                  <img className="img-xs rounded-circle" src={require('../../Assets/images/faces/face15.jpg')} alt="profile" />
+                  <img className="img-xs rounded-circle" src={require('../Assets/images/faces/face15.jpg')} alt="profile" />
                   <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>Ahmed Bahri</Trans></p>
                   <i className="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>

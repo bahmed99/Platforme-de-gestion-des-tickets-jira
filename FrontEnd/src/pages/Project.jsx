@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import "../../Assets/styles/Home.scss";
+import "../Assets/styles/Home.scss";
 export default function Project() {
   const { project } = useParams();
 
