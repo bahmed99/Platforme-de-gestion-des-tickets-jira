@@ -8,6 +8,7 @@ import "../Assets/styles/Home.scss";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
+import Filterbar from "../components/Filterbar";
 import SelectProjects from "../components/SelectProjects";
 
 import ModelFileUpload from "../components/Models/ModelFileUpload";
@@ -82,6 +83,7 @@ export default function Home() {
             ) : (
               ""
             )}{" "}
+            
           </div>
         </div>
 

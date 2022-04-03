@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
@@ -12,7 +12,7 @@ export default function Project() {
   return (
     <div className="container-scroller">
       <div>
-        <Sidebar data={data} setData={setData} loading={false}/>
+        <Sidebar data={data} setData={setData} loading={false} />
         <div className="container-fluid page-body-wrapper">
           <Navbar />
         </div>
@@ -21,7 +21,7 @@ export default function Project() {
           <FilterBar />
           </div>
         </div>
-       
+
       </div>
     </div>
   );

@@ -1,11 +1,63 @@
-.MuiFormControlLabel-labelPlacementStart{
-    color:"black";
-}
+
 .filterbarcontainer{
-    background-color: #262626;
-    margin-left: 2.9cm;
+    margin-top: -18cm;
     padding-left: 0.1cm;
-    padding-top: 0.3;
+    margin-left: 4cm;
+    
   
     
 }
+  
+  fieldset {
+    border: 0;
+  }
+  
+  legend {
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+  }
+  
+  .control {
+    display: inline-flex;
+    position: relative;
+    margin: 3px;
+    cursor: pointer;
+    border-radius: 99em;}
+    
+    input {
+      position: absolute;
+      opacity: 0;
+      z-index: -1;
+    }
+    
+  
+  
+  .control__content {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 14px;
+    font-size: 18px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.54);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 99em;}
+    
+    .control:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  
+  
+  .control input:focus ~ .control__content {
+    box-shadow: 0 0 0 0.25rem rgba(12, 242, 143, .2);
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .control input:checked ~ .control__content {
+    background-color: rgba(12, 242, 143, .2);
+  }
