@@ -7,11 +7,12 @@ from flask_mongoengine import MongoEngine
 
 app = Flask(__name__)
 
-db = MongoEngine(app)
-
 app.config['MONGODB_SETTINGS'] = {
 	'db': 'pcd'
 }
+
+db = MongoEngine(app)
+
 
 
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
