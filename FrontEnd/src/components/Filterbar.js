@@ -3,152 +3,154 @@ import { useParams, useHistory } from "react-router-dom";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import axios from "axios";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
-    const { id } = useParams();
-    const [checked,setChecked] = useState([]);
-    const [error, setError] = useState(false);
+  const { id } = useParams();
+  const [checked, setChecked] = useState([]);
+  const [error, setError] = useState(false);
 
-    const handleCheck = (event) => {
-        var updatedList = [...checked];
-        if (event.target.checked) {
-          updatedList = [...checked, event.target.value];
-        } else {
-          updatedList.splice(checked.indexOf(event.target.value), 1);
-        }
-        setChecked(updatedList);
-      };
-    console.log(checked);
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        fetch(`http://localhost:5000/projects/GetSelectedProjects`, {
-          method: "get",
+  useEffect(() => {
+    axios
+      .patch(
+        `http://localhost:5000/visuals/SaveVisuals`,
+
+        {
+
+          selected_projects: data,
+          visuals: checked,
+        },
+        {
           headers: {
             "Content-Type": "application/json",
             Authorization: localStorage.getItem("jwt"),
           },
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            setData(result.projects.selected_projects);
-          });
-      }, []);
+        }
+      )
+      .catch((err) => {
+        setError(true)
+        setTimeout(() => setError(false), 2500);
+      });
+  }, [checked]);
+
+  const handleCheck = async (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.name];
+      setChecked(updatedList);
+    } else {
+      updatedList.splice(checked.indexOf(event.target.name), 1);
+      setChecked(updatedList);
+    }
 
 
-    const PostData = () => {
-        axios
-          .post(
-            `http://localhost:5000/visuals/SaveVisuals`,
-    
-            {
-            
-              selected_projects : data, 
-              visuals : checked,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: localStorage.getItem("jwt"),
-              },
-            }
-          )
-          .catch((err) => {
-            setError(true)
-            setTimeout(() => setError(false), 2500);
-          });
-      };
-    
-    return (
-
-        <div className='filterbarcontainer'>
-            <div className="row">
-                <div className="col-12 grid-margin">
-
-                    <FormControl component="fieldset">
-                        <FormGroup aria-label="position" row>
-                            <FormControlLabel
-                                value="Suivi des bugs"
-                                control={<Checkbox />}
-                                label="Suivi des bugs"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Gestion des incidents"
-                                control={<Checkbox />}
-                                label="Gestion des incidents"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Analyse de la productivité"
-                                control={<Checkbox />}
-                                label="Analyse de la productivité"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Suivi des temps planifiés"
-                                control={<Checkbox />}
-                                label="Suivi des temps planifiés"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Nombre de demandes par priorité"
-                                control={<Checkbox />}
-                                label="Nombre de demandes par priorité"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Nombre total de tickets par type"
-                                control={<Checkbox />}
-                                label="Nombre total de tickets par type"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Nombre total de tickets par intervenant"
-                                control={<Checkbox />}
-                                label="Nombre total de tickets par intervenant"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Tikcte par priorité et par mois"
-                                control={<Checkbox />}
-                                label="Tikcte par priorité et par mois"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
-                            <FormControlLabel
-                                value="Ticket par statut et par client"
-                                control={<Checkbox />}
-                                label="Ticket par statut et par client"
-                                labelPlacement="start"
-                                onChange={handleCheck}
-                            />
+  };
+  console.log(checked);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/projects/GetSelectedProjects`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setData(result.projects.selected_projects);
+      });
+  }, []);
 
 
+  const PostData = () => {
+    axios
+      .post(
+        `http://localhost:5000/visuals/SaveVisuals`,
 
-                        </FormGroup>
-                    </FormControl>
+        {
 
-                    <button
-                        className="btn-Style"
-                        onClick={() => PostData()}
-                    >
-                        Submit{" "}
-                    </button>
-                </div>
-              
-            </div>
-        </div>
+          selected_projects: data,
+          visuals: checked,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      )
+      .catch((err) => {
+        setError(true)
+        setTimeout(() => setError(false), 2500);
+      });
+  };
 
-    );
+  return (
+    <div className='filterbarcontainer'>
+      <div className="row">
+      <form>
+        <fieldset>
+          
+            <label class="control" for="technology">
+              <input type="checkbox" name="Suivi des bugs" id="technology" onClick={handleCheck}></input>
+              <span class="control__content">
+                Suivi des bugs
+              </span>
+            </label>
+            <label class="control" for="health">
+              <input type="checkbox" name="Gestion des incidents" id="health" onClick={handleCheck}></input>
+              <span class="control__content">
+                Gestion des incidents
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name="Analyse de la productivité" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Analyse de la productivité
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name="Suivi des temps planifiés" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Suivi des temps planifiés
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name="Nombre de demandes par priorité" onClick={handleCheck}></input>
+              <span class="control__content">
+                Nombre de demandes par priorité
+              </span>
+            </label>
+          
+            <label class="control" name="science">
+              <input type="checkbox" name="Nombre total de tickets par type" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Nombre total de tickets par type
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name=" Nombre total de tickets par intervenant" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Nombre total de tickets par intervenant
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name="Ticket par priorité et par mois" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Ticket par priorité et par mois
+              </span>
+            </label>
+            <label class="control" name="science">
+              <input type="checkbox" name="Ticket par statut et par client" id="science" onClick={handleCheck}></input>
+              <span class="control__content">
+                Ticket par statut et par client
+              </span>
+            </label>
+         
+        </fieldset>
+      </form>
+      </div>
+    </div>
+
+  );
 }

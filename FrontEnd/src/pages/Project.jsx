@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
-import "../../Assets/styles/Home.scss";
 import Sidebar from "../components/Sidebar";
 import "../Assets/styles/Home.scss";
 export default function Project() {
@@ -19,7 +18,7 @@ export default function Project() {
         </div>
         <div className="main-panel">
           <div className="content-wrapper">
-            <FilterBar />
+          <FilterBar />
           </div>
         </div>
 

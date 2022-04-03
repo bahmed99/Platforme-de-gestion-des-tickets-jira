@@ -38,9 +38,7 @@ export default function Navbar() {
           </ul>
           <ul className="navbar-nav navbar-nav-right">
             <Dropdown alignRight as="li" >
-                <Dropdown.Toggle className="buttonred">
-                + <Trans>Create New Dasboard</Trans>
-                </Dropdown.Toggle>
+                
 
                 <Dropdown.Menu className="navbar-dropdown preview-list create-new-dropdown-menu">
                   <h6 className="p-3 mb-0"><Trans>Projects</Trans></h6>
