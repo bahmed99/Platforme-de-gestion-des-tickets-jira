@@ -42,7 +42,7 @@ export default function Filterbar() {
     const PostData = () => {
         axios
           .post(
-            `http://localhost:5000/projects/SaveVisuals`,
+            `http://localhost:5000/visuals/SaveVisuals`,
     
             {
             

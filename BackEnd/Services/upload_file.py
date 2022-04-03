@@ -1,13 +1,14 @@
+from flask import  jsonify, request
+import os
 
-from flask import Blueprint
-from flask import  g
-from utils import require_login
-from Controllers.upload_file import * 
+def upload_files(user_id):
+    if request.files :
+        os.makedirs('./data_files/{}'.format(user_id),exist_ok=True)
+        file = request.files.get("file")
+        file.save(os.path.join('./data_files/{}/'.format(user_id), "data.csv"))
+
+        return jsonify({ "message": "Uploaded successfully" }), 200
+    
+    return jsonify({ "error": "File not found" }), 400
 
 
-file_api = Blueprint('file_api', __name__)
-
-@file_api.route('/', methods=['POST'])
-@require_login
-def upload_file():
-  return upload_files(g.user["_id"])
