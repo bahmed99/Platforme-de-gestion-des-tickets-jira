@@ -9,7 +9,7 @@ from flask_mongoengine import MongoEngine
 app = Flask(__name__)
 
 app.config['MONGODB_SETTINGS'] = {
-	'db': 'pcd'
+	'db': 'test'
 }
 
 db = MongoEngine(app)

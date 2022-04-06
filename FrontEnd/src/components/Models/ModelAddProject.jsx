@@ -4,23 +4,25 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
-  Modal,
-  Label,
+  Modal
 } from "reactstrap";
 
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import PostData from "../../Actions/AddProjectsAction"
 
-import axios from "axios";
 
 export default function ModelAddProject(props) {
-  const [title, setTitle] = useState("");
+ 
   const [projets, setProjets] = useState([]);
   const [selectedprojects , setSelectedprojects] = useState([])
   const [selectedoptions, setSelectedoptions] = useState([]);
   const [options, setOptions] = useState([]);
+
+
+  const informations={"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
+
+
   useEffect(() => {
     setOptions([])
       for (let i=0 ; i<props.difference.length ; i++)
@@ -69,33 +71,6 @@ export default function ModelAddProject(props) {
     
     
   }, [selectedoptions]);
-  function AddProject() {
-      
-      const info = {
-        selected_projects: selectedprojects,
-      };
-      axios
-        .put("http://localhost:5000/projects/UpdateProjects", info, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("jwt"),
-          },
-        })
-        .then((result) => {
-          props.setModal(false)
-        
-          props.setData(selectedprojects)
-          console.log("yes");
-        })
-        .catch((err) => {
-          
-        });
-      
-  }
-  
-
-
-
   
 
 
@@ -132,7 +107,7 @@ export default function ModelAddProject(props) {
                   className="btn btn-outline-danger   CardButtonStyle"
                   color="transparent"
                   type="button"
-                  onClick={()=>AddProject()}
+                  onClick={()=>PostData(informations)}
                 >
                   Ajouter
                 </Button>

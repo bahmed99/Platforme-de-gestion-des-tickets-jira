@@ -1,5 +1,5 @@
 import React from 'react'
-import ComponentSignin from "../components/Signin"
+import ComponentSignin from "../components/auth/Signin"
 
 
 

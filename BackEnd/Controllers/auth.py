@@ -27,11 +27,26 @@ def forgot_password():
 def reset_password():
    return new_password_service()
 
-@user_api.route('/change-password', methods=['POST'])
+@user_api.route('/change-password', methods=['PUT'])
 @require_login
 def change_password():
    return change_password_service(g.user["email"])
 
+
+@user_api.route('/username', methods=['GET'])
+@require_login
+def username():
+   return get_username_service(g.user["name"])
+
+@user_api.route('/user', methods=['GET'])
+@require_login
+def user():
+   return get_user_service(g.user)
+
+@user_api.route('/change-domaine', methods=['PUT'])
+@require_login
+def domaine():
+   return change_domaine_service(g.user["email"],g.user['_id'])
 
 
 @user_api.route('/', methods=['GET'])

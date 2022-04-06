@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import logo from "../Assets/images/1.png";
-import image from "../Assets/images/2.jpg";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
-import "../Assets/css/Signin.style.css";
-import PostData from "../Actions/SigninAction"
+import "../../Assets/css/Signin.style.css";
+import PostData from "../../Actions/SigninAction"
 
 
 export default function Signin() {

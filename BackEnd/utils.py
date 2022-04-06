@@ -266,7 +266,6 @@ def transform_date(D):
  
     return A
 
-
 def get_month_creation(data) :
 
     for i in data['Création'].index:

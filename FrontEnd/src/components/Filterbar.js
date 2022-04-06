@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
-import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
+import { useParams} from "react-router-dom";
+
 import axios from "axios";
-import "../Assets/css/Filterbar.styles.css";
+// import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
   const { id } = useParams();

@@ -9,11 +9,12 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 import Filterbar from "../components/Filterbar";
-import SelectProjects from "../components/SelectProjects";
+import SelectProjects from "../components/Models/SelectProjects";
 
 import ModelFileUpload from "../components/Models/ModelFileUpload";
 import Spinner from "../components/Spinner/Spinner";
 import "../Assets/css/Spinner.css";
+import GetData from "../Actions/GetResponseAction"
 
 export default function Home() {
 
@@ -25,29 +26,11 @@ export default function Home() {
   const [uploadFile, setUploadFile] = useState(false);
 
   const [selectInfoData, setSelectInfoData] = useState(null);
+
+  const informations={"data":data,"setData":setData,"loading":loading,"setLoading":setLoading,"loadingInformations":loadingInformations,"setLoadingInformations":setLoadingInformations,"ajoutSeanceModalOpen":ajoutSeanceModalOpen,"setAjoutSeanceModalOpen":setAjoutSeanceModalOpen,"uploadFile":uploadFile,"setUploadFile":setUploadFile,"selectInfoData":selectInfoData}
+
   useEffect(() => {
-    fetch(`http://localhost:5000/projects/GetReponse`, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("jwt"),
-
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-
-        setLoadingInformations(false);
-        if (result.message === true) {
-          if (result.file === false) {
-            setAjoutSeanceModalOpen(true);
-          } else {
-            setUploadFile(true);
-          }
-        } else {
-          setLoading(false);
-        }
-      });
+    GetData(informations)
 
   }, []);
 
