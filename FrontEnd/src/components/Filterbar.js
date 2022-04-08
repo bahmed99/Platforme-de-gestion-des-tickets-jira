@@ -92,56 +92,56 @@ export default function Filterbar() {
         <fieldset>
           
             <label class="control" for="technology">
-              <input type="checkbox" name="Suivi des bugs" id="technology" onClick={handleCheck}></input>
+              <input className='StyleInput' type="checkbox" name="Suivi des bugs" id="technology" onClick={handleCheck}></input>
               <span class="control__content">
                 Suivi des bugs
               </span>
             </label>
             <label class="control" for="health">
-              <input type="checkbox" name="Gestion des incidents" id="health" onClick={handleCheck}></input>
+              <input className='StyleInput' type="checkbox" name="Gestion des incidents" id="health" onClick={handleCheck}></input>
               <span class="control__content">
                 Gestion des incidents
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name="Analyse de la productivité" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Analyse de la productivité" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Analyse de la productivité
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name="Suivi des temps planifiés" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Suivi des temps planifiés" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Suivi des temps planifiés
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name="Nombre de demandes par priorité" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Nombre de demandes par priorité" onClick={handleCheck}></input>
               <span class="control__content">
                 Nombre de demandes par priorité
               </span>
             </label>
           
             <label class="control" name="science">
-              <input type="checkbox" name="Nombre total de tickets par type" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Nombre total de tickets par type" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Nombre total de tickets par type
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name=" Nombre total de tickets par intervenant" id="science" onClick={handleCheck}></input>
+              <input type="checkbox"  className='StyleInput' name=" Nombre total de tickets par intervenant" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Nombre total de tickets par intervenant
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name="Ticket par priorité et par mois" id="science" onClick={handleCheck}></input>
+              <input type="checkbox"  className='StyleInput' name="Ticket par priorité et par mois" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Ticket par priorité et par mois
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" name="Ticket par statut et par client" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Ticket par statut et par client" id="science" onClick={handleCheck}></input>
               <span class="control__content">
                 Ticket par statut et par client
               </span>
