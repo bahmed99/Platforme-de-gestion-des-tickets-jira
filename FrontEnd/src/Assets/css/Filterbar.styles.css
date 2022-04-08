@@ -30,7 +30,7 @@
     cursor: pointer;
     border-radius: 99em;}
     
-    input {
+    .StyleInput {
       position: absolute;
       opacity: 0;
       z-index: -1;

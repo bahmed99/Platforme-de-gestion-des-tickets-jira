@@ -4,13 +4,14 @@ import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "../Assets/styles/Home.scss";
+import Dashboard from "../components/Dashboard"
 export default function Project() {
   const { project } = useParams();
 
   const [data, setData] = useState([]);
 
   return (
-    <div className="container-scroller">
+    <div>
       <div>
         <Sidebar data={data} setData={setData} loading={false} />
         <div className="container-fluid page-body-wrapper">
@@ -19,7 +20,10 @@ export default function Project() {
         <div className="main-panel">
           <div className="content-wrapper">
           <FilterBar />
+          <Dashboard />
+          
           </div>
+          
         </div>
 
       </div>
