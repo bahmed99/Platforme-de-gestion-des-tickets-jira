@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import logo from "../Assets/images/1.png";
-import image from "../Assets/images/2.jpg";
-import axios from "axios";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
+
 import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
 
-import "../Assets/css/Signup.style.css";
+import "../../Assets/css/Signup.style.css";
 import { useNavigate } from "react-router-dom";
-import PostData from "../Actions/SignupAction"
+import PostData from "../../Actions/SignupAction"
 
 export default function Signup() {
   const Navigate = useNavigate()

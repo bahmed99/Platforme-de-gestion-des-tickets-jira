@@ -1,0 +1,126 @@
+
+:root {
+    --text-primary: #2b2b2b;
+   
+    --bg-primary: #0283b0;
+
+    --gradiant: linear-gradient(90deg, rgba(11,180,220,1) 0%, rgba(2,131,176,1) 100%);
+
+   
+  }
+.homeHeader {
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-position-y: 120px;
+    background-size: cover;
+    position: relative;
+    display: block;
+  }
+  .home-header-img{
+    position: relative;
+    z-index: 2;
+  }
+  .particles{
+    position: absolute;
+    top: 60px;
+    height: 100%;
+    z-index: -1;
+  }
+  .homeContainer {
+    width: 100vw;
+    height: 90vh;
+    position: relative;
+    top: 180px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  }
+  .homeButtom{
+    z-index: 4;
+  }
+  .homeImage img{
+    width: 40vw;
+  }
+  
+  .homeContent {
+    width: 40vw;
+    text-align: center;
+    margin-right: 10%;
+  }
+  
+  .homeTitle {
+    color: var(--bg-primary);
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+  
+  .homeText {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+  }
+  
+  .btn-custom {
+    color: #fff;
+    background-image: var(--gradiant);
+    padding: 14px 34px;
+    letter-spacing: 1px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 0;
+    text-decoration: none;
+    margin-top: 5%;
+    transition: none;
+  }
+  
+  .btn-custom:hover,
+  .btn-custom:focus,
+  .btn-custom.focus,
+  .btn-custom:active,
+  .btn-custom.active {
+    color: #fff;
+    background-image: none;
+    background-color: var(--bg-primary);
+  }
+  
+  .btn:active,
+  .btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+  
+  .btn:focus,
+  .btn:active:focus,
+  .btn.active:focus,
+  .btn.focus,
+  .btn:active.focus,
+  .btn.active.focus {
+    outline: none;
+    outline-offset: none;
+  }
+  
+  
+  
+  @media screen and (max-width: 970px) {
+    .homeContainer {
+      flex-direction: column-reverse;
+    }
+    .homeImage img {
+      width: 60vw;
+    }
+    .homeContent {
+      width: 70vw;
+      margin-right: 0% !important;
+    }
+  }
+  
+  @media screen and (max-height: 480px) {
+    .homeHeader {
+      width: 100vw;
+      padding-top: 150px;
+    }
+  }

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import logo from "../Assets/images/1.png";
-import image from "../Assets/images/2.jpg";
-import { Link, useNavigate } from "react-router-dom";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
+import {  useNavigate } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 
-import "../Assets/css/Reset.style.css";
+import "../../Assets/css/Reset.style.css";
 import ReactLoading from "react-loading";
-import PostData from "../Actions/ResetPasswordAction"
+import PostData from "../../Actions/ResetPasswordAction"
 
 export default function Reset() {
   const Navigate = useNavigate();

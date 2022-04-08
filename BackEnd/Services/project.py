@@ -70,13 +70,13 @@ def GetSelectedProjects(id_user):
 def Updateprojects(id_user):
     selected_projects=request.json.get('selected_projects')
 
-    projects = Projects.objects.get(id_user= id_user)
+    projects = Projects.objects(id_user= id_user)
 
     if not(projects):
         return jsonify({ "error": "Session expired" }), 401
 
     
-    projects.objects.update(selected_projects=selected_projects)
+    projects.update(selected_projects=selected_projects)
 
     return jsonify({ "message": "Password updated" }), 201
 
@@ -84,13 +84,19 @@ def Updateprojects(id_user):
 def GetProject(user_id):
         data =pd.read_csv("./data_files/{}/data.csv".format(user_id))
         projects=list(set(data['Nom du projet']))
+       
+        project = Projects.objects(id_user= user_id)
+
+        if project:
+            project.update( all_projects= projects,selected_projects= projects)
+            return jsonify({"projects":projects}), 200
+
         projects = {
                 "id_user":user_id,
                 "all_projects": projects,
                 "selected_projects": projects
                 }
             
-
         project=Projects(id_user=projects['id_user'],all_projects=projects['all_projects'],selected_projects=projects['selected_projects'])
         project.save()
            

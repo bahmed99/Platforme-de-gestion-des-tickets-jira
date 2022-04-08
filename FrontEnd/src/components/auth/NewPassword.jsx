@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import logo from "../Assets/images/1.png";
-import image from "../Assets/images/2.jpg";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import logo from "../../Assets/images/1.png";
+import image from "../../Assets/images/2.jpg";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import ReactLoading from "react-loading";
-import "../Assets/css/NewPassword.style.css";
-import PostData from "../Actions/NewPasswordAction"
+import "../../Assets/css/NewPassword.style.css";
+import PostData from "../../Actions/NewPasswordAction"
 
 export default function NewPassword() {
   useEffect(() => {

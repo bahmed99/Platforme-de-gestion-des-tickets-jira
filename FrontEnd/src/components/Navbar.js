@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import React ,{useState,useEffect} from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+
 import { Trans } from 'react-i18next';
 
 import {useNavigate} from 'react-router-dom'
-export default function Navbar() {
+import GetData from "../Actions/GetUsernameAction"
 
+
+export default function Navbar() {
+  const [username, setUsername] = useState("")
+  const informations={"setUsername":setUsername}
   const Navigate = useNavigate()
 
  function toggleOffcanvas() {
@@ -20,6 +24,11 @@ export default function Navbar() {
     Navigate("/")
     window.location.reload();
   }
+  
+  useEffect(() => {
+    GetData(informations)
+  }, [])
+  
 
   
     return (
@@ -188,7 +197,7 @@ export default function Navbar() {
               <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
                 <div className="navbar-profile">
                   <img className="img-xs rounded-circle" src={require('../Assets/images/faces/face15.jpg')} alt="profile" />
-                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>Ahmed Bahri</Trans></p>
+                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{username}</Trans></p>
                   <i className="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </Dropdown.Toggle>
@@ -196,10 +205,10 @@ export default function Navbar() {
               <Dropdown.Menu className="navbar-dropdown preview-list navbar-profile-dropdown-menu">
                 <h6 className="p-3 mb-0"><Trans>Profile</Trans></h6>
                 <Dropdown.Divider />
-                <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()} className="preview-item">
+                <Dropdown.Item  className="preview-item">
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
-                      <i className="mdi mdi-settings text-success"></i>
+                      <i className="fa fa-gear text-success"></i>
                     </div>
                   </div>
                   <div className="preview-item-content">
@@ -207,13 +216,13 @@ export default function Navbar() {
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()}  className="preview-item">
+                <Dropdown.Item className="preview-item" onClick={()=>Disconnect()}>
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-logout text-danger"></i>
                     </div>
                   </div>
-                  <div className="preview-item-content" onClick={Disconnect}>
+                  <div className="preview-item-content" >
                     <p className="preview-subject mb-1" >Log Out</p>
                   </div>
                 </Dropdown.Item>

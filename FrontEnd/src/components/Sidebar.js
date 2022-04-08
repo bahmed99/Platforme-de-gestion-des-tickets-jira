@@ -1,24 +1,42 @@
-import React, { Component, useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Button, Collapse, Dropdown, Spinner } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Collapse, Dropdown, Spinner } from "react-bootstrap";
 import { Trans } from "react-i18next";
 
 import ModelAddProject from "./Models/ModelAddProject";
 import "../Assets/css/Sidebar.style.css";
+import GetData from "../Actions/GetSelectedProjectsAction";
+import GetUsername from "../Actions/GetUsernameAction";
+import ModelResetPassword from "./Models/ModelResetPassword";
+import GetUser from "../Actions/GetUserInformationsAction";
+
+import ModelChangeInformations from "./Models/ModelChangeInformations";
 
 function Sidebar(props) {
+  const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false);
 
-    const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false)
-    const [uploadFile, setUploadFile] = useState(false)
-    const [selectInfoData, setSelectInfoData] = useState(null);
+  const [selectInfoData, setSelectInfoData] = useState(null);
+
   const [state, setState] = useState({});
+
   const [loading, setLoading] = useState(true);
 
-  const [selectedprojects, setSelectedprojects] = useState([]);
-
+  const [username, setUsername] = useState("");
+  const [user, setUser] = useState("");
   const [allprojects, setAllProject] = useState([]);
-  const [difference,setDifference] = useState([])
 
+  const [difference, setDifference] = useState([]);
+  const [resetPasswordModel, setResetPasswordModel] = useState(false);
+  const [resetInformationsModel, setResetInformationsModel] = useState(false);
+
+  const informations = {
+    setUser: setUser,
+    setData: props.setData,
+    loading: loading,
+    setLoading: setLoading,
+    setAllProject: setAllProject,
+    setUsername: setUsername,
+  };
 
   function toggleMenuState(menuState) {
     if (state[menuState]) {
@@ -37,22 +55,10 @@ function Sidebar(props) {
     // if (props.location !== prevProps.location) {
     //   onRouteChanged();
     // }
-
-
+    GetUsername(informations);
+    GetUser(informations);
     if (props.loading === false) {
-      fetch(`http://127.0.0.1:5000/projects/GetSelectedProjects`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("jwt"),
-        },
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          setLoading(false);
-          props.setData(result.projects.selected_projects);
-          setAllProject(result.projects.all_projects)
-        });
+      GetData(informations);
     }
 
     onRouteChanged();
@@ -79,119 +85,106 @@ function Sidebar(props) {
     });
   }
 
-  const addProjects =() =>{
-    setAjoutSeanceModalOpen(true)
-    setDifference(allprojects.filter(x => !props.data.includes(x)));
-    console.log(difference)
-
-  }
-  
-
+  const addProjects = () => {
+    setAjoutSeanceModalOpen(true);
+    setDifference(allprojects.filter((x) => !props.data.includes(x)));
+    console.log(difference);
+  };
 
   return (
     <nav className="sidebar sidebar-offcanvas" id="sidebar">
-    
-        <ul className="nav">
-          <li className="nav-item profile">
-            <div className="profile-desc">
-              <div className="profile-pic">
-                <div className="count-indicator">
-                  <img
-                    className="img-xs rounded-circle "
-                    src={require("../Assets/images/faces/face15.jpg")}
-                    alt="profile"
-                  />
-                  <span className="count bg-success"></span>
-                </div>
-                <div className="profile-name">
-                  <h5 className="mb-0 font-weight-normal">
-                    <Trans>Ahmed Bahri</Trans>
-                  </h5>
-                  <span>
-                    <Trans>Chef de projet</Trans>
-                  </span>
-                </div>
+      <ul className="nav">
+        <li className="nav-item profile">
+          <div className="profile-desc">
+            <div className="profile-pic">
+              <div className="count-indicator">
+                <img
+                  className="img-xs rounded-circle "
+                  src={require("../Assets/images/faces/face15.jpg")}
+                  alt="profile"
+                />
+                <span className="count bg-success"></span>
               </div>
-              <Dropdown alignRight>
-                <Dropdown.Toggle as="a" className="cursor-pointer no-caret">
-                  <i className="mdi mdi-dots-vertical"></i>
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="sidebar-dropdown preview-list">
-                  <a
-                    href="!#"
-                    className="dropdown-item preview-item"
-                    onClick={(evt) => evt.preventDefault()}
-                  >
-                    <div className="preview-thumbnail">
-                      <div className="preview-icon bg-dark rounded-circle">
-                        <i className="mdi mdi-settings text-primary"></i>
-                      </div>
-                    </div>
-                    <div className="preview-item-content">
-                      <p className="preview-subject ellipsis mb-1 text-small">
-                        <Trans>Account settings</Trans>
-                      </p>
-                    </div>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    href="!#"
-                    className="dropdown-item preview-item"
-                    onClick={(evt) => evt.preventDefault()}
-                  >
-                    <div className="preview-thumbnail">
-                      <div className="preview-icon bg-dark rounded-circle">
-                        <i className="mdi mdi-onepassword  text-info"></i>
-                      </div>
-                    </div>
-                    <div className="preview-item-content">
-                      <p className="preview-subject ellipsis mb-1 text-small">
-                        <Trans>Change Password</Trans>
-                      </p>
-                    </div>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    href="!#"
-                    className="dropdown-item preview-item"
-                    onClick={(evt) => evt.preventDefault()}
-                  >
-                    <div className="preview-thumbnail">
-                      <div className="preview-icon bg-dark rounded-circle">
-                        <i className="mdi mdi-calendar-today text-success"></i>
-                      </div>
-                    </div>
-                  </a>
-                </Dropdown.Menu>
-              </Dropdown>
+              <div className="profile-name">
+                <h5 className="mb-0 font-weight-normal">
+                  <Trans>{username}</Trans>
+                </h5>
+              </div>
             </div>
-          </li>
-          <li className="nav-item nav-category">
-            <span className="nav-link">
-              <Trans>Navigation</Trans>
-            </span>
-          </li>
-          {loading === false || props.data.length!==0 ? 
+            <Dropdown alignRight>
+              <Dropdown.Toggle as="a" className="cursor-pointer no-caret">
+                <i className="mdi mdi-dots-vertical"></i>
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="sidebar-dropdown preview-list">
+                <div
+                  className="dropdown-item preview-item"
+                  onClick={() => setResetInformationsModel(true)}
+                >
+                  <div className="preview-thumbnail">
+                    <div className="preview-icon bg-dark rounded-circle">
+                      <i className="fa fa-gear text-primary"></i>
+                    </div>
+                  </div>
+                  <div className="preview-item-content">
+                    <p className="preview-subject ellipsis mb-1 text-small">
+                      <Trans>
+                        <div>Account settings</div>
+                      </Trans>
+                    </p>
+                  </div>
+                </div>
+                <div className="dropdown-divider"></div>
+                <div
+                  className="dropdown-item preview-item"
+                  onClick={() => setResetPasswordModel(true)}
+                >
+                  <div className="preview-thumbnail">
+                    <div className="preview-icon bg-dark rounded-circle">
+                      <i className="mdi mdi-onepassword  text-info"></i>
+                    </div>
+                  </div>
+                  <div className="preview-item-content">
+                    <p className="preview-subject ellipsis mb-1 text-small">
+                      <Trans>
+                        <div>Change Password</div>
+                      </Trans>
+                    </p>
+                  </div>
+                </div>
+                <div className="dropdown-divider"></div>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        </li>
+        <li className="nav-item nav-category">
+          <span className="nav-link">
+            <Trans>Navigation</Trans>
+          </span>
+        </li>
+        {loading === false || props.data.length !== 0 ? (
           <div>
-          {props.data.map((item, i) => {
-            return (
-              <li className="nav-item menu-items" key={i}>
-                <Link className="nav-link" to={`/project/${item}`}>
-                  <span className="menu-icon">
-                    <i className="mdi mdi-speedometer"></i>
-                  </span>
-                  <span className="menu-title">
-                    <Trans>{item}</Trans>
-                  </span>
-                </Link>
-              </li>
-            );
-          })}</div>: (
-        <div className="Spinner"><Spinner animation="border" role="status" variant="danger" /></div>)}
+            {props.data.map((item, i) => {
+              return (
+                <li className="nav-item menu-items" key={i}>
+                  <Link className="nav-link" to={`/project/${item}`}>
+                    <span className="menu-icon">
+                      <i className="mdi mdi-speedometer"></i>
+                    </span>
+                    <span className="menu-title">
+                      <Trans>{item}</Trans>
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="Spinner">
+            <Spinner animation="border" role="status" variant="danger" />
+          </div>
+        )}
 
-
-
-                  <li className="nav-item menu-items">
+        <li className="nav-item menu-items">
           <Link className="nav-link" to="/dashboard">
             <span className="menu-icon">
               <i className="mdi mdi-speedometer"></i>
@@ -201,7 +194,7 @@ function Sidebar(props) {
             </span>
           </Link>
         </li>
-       
+
         <li className="nav-item menu-items">
           <div
             className="nav-link"
@@ -318,40 +311,6 @@ function Sidebar(props) {
             </div>
           </Collapse>
         </li>
-        <li className="nav-item nav-category">
-          <span className="nav-link">
-            <Trans>More</Trans>
-          </span>
-        </li>
-        <li className="nav-item menu-items">
-          <div
-            className={
-              state.errorPagesMenuOpen ? "nav-link menu-expanded" : "nav-link"
-            }
-            onClick={() => toggleMenuState("errorPagesMenuOpen")}
-            data-toggle="collapse"
-          >
-            <span className="menu-icon">
-              <i className="mdi mdi-lock"></i>
-            </span>
-            <span className="menu-title">
-              <Trans>Error Pages</Trans>
-            </span>
-            <i className="menu-arrow"></i>
-          </div>
-          <Collapse in={state.errorPagesMenuOpen}>
-            <div>
-              <ul className="nav flex-column sub-menu">
-                <li className="nav-item">
-                  {" "}
-                  <Link className="nav-link" to="/error-pages/error-404">
-                    404
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </Collapse>
-        </li>
 
         <li className="nav-item menu-items liStyleSidebar">
           <div>
@@ -365,7 +324,10 @@ function Sidebar(props) {
               <span className="menu-icon divStyleSidebar">
                 <i className="mdi mdi-plus"></i>
               </span>
-              <span className="menu-title spanStyleSidebar" onClick={()=>addProjects()}>
+              <span
+                className="menu-title spanStyleSidebar"
+                onClick={() => addProjects()}
+              >
                 <Trans>Add new project</Trans>
               </span>
               <i className="menu-arrow"></i>
@@ -373,13 +335,35 @@ function Sidebar(props) {
           </div>
         </li>
       </ul>
-      {(difference !== [])? <ModelAddProject isOpen={ajoutSeanceModalOpen}
-                    setModal={setAjoutSeanceModalOpen}
-
-                    selectInfoData={selectInfoData}
-                    difference={difference} setDifference={setDifference}
-                    data={props.data} setData={props.setData}
-                    />:""}
+      {difference !== [] ? (
+        <ModelAddProject
+          isOpen={ajoutSeanceModalOpen}
+          setModal={setAjoutSeanceModalOpen}
+          selectInfoData={selectInfoData}
+          difference={difference}
+          setDifference={setDifference}
+          data={props.data}
+          setData={props.setData}
+        />
+      ) : (
+        ""
+      )}
+      <ModelResetPassword
+        setModal={setResetPasswordModel}
+        isOpen={resetPasswordModel}
+      />
+      {user !== "" ? (
+        <ModelChangeInformations
+          user={user}
+          setUser={setUser}
+          setModal={setResetInformationsModel}
+          isOpen={resetInformationsModel}
+          data={props.data}
+          setData={props.setData}
+        />
+      ) : (
+        ""
+      )}{" "}
     </nav>
   );
 }
