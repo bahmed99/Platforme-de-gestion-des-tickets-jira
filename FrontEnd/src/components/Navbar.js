@@ -216,14 +216,14 @@ export default function Navbar() {
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item className="preview-item">
+                <Dropdown.Item className="preview-item" onClick={()=>Disconnect()}>
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-logout text-danger"></i>
                     </div>
                   </div>
                   <div className="preview-item-content" >
-                    <p className="preview-subject mb-1" onClick={Disconnect}>Log Out</p>
+                    <p className="preview-subject mb-1" >Log Out</p>
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
