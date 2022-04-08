@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 import { Trans } from 'react-i18next';
 
 import {useNavigate} from 'react-router-dom'
-export default function Navbar() {
+export default function Navbar(props) {
 
   const Navigate = useNavigate()
 
  function toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
- function toggleRightSidebar() {
-    document.querySelector('.right-sidebar').classList.toggle('open');
-  }
+  function toggleRightSidebar() {
+      document.querySelector('.right-sidebar').classList.toggle('open');
+    }
 
   function Disconnect() {
     localStorage.clear()
@@ -26,7 +26,16 @@ export default function Navbar() {
       <nav className="navbar1 navbar p-0 fixed-top d-flex flex-row">
        
         <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-          <button className="navbar-toggler align-self-center" type="button" onClick={ () => document.body.classList.toggle('sidebar-icon-only') }>
+          <button className="navbar-toggler align-self-center" type="button" onClick={ () =>{
+            if (props.style===0)
+            {
+                props.setStyle(1) ;
+            }
+            else
+            {
+              props.setStyle(0) ;
+            }
+             document.body.classList.toggle('sidebar-icon-only') }}>
             <span className="mdi mdi-menu"></span>
           </button>
           <ul className="navbar-nav w-100">

@@ -10,20 +10,21 @@ export default function Project() {
 
   const [data, setData] = useState([]);
 
+  const [style, setStyle] = useState(1)
+
   return (
     <div>
       <div>
         <Sidebar data={data} setData={setData} loading={false} />
         <div className="container-fluid page-body-wrapper">
-          <Navbar />
+          <Navbar style={style} setStyle={setStyle} />
         </div>
-        <div className="main-panel">
-          <div className="content-wrapper">
-          <FilterBar />
-          <Dashboard />
-          
+        <div className="main-panel" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>
+          <div className="content-wrapper" style={style === 1 ?{paddingLeft:"100px"}:{paddingLeft:"70px"}}>       
+              <FilterBar />
+              
           </div>
-          
+          <Dashboard /> 
         </div>
 
       </div>
