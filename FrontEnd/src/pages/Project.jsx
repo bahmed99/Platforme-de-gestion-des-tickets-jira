@@ -9,13 +9,14 @@ export default function Project() {
   const { project } = useParams();
 
   const [data, setData] = useState([]);
+  const [icons, setIcons] = useState([]);
 
   const [style, setStyle] = useState(1)
 
   return (
     <div>
       <div>
-        <Sidebar data={data} setData={setData} loading={false} />
+        <Sidebar data={data} setData={setData} loading={false} icons={icons} setIcons={setIcons} />
         <div className="container-fluid page-body-wrapper">
           <Navbar style={style} setStyle={setStyle} />
         </div>

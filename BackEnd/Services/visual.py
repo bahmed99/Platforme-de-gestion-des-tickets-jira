@@ -30,11 +30,12 @@ def SaveVisuals(id_user):
   
   
 def GetSelectedVisuals(id_user):
-        visuals = Visuals.objects.get(id_user= id_user)
-
+        visuals = Visuals.objects(id_user= id_user)
 
         if not(visuals):
-            return jsonify({ "error": "This user don't have any visual" }), 401
+            return jsonify({ "visuals": [] }), 200
+            
+        visuals = Visuals.objects.get(id_user= id_user)
             
         return jsonify({"visuals": visuals["visuals"]}), 200
 
