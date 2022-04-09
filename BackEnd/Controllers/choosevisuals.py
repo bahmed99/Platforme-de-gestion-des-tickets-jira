@@ -11,3 +11,8 @@ visuals_api = Blueprint('visuals_api', __name__)
 @require_login
 def SaveVisual():
   return SaveVisuals(g.user["_id"])
+
+@visuals_api.route('/GetSaveVisuals', methods=['GET'])
+@require_login
+def GetSaveVisual():
+  return GetSelectedVisuals(g.user["_id"])

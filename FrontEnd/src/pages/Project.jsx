@@ -19,12 +19,13 @@ export default function Project() {
         <div className="container-fluid page-body-wrapper">
           <Navbar style={style} setStyle={setStyle} />
         </div>
-        <div className="main-panel" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>
-          <div className="content-wrapper" style={style === 1 ?{paddingLeft:"100px"}:{paddingLeft:"70px"}}>       
+        <div className="main-panel">
+          <div className="content-wrapper" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>       
               <FilterBar />
+              <Dashboard /> 
               
           </div>
-          <Dashboard /> 
+          
         </div>
 
       </div>

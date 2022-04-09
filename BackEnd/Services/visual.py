@@ -16,9 +16,17 @@ def SaveVisuals(id_user):
         check_visual=Visuals.objects(id_user= id_user)
         if check_visual:
             check_visual.update(visuals=request.json.get('visuals'))
-            return jsonify({"message": "Updated successfully"}), 200
+            return jsonify({"message": "ok"}), 200
         else :
             visual.save()
-            return jsonify({"message": "Saved successfully"}), 200
+            return jsonify({"message": "ok"}), 200
 
         return jsonify({"error": "Signup failed"}), 400
+def GetSelectedVisuals(id_user):
+        visuals = Visuals.objects.get(id_user= id_user)
+
+
+        if not(visuals):
+            return jsonify({ "error": "This user don't have any visual" }), 401
+            
+        return jsonify({"visuals": visuals["visuals"]}), 200
