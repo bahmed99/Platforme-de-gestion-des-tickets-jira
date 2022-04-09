@@ -4,23 +4,29 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
+
   Form,
-  Input,
-  Modal,
-  Label,
+
+  Modal
+
 } from "reactstrap";
 
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import GetData from "../../Actions/GetProjectsAction"
+import PostData from "../../Actions/SelectProjectAction"
 
-import axios from "axios";
+
+
 
 export default function SelectProjects(props) {
-  const [title, setTitle] = useState("");
+
   const [projets, setProjets] = useState([]);
   const [selectedprojects , setSelectedprojects] = useState([])
   const [selectedoptions, setSelectedoptions] = useState([]);
   const [options, setOptions] = useState([]);
+
+
+  const informations={"icons":props.icons,"setIcons":props.setIcons,"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
 
 
   function onChange(value, event) {
@@ -49,24 +55,7 @@ export default function SelectProjects(props) {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/projects/projects`, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        for (let i = 0; i < result.length; i++) {
-          setProjets((prevProjets) => [...prevProjets, result[i].name]);
-
-          setOptions((prevProjets) => [
-            ...prevProjets,
-            { label: result[i].name, value: result[i].name },
-          ]);
-        }
-      });
+    GetData(informations)
   }, []);
 
   useEffect(() => {
@@ -78,29 +67,7 @@ export default function SelectProjects(props) {
     }
   }, [selectedoptions]);
 
-  const onClickAjouterSeance = async () => {
-      const data = {
-        all_projects: projets,
-        selected_projects: selectedprojects,
-      };
-      axios
-        .post("http://localhost:5000/projects/SaveProjects", data, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("jwt"),
-          },
-        })
-        .then((result) => {
-          props.setModal(false)
-        
-        props.setData(selectedprojects)
-        })
-        .catch((err) => {
-          
-        });
-
-
-  };
+  
 
   return (
     <Modal
@@ -109,16 +76,14 @@ export default function SelectProjects(props) {
       size=""
 
       isOpen={props.isOpen}
-      toggle={() => {
-        props.setModal(!props.isOpen);
-      }}
+    
     >
       <div className="modal-body p-0 row align-self-center">
         <Card className="shadow border-0 CardStyle">
           <CardHeader className="bg-transparent pb-1">
             <h3>Select Projects</h3>
           </CardHeader>
-          <CardBody className="px-lg-5 py-lg-10">
+          <CardBody className="px-lg-7 py-lg-10">
             <Form role="form">
               <ReactMultiSelectCheckboxes
                 options={options}
@@ -135,7 +100,7 @@ export default function SelectProjects(props) {
                   className="btn btn-outline-danger   CardButtonStyle"
                   color="transparent"
                   type="button"
-                  onClick={(e) => onClickAjouterSeance()}
+                  onClick={() => PostData(informations)}
                 >
                   Ajouter
                 </Button>

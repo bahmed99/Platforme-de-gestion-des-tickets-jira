@@ -33,7 +33,6 @@
 @import "./misc";
 @import "./utilities";
 
-@import "./spinner";
 
 
 /* === Components === */
@@ -41,7 +40,7 @@
 // @import "./components/checkbox-radio";
 // @import "./components/forms";
 @import "./components/icons";
-@import "./components/tables";
+
 @import "./components/buttons";
 @import "./components/breadcrumbs";
 @import "./components/badges";
@@ -50,12 +49,9 @@
 @import "./components/dropdowns";
 
 
-/* === Plugin Overrides === */
-@import "./components/plugin-overrides/slick-carousel";
-@import "./components/plugin-overrides/jquery-jvectormap";
 
 /* === Layout === */
 @import "./navbar";
 @import "./sidebar";
-@import "./footer";
+
 @import "./layout";

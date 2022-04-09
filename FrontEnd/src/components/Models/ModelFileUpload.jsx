@@ -1,15 +1,14 @@
-import React ,{useState} from 'react'
+import React  from 'react'
 
 import {
-    Button,
+
     Card,
     CardHeader,
     CardBody,
-    FormGroup,
+
     Form,
-    Input,
-    Modal,
-    Label,
+    Modal
+
 } from "reactstrap";
 import FileUpload from "../inputs/FileUpload.jsx"
 import "../../Assets/css/Inputs.css"

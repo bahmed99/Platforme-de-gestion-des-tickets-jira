@@ -300,9 +300,9 @@
                   }
                 }
               }
-              &:hover {
-                color: inherit;
-              }
+              // &:hover {
+              //   color: inherit;
+              // }
             }
             .dropdown-divider {
               margin: 0;
@@ -365,6 +365,7 @@
           }
         }
         &:hover {
+ 
           background: transparent;
         }
       }

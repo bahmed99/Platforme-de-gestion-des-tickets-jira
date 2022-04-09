@@ -1,0 +1,61 @@
+.Con-style{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-left: 50px;
+    
+  }
+  .Card_One_Style{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    width: 75%;
+    min-height: 600px;
+    padding : 20px;
+    margin: 10px;
+    background-color: rgb(239, 239, 239,0.6);
+  
+    
+  
+  }
+  .Card_Two_Style{
+    /* display: flex;
+    flex-wrap:wrap ;
+    justify-content: center;  */
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    width: 20%;
+    min-height: 600px;
+    padding : 20px;
+    margin: 10px;
+    background-color: rgb(239, 239, 239,0.6);
+    
+  
+  }
+  .Card_Three_Style{
+   
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    width: 97%;
+    min-height: 400px;
+    padding : 20px;
+    margin: 10px;
+    background-color: rgb(239, 239, 239,0.6);
+  
+  }
+  @media screen and (max-width: 800px){
+    
+    .Card_One_Style{
+      width: 100%;
+      min-height: 600px;
+    } 
+    .Card_Two_Style{
+  
+      width: 100%;
+      min-height: 600px;
+      
+    
+    }
+  }

@@ -1,8 +1,8 @@
 import axios from "axios";
-export default function PostData(props) {
+export default async function PostData(props) {
     
     props.setLoading(true)
-    axios
+     axios
       .post(
         "http://localhost:5000/user/login",
 

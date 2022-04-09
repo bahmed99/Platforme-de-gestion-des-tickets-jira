@@ -1,8 +1,9 @@
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
-import axios from 'axios';
+
 import ReactLoading from "react-loading";
 import Alert from "react-bootstrap/Alert";
+import PostData from "../../Actions/UploadFileAction"
 
 
 export default function FileUpload(props) {
@@ -14,53 +15,7 @@ export default function FileUpload(props) {
     const handleChange = (file) => {
         setFile(file[0]);
     };
-
-    const uploadFile = () => {
-
-
-        if (file) {
-
-            setLoading(true)
-            let data = new FormData()
-            data.append("file", file)
-            axios.post("http://127.0.0.1:5000/file/", data, {
-                headers: {
-                    "Authorization": localStorage.getItem("jwt")
-                },
-            }).then(res => {
-                
-                
-                axios.get("http://127.0.0.1:5000/projects/GetProjectsFromFile",{
-
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": localStorage.getItem("jwt"),
-                      }
-                }).then(res=>{
-                    props.setData(res.data.projects)
-                    props.setModal(false)
-                    setLoading(false)
-                    setSuccess(true)
-                    setTimeout(() => setSuccess(false), 2000);
-
-                    
-                }).catch(err=>{
-                    console.log(err)
-                })
-
-            }).catch(err => {
-                setLoading(false)
-                setError(true)
-                console.log(err)
-                setTimeout(() => setError(false), 2000);
-
-            })
-        }
-
-    }
-
-
-
+    const informations={setModal:props.setModal,"data":props.data,"setData":props.setData,"error":error,"success":success,"loading":loading,"setError":setError,"setSuccess":setSuccess,"setLoading":setLoading,"file":file}
 
     return (
         <div style={{ textAlign: "Center" }}>
@@ -85,7 +40,7 @@ export default function FileUpload(props) {
                 marginTop:"10px",
                 padding:"12px",
                 backgroundColor: loading ? "#1f212d" : "#1f212d",
-            }} disabled={loading} onClick={() => uploadFile()}>{loading ? (
+            }} disabled={loading} onClick={() => PostData(informations)}>{loading ? (
                 <ReactLoading
                     height={"30px"}
                     width={"30px"}

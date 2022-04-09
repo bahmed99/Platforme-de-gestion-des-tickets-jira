@@ -4,23 +4,25 @@ import {
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
   Form,
-  Input,
-  Modal,
-  Label,
+  Modal
 } from "reactstrap";
 
 import ReactMultiSelectCheckboxes from "react-multiselect-checkboxes";
+import PostData from "../../Actions/AddProjectsAction"
 
-import axios from "axios";
 
 export default function ModelAddProject(props) {
-  const [title, setTitle] = useState("");
+ 
   const [projets, setProjets] = useState([]);
   const [selectedprojects , setSelectedprojects] = useState([])
   const [selectedoptions, setSelectedoptions] = useState([]);
   const [options, setOptions] = useState([]);
+
+
+  const informations={"icons":props.icons,"setIcons":props.setIcons,"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
+
+
   useEffect(() => {
     setOptions([])
       for (let i=0 ; i<props.difference.length ; i++)
@@ -69,53 +71,24 @@ export default function ModelAddProject(props) {
     
     
   }, [selectedoptions]);
-  function AddProject() {
-      
-      const info = {
-        selected_projects: selectedprojects,
-      };
-      axios
-        .put("http://localhost:5000/projects/UpdateProjects", info, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": localStorage.getItem("jwt"),
-          },
-        })
-        .then((result) => {
-          props.setModal(false)
-        
-          props.setData(selectedprojects)
-          console.log("yes");
-        })
-        .catch((err) => {
-          
-        });
-      
-  }
-  
-
-
-
   
 
 
   return (
     <Modal
-
-      className=" modal-dialog-centered "
-      size=""
-
+      className="modal-dialog-centered"
       isOpen={props.isOpen}
+      size="sm"
       toggle={() => {
         props.setModal(!props.isOpen);
       }}
     >
       <div className="modal-body p-0 row align-self-center">
         <Card className="shadow border-0 CardStyle">
-          <CardHeader className="bg-transparent pb-1">
+          <CardHeader className="bg-transparent pb-2">
             <h3>Select Projects</h3>
           </CardHeader>
-          <CardBody className="px-lg-5 py-lg-10">
+          <CardBody className="px-lg-7 " >
             <Form role="form">
               <ReactMultiSelectCheckboxes
                 options={options}
@@ -132,7 +105,7 @@ export default function ModelAddProject(props) {
                   className="btn btn-outline-danger   CardButtonStyle"
                   color="transparent"
                   type="button"
-                  onClick={()=>AddProject()}
+                  onClick={()=>PostData(informations)}
                 >
                   Ajouter
                 </Button>

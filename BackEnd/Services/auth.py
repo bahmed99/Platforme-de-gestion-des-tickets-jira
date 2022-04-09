@@ -3,6 +3,7 @@ from flask import  jsonify, request
 from passlib.hash import pbkdf2_sha256
 from jira.client import JIRA
 from Models.user import User
+from Models.projects import Projects
 import jwt
 from utils import secret_key
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
@@ -51,7 +52,9 @@ def signup_service():
 
 def login_service():
     # print(User.list_indexes())
+    print(request.json.get('email'))
     user=User.objects.get(email=request.json.get('email'))
+    
     
 
     if not(user):
@@ -69,6 +72,8 @@ def login_service():
 
 def forgot_password_service():
         user=User.objects.get(email=request.json.get('email'))
+        print(user.email)
+
 
         if not(user):
             return jsonify({ "error": "Invalid email" }), 401  
@@ -79,7 +84,7 @@ def forgot_password_service():
 
        
 
-        User.objects.update(reset_token=token,expire_token=datetime.now()+timedelta(1/24))
+        user.update(reset_token=token,expire_token=datetime.now())
         
         try:
 
@@ -100,7 +105,8 @@ def new_password_service():
 
         user = User.objects.get(
         reset_token= token,
-        expire_token={'$gt': datetime.now()})
+        expire_token__gte=datetime.now())
+        
 
         
 
@@ -108,38 +114,26 @@ def new_password_service():
             return jsonify({ "error": "Session expired" }), 401
 
         
-        user.objects.update(password=pbkdf2_sha256.encrypt(password) ,reset_token="",expire_token=datetime.now())
+        user.update(password=pbkdf2_sha256.encrypt(password) ,reset_token="",expire_token=datetime.now())
 
         return jsonify({ "message": "Password updated" }), 201
 
 
 def change_password_service(user_email):
-    user=User.objects.get(email=request.json.get('email'))
+    user=User.objects.get(email=user_email)
 
 
-    if not(pbkdf2_sha256.verify(request.json.get('password'), user.password)):
+    if not(pbkdf2_sha256.verify(request.json.get('oldPassword'), user.password)):
         return jsonify({ "error": "Invalid password" }), 401 
+    
+    user.update(password=pbkdf2_sha256.encrypt(request.json.get('newPassword')))
 
-    token = Serializer(secret_key, 360000)
-    token=token.dumps({'user_email':user_email}).decode('utf-8')
+    return jsonify({ "message": "Password updated" }), 201
 
-    User.objects.update(reset_token=token,expire_token=datetime.now()+timedelta(1/24))
-
-
-    try:
-
-        msg = Message(subject="Hello",
-                    sender="idrivegears@gmail.com",
-                    recipients=user.email.split())
-        msg.html='<p>you requested for password reset</p> <h5>Code: {} ></h5>'.format(token)
-                    
-        mail.send(msg)
-        return jsonify({ "message": "Token sent" }), 200
-    except :
-        return jsonify({ "error": "Token not sent" }), 400
+    
 
 
-def change_token_service(user_email):
+def change_domaine_service(user_email,id_user):
         user=User.objects.get(email=user_email)
 
         if not(pbkdf2_sha256.verify(request.json.get('password'), user.password)):
@@ -147,13 +141,25 @@ def change_token_service(user_email):
 
         
         try :
-            auth_jira = JIRA(basic_auth=(user.email, request.json.get('token')),options={'server': user.jira_domaine})
+            auth_jira = JIRA(basic_auth=(user.email, request.json.get('token')),options={'server': request.json.get('domaine')})
 
         except :
             return jsonify({ "error": "Invalid token" }), 400
+        
+        
+        if(user.jira_domaine!=request.json.get('domaine')):
+            project=Projects.objects.get(id_user=id_user)
+            project.delete()
 
         
-        User.objects.update(jira_token=request.json.get('token'))
+        user.update(jira_token=request.json.get('token'),jira_domaine=request.json.get('domaine'))
 
 
         return jsonify({ "message": "Jira token updated" }), 200
+
+
+def get_username_service(username):
+    return username
+
+def get_user_service(user):
+    return jsonify({ "user": user }), 201

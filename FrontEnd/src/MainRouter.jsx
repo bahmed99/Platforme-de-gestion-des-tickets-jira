@@ -7,7 +7,7 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import HomePage from './pages/HomePage';
 import Project from './pages/Project';
-import Charts from "./pages/Charts"
+
 
 export default function MainRouter() {
   const jwt = localStorage.getItem("jwt");
@@ -50,7 +50,6 @@ export default function MainRouter() {
       <Route exact path={"/reset/:token"} element={<NewPassword />} />
       
       <Route exact path={"/project/:project"} element={<Project />} />
-      <Route exact path={"/Charts"} element={<Charts />} />
 
       {jwt ?<Route exact path={"/"} element={<Home />} /> :
       <Route exact path={"/"} element={<HomePage />} />}
