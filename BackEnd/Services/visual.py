@@ -24,8 +24,6 @@ def SaveVisuals(id_user):
         return jsonify({"error": "Signup failed"}), 400
 def GetSelectedVisuals(id_user):
         visuals = Visuals.objects.get(id_user= id_user)
-
-
         if not(visuals):
             return jsonify({ "error": "This user don't have any visual" }), 401
             
