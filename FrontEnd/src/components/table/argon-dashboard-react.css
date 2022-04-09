@@ -5910,9 +5910,9 @@ button.bg-darker:focus {
 .iconDashboard {
   width: 3rem;
   height: 3rem; }
-  .icon i, .icon svg {
+  .iconDashboard i, .icon svg {
     font-size: 2.25rem; }
-  .icon + .icon-text {
+  .iconDashboard + .icon-text {
     padding-left: 1rem;
     width: calc(100% - 3rem - 1); }
 

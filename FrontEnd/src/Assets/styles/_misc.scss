@@ -73,6 +73,12 @@ html {
   width: 100%;
   @include flex-grow(1);
 }
+@media screen and (max-width: 990px){
+  .content-wrapper {
+    padding-left: 10px !important;
+  }
+}
+
 
 .container-scroller {
   overflow: hidden;

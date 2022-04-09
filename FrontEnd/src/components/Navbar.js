@@ -2,12 +2,10 @@ import React ,{useState,useEffect} from 'react';
 import { Dropdown } from 'react-bootstrap';
 
 import { Trans } from 'react-i18next';
-
-import {useNavigate} from 'react-router-dom'
 import GetData from "../Actions/GetUsernameAction"
+import {useNavigate} from 'react-router-dom'
+export default function Navbar(props) {
 
-
-export default function Navbar() {
   const [username, setUsername] = useState("")
   const informations={"setUsername":setUsername}
   const Navigate = useNavigate()
@@ -15,9 +13,9 @@ export default function Navbar() {
  function toggleOffcanvas() {
     document.querySelector('.sidebar-offcanvas').classList.toggle('active');
   }
- function toggleRightSidebar() {
-    document.querySelector('.right-sidebar').classList.toggle('open');
-  }
+  function toggleRightSidebar() {
+      document.querySelector('.right-sidebar').classList.toggle('open');
+    }
 
   function Disconnect() {
     localStorage.clear()
@@ -35,7 +33,16 @@ export default function Navbar() {
       <nav className="navbar1 navbar p-0 fixed-top d-flex flex-row">
        
         <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
-          <button className="navbar-toggler align-self-center" type="button" onClick={ () => document.body.classList.toggle('sidebar-icon-only') }>
+          <button className="navbar-toggler align-self-center" type="button" onClick={ () =>{
+            if (props.style===0)
+            {
+                props.setStyle(1) ;
+            }
+            else
+            {
+              props.setStyle(0) ;
+            }
+             document.body.classList.toggle('sidebar-icon-only') }}>
             <span className="mdi mdi-menu"></span>
           </button>
          

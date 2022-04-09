@@ -7,6 +7,10 @@ import "../Assets/css/Filterbar.styles.css";
 export default function Filterbar() {
   const { project } = useParams();
   const [checked, setChecked] = useState([]);
+
+  const [data, setData] = useState([])
+  
+
   const [error, setError] = useState(false);
   console.log(project)
 
@@ -45,12 +49,12 @@ export default function Filterbar() {
       setChecked(updatedList);
     }
 
+  
+  
+  const [error, setError] = useState(false);
 
-  };
-  console.log(checked);
-  const [data, setData] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/projects/GetSelectedProjects`, {
+    fetch(`http://localhost:5000/visuals/GetSaveVisuals`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -59,20 +63,38 @@ export default function Filterbar() {
     })
       .then((res) => res.json())
       .then((result) => {
-        setData(result.projects.selected_projects);
+        setChecked(result.visuals);
+
+        
+        
       });
+
+
+    
+
+      
   }, []);
 
 
-  const PostData = () => {
+
+  const handleCheck = (event) => {
+    
+    var updatedList = [...checked];
+    
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.name];
+      setChecked(updatedList);
+    } else {
+      updatedList.splice(checked.indexOf(event.target.name), 1);
+      setChecked(updatedList);
+    }
+
     axios
-      .post(
+      .patch(
         `http://localhost:5000/visuals/SaveVisuals`,
 
         {
-
-          selected_projects: data,
-          visuals: checked,
+          visuals: updatedList,
         },
         {
           headers: {
@@ -82,75 +104,79 @@ export default function Filterbar() {
         }
       )
       .catch((err) => {
-        setError(true)
-        setTimeout(() => setError(false), 2500);
       });
+
+
   };
+
+
+
+
 
   return (
     <div className='filterbarcontainer'>
       <div className="row">
-      <form>
+      <form id="formulaire">
         <fieldset>
           
-            <label class="control" for="technology">
-              <input className='StyleInput' type="checkbox" name="Suivi des bugs" id="technology" onClick={handleCheck}></input>
+            <label class="control" >
+              <input className='StyleInput' type="checkbox" name="Suivi des bugs"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des bugs")}  ></input>
               <span class="control__content">
                 Suivi des bugs
               </span>
             </label>
-            <label class="control" for="health">
-              <input className='StyleInput' type="checkbox" name="Gestion des incidents" id="health" onClick={handleCheck}></input>
+            <label class="control" >
+              <input className='StyleInput' type="checkbox" name="Gestion des incidents"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Gestion des incidents")}></input>
               <span class="control__content">
                 Gestion des incidents
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" className='StyleInput' name="Analyse de la productivité" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Analyse de la productivité"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Analyse de la productivité")}></input>
               <span class="control__content">
                 Analyse de la productivité
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" className='StyleInput' name="Suivi des temps planifiés" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Suivi des temps planifiés"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des temps planifiés")}></input>
               <span class="control__content">
                 Suivi des temps planifiés
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" className='StyleInput' name="Nombre de demandes par priorité" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Nombre de demandes par priorité" onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre de demandes par priorité")}></input>
               <span class="control__content">
                 Nombre de demandes par priorité
               </span>
             </label>
           
             <label class="control" name="science">
-              <input type="checkbox" className='StyleInput' name="Nombre total de tickets par type" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Nombre total de tickets par type"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre total de tickets par type")}></input>
               <span class="control__content">
                 Nombre total de tickets par type
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox"  className='StyleInput' name=" Nombre total de tickets par intervenant" id="science" onClick={handleCheck}></input>
+              <input type="checkbox"  className='StyleInput' name="Nombre total de tickets par intervenant"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre total de tickets par intervenant")}></input>
               <span class="control__content">
                 Nombre total de tickets par intervenant
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox"  className='StyleInput' name="Ticket par priorité et par mois" id="science" onClick={handleCheck}></input>
+              <input type="checkbox"  className='StyleInput' name="Ticket par priorité et par mois"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Ticket par priorité et par mois")}></input>
               <span class="control__content">
                 Ticket par priorité et par mois
               </span>
             </label>
             <label class="control" name="science">
-              <input type="checkbox" className='StyleInput' name="Ticket par statut et par client" id="science" onClick={handleCheck}></input>
+              <input type="checkbox" className='StyleInput' name="Ticket par statut et par client"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Ticket par statut et par client")}></input>
               <span class="control__content">
                 Ticket par statut et par client
               </span>
             </label>
          
         </fieldset>
-      </form>
+        </form> 
       </div>
     </div>
 
