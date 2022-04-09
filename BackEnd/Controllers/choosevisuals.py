@@ -11,3 +11,8 @@ visuals_api = Blueprint('visuals_api', __name__)
 @require_login
 def SaveVisual():
   return SaveVisuals(g.user["_id"])
+
+@visuals_api.route('/GetData', methods=['POST'])
+@require_login
+def GetResult():
+  return GetData(g.user["_id"],g.user['jira_domaine'],g.user['email'],g.user['jira_token']) 

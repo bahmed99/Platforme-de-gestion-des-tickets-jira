@@ -5,9 +5,10 @@ import axios from "axios";
 import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
-  const { id } = useParams();
+  const { project } = useParams();
   const [checked, setChecked] = useState([]);
   const [error, setError] = useState(false);
+  console.log(project)
 
   useEffect(() => {
     axios
@@ -18,6 +19,7 @@ export default function Filterbar() {
 
           selected_projects: data,
           visuals: checked,
+          projet: project,
         },
         {
           headers: {
