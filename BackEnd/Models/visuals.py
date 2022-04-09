@@ -8,6 +8,7 @@ class Visuals(db.Document):
     visuals=db.ListField()
     projet=db.StringField(max_length=100)
     last_ticket_id=db.StringField(max_length=100)
+    data=db.ListField()
 
 
 

@@ -20,7 +20,7 @@ export default function ModelAddProject(props) {
   const [options, setOptions] = useState([]);
 
 
-  const informations={"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
+  const informations={"icons":props.icons,"setIcons":props.setIcons,"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
 
 
   useEffect(() => {
@@ -76,21 +76,19 @@ export default function ModelAddProject(props) {
 
   return (
     <Modal
-
-      className=" modal-dialog-centered "
-      size=""
-
+      className="modal-dialog-centered"
       isOpen={props.isOpen}
+      size="sm"
       toggle={() => {
         props.setModal(!props.isOpen);
       }}
     >
       <div className="modal-body p-0 row align-self-center">
         <Card className="shadow border-0 CardStyle">
-          <CardHeader className="bg-transparent pb-1">
+          <CardHeader className="bg-transparent pb-2">
             <h3>Select Projects</h3>
           </CardHeader>
-          <CardBody className="px-lg-5 py-lg-10">
+          <CardBody className="px-lg-7 " >
             <Form role="form">
               <ReactMultiSelectCheckboxes
                 options={options}

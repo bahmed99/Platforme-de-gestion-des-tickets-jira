@@ -26,7 +26,7 @@ export default function SelectProjects(props) {
   const [options, setOptions] = useState([]);
 
 
-  const informations={"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
+  const informations={"icons":props.icons,"setIcons":props.setIcons,"setModal":props.setModal,"setData":props.setData,"options":options,"setOptions":setOptions,"projets":projets,"setProjets":setProjets,"selectedprojects":selectedprojects,"setSelectedprojects":setSelectedprojects,"selectedoptions":selectedoptions,"setSelectedoptions":setSelectedoptions}
 
 
   function onChange(value, event) {
@@ -83,7 +83,7 @@ export default function SelectProjects(props) {
           <CardHeader className="bg-transparent pb-1">
             <h3>Select Projects</h3>
           </CardHeader>
-          <CardBody className="px-lg-5 py-lg-10">
+          <CardBody className="px-lg-7 py-lg-10">
             <Form role="form">
               <ReactMultiSelectCheckboxes
                 options={options}

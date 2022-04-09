@@ -7,6 +7,8 @@
     @include align-items(flex-start);
     padding: 1rem 0rem;
     font-size: .875rem;
+ 
+   
     &:last-child {
       border-bottom: 0;
     }
@@ -54,12 +56,16 @@
         }
       }
     }
+
+    
     .preview-item-content {
+      color: white !important;
       line-height: 1;
       padding-left: 15px;
       &:first-child {
         padding-left: 0;
       }
+     
       p {
         margin-bottom: 10px;
         line-height: 1;
@@ -77,6 +83,9 @@
         margin-left: auto;
       }
     }
+
+    
+
     .preview-actions {
       @include display-flex;
       @include flex-direction(row);

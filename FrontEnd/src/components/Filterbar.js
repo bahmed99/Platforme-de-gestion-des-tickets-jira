@@ -5,10 +5,49 @@ import axios from "axios";
 import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar() {
-  const { id } = useParams();
+  const { project } = useParams();
   const [checked, setChecked] = useState([]);
+
   const [data, setData] = useState([])
   
+
+  const [error, setError] = useState(false);
+  console.log(project)
+
+  useEffect(() => {
+    axios
+      .patch(
+        `http://localhost:5000/visuals/SaveVisuals`,
+
+        {
+
+          selected_projects: data,
+          visuals: checked,
+          projet: project,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      )
+      .catch((err) => {
+        setError(true)
+        setTimeout(() => setError(false), 2500);
+      });
+  }, [checked]);
+
+  const handleCheck = async (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.name];
+      setChecked(updatedList);
+    } 
+    else {
+      updatedList.splice(checked.indexOf(event.target.name), 1);
+      setChecked(updatedList);
+    }
 
   
   

@@ -6,7 +6,7 @@ export default function NavbarHome() {
         <div className="NavbarHome">
             <Navbar collapseOnSelect expand="lg" variant="dark" >
                 <Container>
-                    <Navbar.Brand href="/" >Vermeg</Navbar.Brand>
+                    <Navbar.Brand href="/" >VERMEG</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">

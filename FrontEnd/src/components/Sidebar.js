@@ -30,6 +30,8 @@ function Sidebar(props) {
   const [resetInformationsModel, setResetInformationsModel] = useState(false);
 
   const informations = {
+    setIcons: props.setIcons,
+    icons:props.icons,
     setUser: setUser,
     setData: props.setData,
     loading: loading,
@@ -88,7 +90,7 @@ function Sidebar(props) {
   const addProjects = () => {
     setAjoutSeanceModalOpen(true);
     setDifference(allprojects.filter((x) => !props.data.includes(x)));
-    console.log(difference);
+   
   };
 
   return (
@@ -115,7 +117,7 @@ function Sidebar(props) {
               <Dropdown.Toggle as="a" className="cursor-pointer no-caret">
                 <i className="mdi mdi-dots-vertical"></i>
               </Dropdown.Toggle>
-              <Dropdown.Menu className="sidebar-dropdown preview-list">
+              <Dropdown.Menu className="cursor-pointer sidebar-dropdown preview-list">
                 <div
                   className="dropdown-item preview-item"
                   onClick={() => setResetInformationsModel(true)}
@@ -125,7 +127,7 @@ function Sidebar(props) {
                       <i className="fa fa-gear text-primary"></i>
                     </div>
                   </div>
-                  <div className="preview-item-content">
+                  <div className="preview-item-content ">
                     <p className="preview-subject ellipsis mb-1 text-small">
                       <Trans>
                         <div>Account settings</div>
@@ -140,7 +142,7 @@ function Sidebar(props) {
                 >
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
-                      <i className="mdi mdi-onepassword  text-info"></i>
+                      <i className="fa fa-key  text-info"></i>
                     </div>
                   </div>
                   <div className="preview-item-content">
@@ -161,16 +163,20 @@ function Sidebar(props) {
             <Trans>Navigation</Trans>
           </span>
         </li>
-        {loading === false || props.data.length !== 0 ? (
+        {loading === false || (props.data.length !== 0 && props.icons.length !==0)? (
           <div>
             {props.data.map((item, i) => {
               return (
                 <li className="nav-item menu-items" key={i}>
                   <Link className="nav-link" to={`/project/${item}`}>
-                    <span className="menu-icon">
-                      <i className="mdi mdi-speedometer"></i>
-                    </span>
-                    <span className="menu-title">
+                    <img
+                      src={props.icons[i]}
+                      alt=""
+                      width={"25px"}
+                      style={{ borderRadius: "50%", marginLeft: "5px" }}
+                    />
+
+                    <span className="menu-title" style={{ marginLeft: "8px" }}>
                       <Trans>{item}</Trans>
                     </span>
                   </Link>
@@ -344,6 +350,8 @@ function Sidebar(props) {
           setDifference={setDifference}
           data={props.data}
           setData={props.setData}
+          icons={props.icons}
+          setIcons={props.setIcons}
         />
       ) : (
         ""
