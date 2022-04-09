@@ -14,7 +14,8 @@ export default async function GetData(props) {
         })
         .then((result) => {
           props.setModal(false)
-        
+          props.setIcons(result.data.data)
+          
           props.setData(props.selectedprojects)
         })
         .catch((err) => {

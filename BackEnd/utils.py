@@ -7,6 +7,9 @@ from Models.user import User
 from jira.client import JIRA
 import pandas as pd
 from datetime import datetime
+import requests
+from requests.auth import HTTPBasicAuth
+import json
 
 def require_login(func):
     @wraps(func)
@@ -289,3 +292,22 @@ def get_month_creation(data) :
     return data
 
 
+def getIconProject(project,domaine,token,email):
+    
+
+    url = "{}rest/api/3/project/{}".format(domaine,project)
+
+    auth = HTTPBasicAuth(email, token)
+
+    headers = {
+    "Accept": "application/json"
+    }
+
+    response = requests.request(
+    "GET",
+    url,
+    headers=headers,
+    auth=auth
+    )
+
+    return json.loads(response.text)

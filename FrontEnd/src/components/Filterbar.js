@@ -37,7 +37,8 @@ export default function Filterbar() {
     if (event.target.checked) {
       updatedList = [...checked, event.target.name];
       setChecked(updatedList);
-    } else {
+    } 
+    else {
       updatedList.splice(checked.indexOf(event.target.name), 1);
       setChecked(updatedList);
     }

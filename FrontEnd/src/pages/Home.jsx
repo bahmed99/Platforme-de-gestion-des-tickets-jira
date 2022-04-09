@@ -19,6 +19,7 @@ import GetData from "../Actions/GetResponseAction"
 export default function Home() {
 
   const [data, setData] = useState([]);
+  const [icons, setIcons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingInformations, setLoadingInformations] = useState(true);
 
@@ -33,13 +34,13 @@ export default function Home() {
     GetData(informations)
 
   }, []);
-
+console.log(icons)
   return (
     <div className="container-scroller">
 
       {loadingInformations === false ? (
         <div>
-          <Sidebar data={data} setData={setData} loading={loading} />
+          <Sidebar data={data} setData={setData} loading={loading} icons={icons} setIcons={setIcons}/>
           <div className="container-fluid page-body-wrapper">
             <Navbar />
           </div>
@@ -52,6 +53,7 @@ export default function Home() {
                 selectInfoData={selectInfoData}
                 data={data}
                 setData={setData}
+                icons={icons} setIcons={setIcons}
               />
             ) : (
               ""
