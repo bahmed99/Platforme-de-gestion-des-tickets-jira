@@ -39,6 +39,7 @@
     "reactstrap": "^9.0.1",
     "sass": "^1.49.9",
     "scss": "^0.2.4",
+    "use-state-if-mounted": "^1.0.4",
     "web-vitals": "^2.1.4",
     "yarn": "^1.22.18"
   },
