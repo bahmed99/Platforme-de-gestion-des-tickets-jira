@@ -1,12 +1,12 @@
 /FrontEnd/node_modules
 
 
-/BackEnd/__pycache__
-/BackEnd/Controllers/__pycache__
-/BackEnd/Models/__pycache__
-/BackEnd/Services/__pycache__
+/BackEnd/WebServer/__pycache__
+/BackEnd/WebServer/Controllers/__pycache__
+/BackEnd/WebServer/Models/__pycache__
+/BackEnd/WebServer/Services/__pycache__
 
-/BackEnd/env
+/BackEnd/WebServer/env
 
-/BackEnd/data_files/*
+/BackEnd/WebServer/data_files/*
 
