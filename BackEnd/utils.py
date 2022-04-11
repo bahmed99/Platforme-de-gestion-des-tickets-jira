@@ -126,7 +126,7 @@ def get_issues_by_priority_month_file(project,id_user):
     
 
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    data=data[data['Nom du projet']==project][["Priorité","Création"]]
+    data=data[data['Clé de projet']==project][["Priorité","Création"]]
     data=get_month_creation(data)
 
 
@@ -196,7 +196,7 @@ def productivity_jira(project,jira):
 def productivity_file(project,id_user):
     
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    data=data[data['Nom du projet']==project][["",""]]
+    data=data[data['Clé de projet']==project][["",""]]
 
     return 1
 
@@ -234,7 +234,7 @@ def get_issues_by_type_jira(project,jira):
 
 def get_issues_by_type_file(project,id_user):
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    l=data[data['Nom du projet']==project]["Type du Ticket"].value_counts().to_dict()
+    l=data[data['Clé de projet']==project]["Type du Ticket"].value_counts().to_dict()
     return l
 
 
@@ -276,7 +276,7 @@ def get_bugs_by_month_file(project,id_user):
     result={'Jan':0, 'Feb':0, 'Mar':0, 'Apr':0, 'May':0, 'Jun':0, 'Jul':0, 'Aug':0, 'Sep':0, 'Oct':0, 'Nov':0, 'Dec':0}
 
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    data=data[data['Nom du projet']==project][["Type","Création"]]
+    data=data[data['Clé de projet']==project][["Type","Création"]]
     data=get_month_creation(data)
 
     
@@ -284,6 +284,9 @@ def get_bugs_by_month_file(project,id_user):
         if data['Type'] == 'Bug':
             result[data['Création']]+=1
     return result
+
+
+
 
 def get_issues_by_status_jira(project,jira):
     data=dict()
@@ -314,10 +317,14 @@ def get_issues_by_status_jira(project,jira):
     return data , last_ticket
 
 
+
+
 def get_issues_by_status_file(project,id_user):
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    l=data[data['Nom du projet']==project]["État"].value_counts().to_dict()
+    l=data[data['Clé de projet']==project]["État"].value_counts().to_dict()
     return l
+    
+
     
 
 def check_last_ticket(jira,last_ticket,project):
@@ -327,6 +334,9 @@ def check_last_ticket(jira,last_ticket,project):
         return False,last_ticket
     
     return True,issues[0].key.split("-")[1]
+
+
+
 
 def update_bugs_by_month_jira(jira,l,last_ticket,project):
     month={1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May', 6:'Jun', 7:'Jul', 8:'Aug', 9:'Sep', 10:'Oct', 11:'Nov', 12:'Dec'}
@@ -348,6 +358,9 @@ def update_bugs_by_month_jira(jira,l,last_ticket,project):
                 else :
                     break
     return l 
+
+
+
 
 def update_issues_by_priority_month_jira(jira,l,last_ticket,project):
 
@@ -372,6 +385,7 @@ def update_issues_by_priority_month_jira(jira,l,last_ticket,project):
 
 
 
+
 def update_issues_by_status_jira(jira,l,last_ticket,project):
         size = 100
         initial = 0
@@ -390,6 +404,8 @@ def update_issues_by_status_jira(jira,l,last_ticket,project):
                 else :
                     break
         return l          
+
+
 
 
 def get_issues_by_creator_jira(project,jira):
@@ -420,10 +436,15 @@ def get_issues_by_creator_jira(project,jira):
 
     return data , last_ticket
 
+
+
+
 def get_issues_by_creator_file(project,id_user):
     data=pd.read_csv("./data_files/{}/data.csv".format(id_user))
-    l=data[data['Nom du projet']==project]["Rapporteur"].value_counts().to_dict()
+    l=data[data['Clé de projet']==project]["Rapporteur"].value_counts().to_dict()
     return l
+
+
 
 def update_issues_by_creator_jira(jira,l,last_ticket,project):
         size = 100
@@ -474,6 +495,8 @@ def transform_date(D):
  
     return A
 
+
+
 def get_month_creation(data) :
 
     for i in data['Création'].index:
@@ -495,6 +518,7 @@ def get_month_creation(data) :
             data['Mois'][i]=d1.month
 
     return data
+
 
 
 def getIconProject(project,domaine,token,email):
