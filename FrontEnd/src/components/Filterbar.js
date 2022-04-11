@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams} from "react-router-dom";
 
+
 import axios from "axios";
 import "../Assets/css/Filterbar.styles.css";
 
-export default function Filterbar() {
-  const { id } = useParams();
+export default function Filterbar(props) {
+  const { project } = useParams(); 
   const [checked, setChecked] = useState([]);
-  const [data, setData] = useState([])
-  
+  const [test, setTest] = useState(true);
+
 
   
-  
-  const [error, setError] = useState(false);
-
   useEffect(() => {
-    fetch(`http://localhost:5000/visuals/GetSaveVisuals`, {
+    fetch(`http://localhost:5000/visuals/GetSaveVisuals/${project}`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -25,16 +23,18 @@ export default function Filterbar() {
       .then((res) => res.json())
       .then((result) => {
         setChecked(result.visuals);
+        props.setStatistics(result.statistics) ;
+        props.setCles(result.visuals)
 
-        
-        
-      });
-
-
-    
-
+      })
       
-  }, []);
+      
+    
+      
+
+  }, [test]);
+  
+  
 
 
 
@@ -45,6 +45,27 @@ export default function Filterbar() {
     if (event.target.checked) {
       updatedList = [...checked, event.target.name];
       setChecked(updatedList);
+      
+      axios
+        .post(
+          "http://localhost:5000/visuals/GetData",
+
+          {
+            projet: project,
+            element: event.target.name
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          props.setStatistics(res.data.result)
+          setTest(!test)
+          
+        })
     } else {
       updatedList.splice(checked.indexOf(event.target.name), 1);
       setChecked(updatedList);
@@ -56,6 +77,7 @@ export default function Filterbar() {
 
         {
           visuals: updatedList,
+          projet: project,
         },
         {
           headers: {
@@ -63,9 +85,13 @@ export default function Filterbar() {
             Authorization: localStorage.getItem("jwt"),
           },
         }
-      )
+      ).then((result)=>{
+          
+      })
       .catch((err) => {
       });
+
+      
 
 
   };
@@ -80,58 +106,58 @@ export default function Filterbar() {
       <form id="formulaire">
         <fieldset>
           
-            <label class="control" >
+            <label className="control" >
               <input className='StyleInput' type="checkbox" name="Suivi des bugs"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des bugs")}  ></input>
-              <span class="control__content">
+              <span className="control__content">
                 Suivi des bugs
               </span>
             </label>
-            <label class="control" >
+            <label className="control" >
               <input className='StyleInput' type="checkbox" name="Gestion des incidents"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Gestion des incidents")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Gestion des incidents
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox" className='StyleInput' name="Analyse de la productivité"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Analyse de la productivité")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Analyse de la productivité
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox" className='StyleInput' name="Suivi des temps planifiés"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des temps planifiés")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Suivi des temps planifiés
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox" className='StyleInput' name="Nombre de demandes par priorité" onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre de demandes par priorité")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Nombre de demandes par priorité
               </span>
             </label>
           
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox" className='StyleInput' name="Nombre total de tickets par type"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre total de tickets par type")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Nombre total de tickets par type
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox"  className='StyleInput' name="Nombre total de tickets par intervenant"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Nombre total de tickets par intervenant")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Nombre total de tickets par intervenant
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox"  className='StyleInput' name="Ticket par priorité et par mois"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Ticket par priorité et par mois")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Ticket par priorité et par mois
               </span>
             </label>
-            <label class="control" name="science">
+            <label className="control" name="science">
               <input type="checkbox" className='StyleInput' name="Ticket par statut et par client"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Ticket par statut et par client")}></input>
-              <span class="control__content">
+              <span className="control__content">
                 Ticket par statut et par client
               </span>
             </label>

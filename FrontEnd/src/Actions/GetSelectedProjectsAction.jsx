@@ -11,6 +11,7 @@ export default async function GetData(props) {
         .then((result) => {
           props.setLoading(false);
           props.setData(result.projects.selected_projects);
+          props.setIcons(result.projects.icons);
           props.setAllProject(result.projects.all_projects)
         });
 }

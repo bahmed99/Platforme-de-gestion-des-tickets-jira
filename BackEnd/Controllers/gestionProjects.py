@@ -18,7 +18,7 @@ def GetProjects():
 @projects_api.route('/SaveProjects', methods=['POST'])
 @require_login
 def SaveProjects():
-    return Saveprojects(g.user["_id"])
+    return Saveprojects(g.user["_id"],g.user["jira_domaine"],g.user["jira_token"],g.user["email"])
 
 @projects_api.route('/GetReponse', methods=['GET'])
 @require_login
@@ -34,7 +34,7 @@ def SelectedProject():
 @projects_api.route('/UpdateProjects', methods=['PUT'])
 @require_login
 def UpdateSelectedProject():
-    return Updateprojects(g.user["_id"])
+    return Updateprojects(g.user["_id"],g.user["jira_domaine"],g.user["jira_token"],g.user["email"])
 
 
   

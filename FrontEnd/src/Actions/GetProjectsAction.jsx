@@ -10,11 +10,11 @@ export default async function GetData(props) {
         .then((res) => res.json())
         .then((result) => {
           for (let i = 0; i < result.length; i++) {
-            props.setProjets((prevProjets) => [...prevProjets, result[i].name]);
+            props.setProjets((prevProjets) => [...prevProjets, result[i].key]);
   
             props.setOptions((prevProjets) => [
               ...prevProjets,
-              { label: result[i].name, value: result[i].name },
+              { label: result[i].key, value: result[i].key},
             ]);
           }
         });
