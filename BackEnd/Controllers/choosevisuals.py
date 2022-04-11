@@ -13,10 +13,10 @@ def SaveVisual():
   return SaveVisuals(g.user["_id"])
 
 
-@visuals_api.route('/GetSaveVisuals', methods=['GET'])
+@visuals_api.route('/GetSaveVisuals/<project>', methods=['GET'])
 @require_login
-def GetSaveVisual():
-  return GetSelectedVisuals(g.user["_id"])
+def GetSaveVisual(project):
+  return GetSelectedVisuals(g.user["_id"],project,g.user['jira_domaine'],g.user['email'],g.user['jira_token'])
 
 @visuals_api.route('/GetData', methods=['POST'])
 @require_login

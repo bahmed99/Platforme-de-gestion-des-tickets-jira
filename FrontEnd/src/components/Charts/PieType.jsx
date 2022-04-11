@@ -1,31 +1,20 @@
 import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
-export default function Pie() {
-  var ultimateColors = [
-    [
-      "green",
-      "rgb(18, 36, 37)",
-      "rgb(34, 53, 101)",
-      "rgb(36, 55, 57)",
-      "rgb(6, 4, 4)",
-    ],
-  ];
+export default function Pie(props) {
   const [state, setState] = useState({
     data: [
       {
-        values: [19, 26, 55],
-        labels: ["Residential", "Non-Residential", "Utility"],
+        values: Object.values(props.statistics),
+        labels: Object.keys(props.statistics),
         type: "pie",
-        marker: {
-          colors: ultimateColors[0],
-        },
+        
       },
     ],
     layout: {
       height: 400,
       width: 400,
-      title: "Pie chart",
+      title: "Nombre total de tickets par type",
     },
   });
 

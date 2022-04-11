@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom";
 import FilterBar from "../components/Filterbar.js";
 import Navbar from "../components/Navbar";
@@ -13,6 +14,16 @@ export default function Project() {
 
   const [style, setStyle] = useState(1)
 
+  const [statistics,setStatistics] = useState({})
+  const [cles, setCles] = useState([])
+
+    //let nameProjects = statistics.keys()   
+    //console.log(statistics[(Object.keys(statistics))[4]]);
+
+    
+
+  
+
   return (
     <div>
       <div>
@@ -22,8 +33,8 @@ export default function Project() {
         </div>
         <div className="main-panel">
           <div className="content-wrapper" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>       
-              <FilterBar />
-              <Dashboard /> 
+              <FilterBar statistics={statistics} setStatistics={setStatistics} cles={cles} setCles={setCles} />
+              <Dashboard statistics={statistics} setStatistics={setStatistics} cles={cles} setCles={setCles} /> 
               
           </div>
           

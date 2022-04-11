@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
-export default function Histogram() {
+export default function Histogram(props) {
   var plot1 = {
-    x: ["Microwave", "Washing Machine", "Tv", "Vacuum Cleaner", "Hair Dryer"],
-    y: [4, 5, 6, 1, 4],
+    x: Object.keys(props.statistics),
+    y: Object.values(props.statistics),
     name: "2016",
 
     type: "bar",
   };
 
-  var plot2 = {
-    x: ["Microwave", "Washing Machine", "Tv", "Vacuum Cleaner", "Hair Dryer"],
-    y: [12, 3, 5, 6, 2],
-    name: "2017",
-    type: "bar",
-  };
 
-  var data = [plot1, plot2];
+  var data = [plot1];
   return (
     <div>
       <Plot
@@ -25,7 +19,7 @@ export default function Histogram() {
         layout={{
           width: 400,
           height: 400,
-          title: "Electronics Prices 2016/2017",
+          title: "Suivi des bugs",
         }}
       />
     </div>
