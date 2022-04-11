@@ -53,13 +53,13 @@ def signup_service():
 def login_service():
     # print(User.list_indexes())
     print(request.json.get('email'))
-    user=User.objects.get(email=request.json.get('email'))
+    user=User.objects(email=request.json.get('email'))
     
     
 
     if not(user):
         return jsonify({ "error": "Invalid email" }), 401  
-
+    user=User.objects.get(email=request.json.get('email'))
     if not(pbkdf2_sha256.verify(request.json.get('password'), user.password)):
         return jsonify({ "error": "Invalid password" }), 401 
 
@@ -71,14 +71,14 @@ def login_service():
 
 
 def forgot_password_service():
-        user=User.objects.get(email=request.json.get('email'))
+        user=User.objects(email=request.json.get('email'))
         print(user.email)
 
 
         if not(user):
             return jsonify({ "error": "Invalid email" }), 401  
 
-
+        user=User.objects.get(email=request.json.get('email'))
         token = Serializer(secret_key, 360000)
         token=token.dumps({'user_email':user.email}).decode('utf-8')
 
@@ -103,7 +103,7 @@ def new_password_service():
         token= request.json.get('token')
         password=request.json.get('password')
 
-        user = User.objects.get(
+        user = User.objects(
         reset_token= token,
         expire_token__gte=datetime.now())
         
@@ -113,6 +113,9 @@ def new_password_service():
         if not(user):
             return jsonify({ "error": "Session expired" }), 401
 
+        user = User.objects.get(
+        reset_token= token,
+        expire_token__gte=datetime.now())
         
         user.update(password=pbkdf2_sha256.encrypt(password) ,reset_token="",expire_token=datetime.now())
 

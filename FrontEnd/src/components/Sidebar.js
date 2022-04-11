@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, Dropdown, Spinner } from "react-bootstrap";
 import { Trans } from "react-i18next";
+import {  useNavigate } from "react-router-dom";
 
 import ModelAddProject from "./Models/ModelAddProject";
 import "../Assets/css/Sidebar.style.css";
@@ -13,6 +14,9 @@ import GetUser from "../Actions/GetUserInformationsAction";
 import ModelChangeInformations from "./Models/ModelChangeInformations";
 
 function Sidebar(props) {
+
+  const Navigate = useNavigate();
+
   const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false);
 
   const [selectInfoData, setSelectInfoData] = useState(null);
@@ -168,7 +172,7 @@ function Sidebar(props) {
             {props.data.map((item, i) => {
               return (
                 <li className="nav-item menu-items" key={i}>
-                  <Link className="nav-link" to={`/project/${item}`}>
+                  <div className="nav-link" onClick={()=>{ Navigate(`/project/${item}`); window.location.reload(); }}>
                     <img
                       src={props.icons[i]}
                       alt=""
@@ -179,7 +183,7 @@ function Sidebar(props) {
                     <span className="menu-title" style={{ marginLeft: "8px" }}>
                       <Trans>{item}</Trans>
                     </span>
-                  </Link>
+                  </div>
                 </li>
               );
             })}

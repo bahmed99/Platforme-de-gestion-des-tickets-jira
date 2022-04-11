@@ -1,17 +1,17 @@
 import Plot from "react-plotly.js";
 
-export default function GroupedChart() {
+export default function GroupedChart(props) {
     const data = [
         {
-          x: [4, 5, 6, 1, 4],
-          y: ["Comedy", "Action", "Romance", "Drama", "Scifi"],
+          x: Object.values(props.statistics),
+          y: Object.keys(props.statistics),
           type: "bar",
           orientation: "h",
         },
       ];
     return (
       <div>
-        <Plot data={data} layout={ {width: 400, height: 400, title: 'Electronics Prices 2016/2017'} } />
+        <Plot data={data} layout={ {width: 400, height: 400, title: 'Ticket par statut et par client'} } />
       </div>
   );
 }

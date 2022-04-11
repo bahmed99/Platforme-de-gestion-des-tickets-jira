@@ -66,13 +66,13 @@ def GetReponse(id_user,jira_domaine):
             return jsonify({"message": False,"file":False,"user":"jira"}), 200
 
 def GetSelectedProjects(id_user):
-        projects = Projects.objects.get(id_user= id_user)
+        projects = Projects.objects(id_user= id_user)
 
 
         if not(projects):
             return jsonify({ "error": "This user don't have any project" }), 401
         
-            
+        projects = Projects.objects.get(id_user= id_user)
         return jsonify({"projects": projects}), 200
 
 def Updateprojects(id_user,jira_domaine,jira_token,email):
