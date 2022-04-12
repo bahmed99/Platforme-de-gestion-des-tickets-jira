@@ -8,5 +8,6 @@ export default function () {
     <div>
       <MainRouter /> 
     </div>
+    //,i,nini
 )
 }
