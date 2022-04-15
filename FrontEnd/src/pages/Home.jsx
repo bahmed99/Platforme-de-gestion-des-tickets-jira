@@ -8,7 +8,7 @@ import "../Assets/styles/Home.scss";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
-import Filterbar from "../components/Filterbar";
+import Notifications from "../components/notifications/Index"
 import SelectProjects from "../components/Models/SelectProjects";
 
 import ModelFileUpload from "../components/Models/ModelFileUpload";
@@ -22,7 +22,7 @@ export default function Home() {
   const [icons, setIcons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingInformations, setLoadingInformations] = useState(true);
-
+  const [style, setStyle] = useState(1)
   const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false);
   const [uploadFile, setUploadFile] = useState(false);
 
@@ -34,18 +34,22 @@ export default function Home() {
     GetData(informations)
 
   }, []);
-console.log(icons)
   return (
-    <div className="container-scroller">
+    <div>
 
       {loadingInformations === false ? (
         <div>
           <Sidebar data={data} setData={setData} loading={loading} icons={icons} setIcons={setIcons}/>
           <div className="container-fluid page-body-wrapper">
-            <Navbar />
+            <Navbar  style={style} setStyle={setStyle} />
           </div>
           <div className="main-panel">
-            <div className="content-wrapper"></div>
+            <div className="content-wrapper" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>
+              <Notifications />
+            </div>
+
+
+            
             {ajoutSeanceModalOpen ? (
               <SelectProjects
                 isOpen={ajoutSeanceModalOpen}

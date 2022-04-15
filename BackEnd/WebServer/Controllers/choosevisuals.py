@@ -23,3 +23,8 @@ def GetSaveVisual(project):
 def GetResult():
   return GetData(g.user["_id"],g.user['jira_domaine'],g.user['email'],g.user['jira_token']) 
 
+@visuals_api.route('/UpdateData', methods=['PUT'])
+@require_login
+def update_visuals():
+  return update_visuals_service(g.user["_id"]) 
+

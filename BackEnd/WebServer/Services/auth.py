@@ -10,7 +10,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import timedelta,datetime
 from flask_mail import Message
 from app import mail
-
+from Models.notifications import Notifications
 def signup_service():
             user = {
                 "name": request.json.get('name'),
@@ -153,6 +153,9 @@ def change_domaine_service(user_email,id_user):
         if(user.jira_domaine!=request.json.get('domaine')):
             project=Projects.objects.get(id_user=id_user)
             project.delete()
+
+            visuals=Visuals.objects(id_user=id_user)
+            visuals.delete()
 
         
         user.update(jira_token=request.json.get('token'),jira_domaine=request.json.get('domaine'))

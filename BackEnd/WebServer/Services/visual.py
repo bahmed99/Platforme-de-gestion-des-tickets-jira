@@ -66,7 +66,15 @@ def GetData(id_user, jira_domaine,email,jira_token):
         result.update(data=data,last_ticket_id=last_ticket)
         return jsonify({"result": result["data"]}), 200
 
+def update_visuals_service(id_user):
+    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
+    if not(result):
+        return jsonify({ "error": "no data" }), 401    
             
-            
-            
+    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
+    data=result["data"]
+    data[request.json.get('element')]=[]
+    result.update(data=data)
+    return jsonify({"result": result["data"]}), 200
+
 
