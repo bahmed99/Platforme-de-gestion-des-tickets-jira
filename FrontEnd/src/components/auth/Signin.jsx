@@ -24,6 +24,7 @@ export default function Signin() {
         backgroundSize: "cover",
         height: "100vh",
         color: "#f5f5f5",
+        justifyContent:"center",
         backgroundAttachment: "fixed",
         backgroundPosition: "center",
       }}
