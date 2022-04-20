@@ -35,15 +35,16 @@ def Saveprojects(id_user,jira_domaine,jira_token,email):
         icons=[]
        
         for i in request.json.get('selected_projects'):
-            l=getIconProject(i,jira_domaine,jira_token,email)
-            
-            icons.append(l["avatarUrls"]["24x24"])
-        projects["icons"]=icons
+            if jira_domaine!="":
+                l=getIconProject(i,jira_domaine,jira_token,email)
+                
+                icons.append(l["avatarUrls"]["24x24"])
+                projects["icons"]=icons
         
-        project=Projects(id_user=projects['id_user'],all_projects=projects['all_projects'],selected_projects=projects['selected_projects'],icons=projects["icons"])
+                project=Projects(id_user=projects['id_user'],all_projects=projects['all_projects'],selected_projects=projects['selected_projects'],icons=projects["icons"])
 
-        if project.save():
-            return jsonify({ "data": icons }), 200
+                if project.save():
+                    return jsonify({ "data": icons }), 200
 
         return jsonify({ "error": "Signup failed" }), 400
 
@@ -75,6 +76,8 @@ def GetSelectedProjects(id_user):
         projects = Projects.objects.get(id_user= id_user)
         return jsonify({"projects": projects}), 200
 
+
+
 def Updateprojects(id_user,jira_domaine,jira_token,email):
     selected_projects=request.json.get('selected_projects')
 
@@ -99,7 +102,7 @@ def Updateprojects(id_user,jira_domaine,jira_token,email):
 
 def GetProject(user_id):
         data =pd.read_csv("./data_files/{}/data.csv".format(user_id))
-        projects=list(set(data['Nom du projet']))
+        projects=list(set(data['Clé de projet']))
        
         project = Projects.objects(id_user= user_id)
 

@@ -50,6 +50,8 @@ def connect_jira(domaine,email,token):
     return jira
 
 def convert_visuals(e,project,jira_domaine,id_user,jira,result):
+
+    last_ticket=""
     if (result == {}):
         result={"Suivi des bugs":[],"Nombre de demandes par priorité":[],"Nombre total de tickets par type":[],"Ticket par priorité et par mois":[],"Ticket par statut et par client":[],"Nombre total de tickets par intervenant":[],"Analyse de la productivité":[]}
 

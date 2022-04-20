@@ -11,3 +11,4 @@
 
 /BackEnd/WebServer/data_files/*
 
+# git reset HEAD^

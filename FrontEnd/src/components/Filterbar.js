@@ -44,6 +44,22 @@ export default function Filterbar(props) {
       setChecked(updatedList);
       props.setLoading(true)
       axios
+      .patch(
+        `http://localhost:5000/visuals/SaveVisuals`,
+
+        {
+          visuals: updatedList,
+          projet: project,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("jwt"),
+          },
+        }
+      ).then((result)=>{
+
+        axios
         .post(
           "http://localhost:5000/visuals/GetData",
 
@@ -65,6 +81,11 @@ export default function Filterbar(props) {
           setTest(!test)
           
         })
+          
+      })
+      .catch((err) => {
+      });
+     
     } else {
       updatedList.splice(checked.indexOf(event.target.name), 1);
   
@@ -90,9 +111,8 @@ export default function Filterbar(props) {
           setTest(!test)
           
         })
-    }
 
-    axios
+        axios
       .patch(
         `http://localhost:5000/visuals/SaveVisuals`,
 
@@ -111,10 +131,7 @@ export default function Filterbar(props) {
       })
       .catch((err) => {
       });
-
-      
-
-
+    }
   };
 
 
