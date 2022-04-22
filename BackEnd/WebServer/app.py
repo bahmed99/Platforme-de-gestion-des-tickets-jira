@@ -38,6 +38,7 @@ from Controllers.choosevisuals import visuals_api
 from Controllers.gestionProjects import projects_api
 
 from Controllers.notifications import notification_api
+from Controllers.prediction import prediction_api
 api = Api(app)
 
 app.register_blueprint(user_api, url_prefix='/user')
@@ -47,6 +48,7 @@ app.register_blueprint(visuals_api,url_prefix='/visuals')
 
 
 app.register_blueprint(notification_api,url_prefix='/notifications')
+app.register_blueprint(prediction_api,url_prefix='/prediction')
 
 from Controllers.upload_file import file_api
 

@@ -8,11 +8,12 @@ import Home from './pages/Home';
 import HomePage from './pages/HomePage';
 import Project from './pages/Project';
 
+import ModalForm from './pages/ModalFrom'
+import NbreParticipant from './pages/NbreParticipants';
 
 export default function MainRouter() {
   const jwt = localStorage.getItem("jwt");
-  const history = useNavigate();
-  const location = useLocation();
+
   // useEffect(() => {
   //   const jwt = localStorage.getItem("jwt");
     
@@ -53,6 +54,7 @@ export default function MainRouter() {
 
       {jwt ?<Route exact path={"/"} element={<Home />} /> :
       <Route exact path={"/"} element={<HomePage />} />}
+      <Route exact path={"/PredictionNbreParticipant"} element={<NbreParticipant />} />
       
       
     </Routes>

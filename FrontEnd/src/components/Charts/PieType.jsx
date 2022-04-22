@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
 export default function Pie(props) {
+  console.log(Object.values(props.statistics));
   const [state, setState] = useState({
     data: [
       {
