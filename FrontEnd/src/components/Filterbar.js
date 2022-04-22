@@ -9,6 +9,7 @@ export default function Filterbar(props) {
   const { project } = useParams(); 
   const [checked, setChecked] = useState([]);
   const [test, setTest] = useState(true);
+ 
 
 
   
@@ -22,16 +23,12 @@ export default function Filterbar(props) {
     })
       .then((res) => res.json())
       .then((result) => {
+        props.setLoading(false)
         setChecked(result.visuals);
         props.setStatistics(result.statistics) ;
         props.setCles(result.visuals)
 
       })
-      
-      
-    
-      
-
   }, [test]);
   
   
@@ -45,7 +42,7 @@ export default function Filterbar(props) {
     if (event.target.checked) {
       updatedList = [...checked, event.target.name];
       setChecked(updatedList);
-      
+      props.setLoading(true)
       axios
         .post(
           "http://localhost:5000/visuals/GetData",
@@ -62,13 +59,37 @@ export default function Filterbar(props) {
           }
         )
         .then((res) => {
+          props.setLoading(false)
+
           props.setStatistics(res.data.result)
           setTest(!test)
           
         })
     } else {
       updatedList.splice(checked.indexOf(event.target.name), 1);
+  
       setChecked(updatedList);
+      axios
+        .put(
+          "http://localhost:5000/visuals/UpdateData",
+
+          {
+            projet: project,
+            element: event.target.name
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: localStorage.getItem("jwt"),
+            },
+          }
+        )
+        .then((res) => {
+          props.setLoading(false)
+          props.setStatistics(res.data.result)
+          setTest(!test)
+          
+        })
     }
 
     axios
@@ -104,7 +125,7 @@ export default function Filterbar(props) {
     <div className='filterbarcontainer'>
       <div className="row">
       <form id="formulaire">
-        <fieldset>
+        <fieldset disabled={props.loading}>
           
             <label className="control" >
               <input className='StyleInput' type="checkbox" name="Suivi des bugs"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des bugs")}  ></input>

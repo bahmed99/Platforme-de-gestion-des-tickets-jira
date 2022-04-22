@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Collapse, Dropdown, Spinner } from "react-bootstrap";
 import { Trans } from "react-i18next";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import ModelAddProject from "./Models/ModelAddProject";
 import "../Assets/css/Sidebar.style.css";
@@ -14,7 +14,6 @@ import GetUser from "../Actions/GetUserInformationsAction";
 import ModelChangeInformations from "./Models/ModelChangeInformations";
 
 function Sidebar(props) {
-
   const Navigate = useNavigate();
 
   const [ajoutSeanceModalOpen, setAjoutSeanceModalOpen] = useState(false);
@@ -35,7 +34,7 @@ function Sidebar(props) {
 
   const informations = {
     setIcons: props.setIcons,
-    icons:props.icons,
+    icons: props.icons,
     setUser: setUser,
     setData: props.setData,
     loading: loading,
@@ -45,6 +44,7 @@ function Sidebar(props) {
   };
 
   function toggleMenuState(menuState) {
+    
     if (state[menuState]) {
       setState({ [menuState]: false });
     } else if (Object.keys(state).length === 0) {
@@ -94,7 +94,6 @@ function Sidebar(props) {
   const addProjects = () => {
     setAjoutSeanceModalOpen(true);
     setDifference(allprojects.filter((x) => !props.data.includes(x)));
-   
   };
 
   return (
@@ -117,7 +116,7 @@ function Sidebar(props) {
                 </h5>
               </div>
             </div>
-            <Dropdown alignRight>
+            <Dropdown alignright="true">
               <Dropdown.Toggle as="a" className="cursor-pointer no-caret">
                 <i className="mdi mdi-dots-vertical"></i>
               </Dropdown.Toggle>
@@ -165,7 +164,7 @@ function Sidebar(props) {
         <li className="nav-item menu-items">
           <div
             className="nav-link"
-            onClick={() => toggleMenuState("formElementsMenuOpen")}
+            onClick={() => toggleMenuState("formElementsMenuOpen1")}
             data-toggle="collapse"
           >
             <span className="menu-icon">
@@ -176,38 +175,53 @@ function Sidebar(props) {
             </span>
             <i className="menu-arrow"></i>
           </div>
-          <Collapse in={state.formElementsMenuOpen}>
-          {loading === false || (props.data.length !== 0 && props.icons.length !==0)? (
-          <div>
-            {props.data.map((item, i) => {
-              return (
-                <li className="nav-item menu-items" key={i}>
-                  <div className="nav-link" onClick={()=>{ Navigate(`/project/${item}`); window.location.reload(); }}>
-                    <img
-                      src={props.icons[i]}
-                      alt=""
-                      width={"25px"}
-                      style={{ borderRadius: "50%", marginLeft: "5px" }}
-                    />
+          <Collapse in={state.formElementsMenuOpen1}>
+            
+              <ul className="nav flex-column sub-menu">
+                {loading === false ||
+                (props.data.length !== 0 && props.icons.length !== 0) ? (
+                  <div>
+                    {props.data.map((item, i) => {
+                      return (
+                        <li className="nav-item menu-items" key={i}>
+                          <div
+                            className="nav-link"
+                            onClick={() => {
+                              Navigate(`/project/${item}`);
+                              window.location.reload();
+                            }}
+                          >
+                            <img
+                              src={props.icons[i]}
+                              alt=""
+                              width={"25px"}
+                              style={{ borderRadius: "50%", marginLeft: "5px" }}
+                            />
 
-                    <span className="menu-title" style={{ marginLeft: "8px" }}>
-                      <Trans>{item}</Trans>
-                    </span>
+                            <span
+                              className="menu-title"
+                              style={{ marginLeft: "8px" }}
+                            >
+                              <Trans>{item}</Trans>
+                            </span>
+                          </div>
+                        </li>
+                      );
+                    })}
                   </div>
-                </li>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="Spinner">
-            <Spinner animation="border" role="status" variant="danger" />
-          </div>
-        )}
+                ) : (
+                  <div className="Spinner">
+                    <Spinner
+                      animation="border"
+                      role="status"
+                      variant="danger"
+                    />
+                  </div>
+                )}
+              </ul>
+           
           </Collapse>
         </li>
-       
-
-        
 
         <li className="nav-item menu-items">
           <div
@@ -228,7 +242,7 @@ function Sidebar(props) {
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item">
                   {" "}
-                  <Link className="nav-link" to="/form-elements/basic-elements">
+                  <Link className="nav-link" to="/PredictionNbreParticipant">
                     <Trans>Nombre de participants</Trans>
                   </Link>
                 </li>
@@ -236,7 +250,6 @@ function Sidebar(props) {
             </div>
           </Collapse>
         </li>
-       
 
         <li className="nav-item menu-items liStyleSidebar">
           <div>

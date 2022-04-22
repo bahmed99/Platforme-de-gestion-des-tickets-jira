@@ -511,33 +511,9 @@
   align-items: flex-start; }
 
 .media-body {
+
+  
   flex: 1; }
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-  
 
 .carousel-caption {
   position: absolute;
@@ -997,7 +973,7 @@ button.bg-darker:focus {
   align-items: flex-end !important; }
 
 .align-items-center {
-  align-items: center !important; }
+  align-items: center  }
 
 .align-items-baseline {
   align-items: baseline !important; }

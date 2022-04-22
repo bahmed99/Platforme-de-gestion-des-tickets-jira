@@ -1,13 +1,13 @@
 
 .filterbarcontainer{
-    margin-top: -18cm;
+    margin-top: -16cm;
     padding-left: 0.1cm;
     margin-left: 4cm;
-    
-  
-    
+
 }
-  
+  .sweet-loading{
+    margin-top: 100px;
+  }
   fieldset {
     border: 0;
   }
