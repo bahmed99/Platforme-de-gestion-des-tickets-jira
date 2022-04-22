@@ -11,6 +11,7 @@ import ScatterTime from "./Charts/ScatterTime";
 import HistogramNbresTickets from "./Charts/HistogramNbresTickets";
 
 export default function Cards(props) {
+
   return (
     <div className="Con-style">
       <div className="Card_One_Style">
@@ -49,14 +50,14 @@ export default function Cards(props) {
         ) : (
           ""
         )}
-        {props.cles.includes("Suivi des temps planifiés")  ? (
+        {props.cles.includes("Suivi des temps planifiés") ? (
           <ScatterTime
             statistics={props.statistics[Object.keys(props.statistics)[6]]}
           />
         ) : (
           ""
         )}
-        {props.cles.includes("Gestion des incidents")  ? (
+        {props.cles.includes("Gestion des incidents") ? (
           <HistogramNbresTickets
             statistics={props.statistics[Object.keys(props.statistics)[1]]}
           />

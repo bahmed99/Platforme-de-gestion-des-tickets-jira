@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBInput } from "mdbreact";
-import { Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { Alert } from 'react-bootstrap';
+import React, { useState} from "react";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { Button} from '@mui/material';
+
 import axios from "axios";
-import logo16 from '../../Assets/images/1.png'
+
 import swal from 'sweetalert2'
 import ReactLoading from "react-loading";
 import "../../Assets/css/InscriptionFormulaire.css";
@@ -48,21 +48,13 @@ function FormulaireModele() {
           
         });
   }
-
-
-  
-
   return (
     <div className="Inscr_form">
       <h3 className="text-center inscri-title" >Prediction Number of participant</h3> 
       <MDBContainer >
         <MDBRow >
           <MDBCol md="12">
-            <form >
-               
-              
-              
-
+            <form>
               <p>issue Type</p>
               <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={issue} onChange={(event)=>setIssue(event.target.value)}>
                 <option selected>Open this select menu</option>
