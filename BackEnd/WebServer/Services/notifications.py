@@ -17,7 +17,8 @@ def get_notifications_service(id_user,domaine,email,token):
 
             if(notifications):
                 notifications=Notifications.objects.get(id_user=id_user)
-                if((date(notifications["date"].year,notifications["date"].month,notifications["date"].day)- date(datetime.today().year,datetime.today().month,datetime.today().day)).days>=1 ):
+
+                if( (date(datetime.today().year,datetime.today().month,datetime.today().day) -date(notifications["date"].year,notifications["date"].month,notifications["date"].day)).days>=1 ):
                     data=get_projects_informations(jira,project["selected_projects"])
                     notifications.update(date=datetime.today(),notification=data) 
                     return jsonify({ "data": data }), 200   

@@ -3,7 +3,7 @@ import Plot from "react-plotly.js";
 
 export default function Histogram(props) {
   var plot1 = {
-    x: Object.keys(props.statistics),
+    x: ['Jan','Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     y: Object.values(props.statistics),
     name: "2016",
 

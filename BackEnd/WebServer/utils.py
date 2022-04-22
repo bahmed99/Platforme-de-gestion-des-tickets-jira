@@ -267,10 +267,7 @@ def get_bugs_by_month_jira(project,jira):
 
         for issue in issues:
             if(issue.fields.issuetype.name == 'Bug'):  
-                bugs.append(issue)
-                
-        for bug in bugs:
-                date=bug.fields.created.split("-")[1]
+                date=issue.fields.created.split("-")[1]
                 result[month[int(date)]]+=1
     l = list(result.items())
 
