@@ -1,0 +1,38 @@
+@import 'root.css';
+.Inscr_form{
+  padding-top: 20vh;
+  margin-bottom: 10vh;
+
+}
+.inscri-title{
+    color: var(--blue-marine);
+    font-family: Gilroy;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: -120px !important;
+    padding-bottom: 30px;
+  
+}
+.logo-img{
+  width: 50%;
+  height: auto;
+  justify-content: center;
+  object-fit: contain;
+  padding-left: 5%;
+}
+@media screen and (max-width: 768px) {
+  .logo-img{
+    display:none
+  }
+  
+}
+@media screen and (min-width: 992px) {
+  .logo-img{
+    width: 40%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .logo-img{
+    width: 35%;
+  }
+}

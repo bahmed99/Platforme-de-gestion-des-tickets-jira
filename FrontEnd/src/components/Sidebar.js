@@ -242,7 +242,7 @@ function Sidebar(props) {
               <ul className="nav flex-column sub-menu">
                 <li className="nav-item">
                   {" "}
-                  <Link className="nav-link" to="/form-elements/basic-elements">
+                  <Link className="nav-link" to="/PredictionNbreParticipant">
                     <Trans>Nombre de participants</Trans>
                   </Link>
                 </li>

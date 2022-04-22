@@ -15,7 +15,8 @@ from requests.auth import HTTPBasicAuth
 import json
 from catboost import CatBoostClassifier
 import pickle
-from datetime import date,datetime
+from datetime import date,datetime,timedelta
+import calendar 
 
 def require_login(func):
     @wraps(func)
@@ -53,7 +54,7 @@ def convert_visuals(e,project,jira_domaine,id_user,jira,result):
 
     last_ticket=""
     if (result == {}):
-        result={"Suivi des bugs":[],"Nombre de demandes par priorité":[],"Nombre total de tickets par type":[],"Ticket par priorité et par mois":[],"Ticket par statut et par client":[],"Nombre total de tickets par intervenant":[],"Analyse de la productivité":[]}
+        result={"Suivi des bugs":[],"Nombre de demandes par priorité":[],"Nombre total de tickets par type":[],"Ticket par priorité et par mois":[],"Ticket par statut et par client":[],"Nombre total de tickets par intervenant":[],"Analyse de la productivité":[],"Suivi des temps planifiés":[]}
 
     
     if(jira_domaine == ""):
@@ -90,6 +91,10 @@ def convert_visuals(e,project,jira_domaine,id_user,jira,result):
             result["Nombre total de tickets par intervenant"],last_ticket=(get_issues_by_creator_jira(project,jira))
         elif e == "Analyse de la productivité":
             result["Analyse de la productivité"],last_ticket=productivity_jira(project,jira)
+        elif e == "Suivi des temps planifiés":
+            result["Suivi des temps planifiés"],last_ticket=final_output_prediction_time_jira(project,jira)
+        elif e == "Gestion des incidents":
+            result["Gestion des incidents"],last_ticket=prediction_nombre_ticket(project,jira)
     return result,last_ticket
 
 def get_issues_by_priority_month_jira(project,jira):
@@ -605,12 +610,12 @@ def get_issues_by_priority_file(project,id_user):
 
 
 def get_projects_informations(jira,projects):
-    file = open('../IA/models/encoderTypeTicket', 'rb')
-    file_version = open('../IA/models/encoderTypeVersion', 'rb')
+    file = open('../IA/encoderTypeTicket', 'rb')
+    file_version = open('../IA/encoderTypeVersion', 'rb')
     model_cb = CatBoostClassifier(task_type='GPU', iterations=100, 
                               random_state = 2021, 
                               eval_metric="Accuracy",boost_from_average=False)
-    model_participant=model_cb.load_model("../IA/models/participant")
+    model_participant=model_cb.load_model("../IA/participant")
     loaded_model = pickle.load(file)
     loaded_model_version = pickle.load(file_version)
     notifications=[]
@@ -740,3 +745,254 @@ def get_projects_informations(jira,projects):
     file_version.close()                
     file.close()
     return notifications
+
+
+
+# debut prediction time 
+def prediction_time(project,jira):
+    data=[]
+    time=[]
+    #data=[{}]
+    last_ticket=""
+    persons=[]
+    arret=False
+    i=0
+    test=False
+    size = 100
+    initial = 0
+    while True:
+        start= initial*size
+        issues = jira.search_issues('project={}'.format(project), start,size)
+        if len(issues) == 0:
+            break
+        initial += 1
+
+        if(not test):
+            last_ticket=issues[0].key.split("-")[1]
+            test=True
+        
+        for issue in issues:
+            if (issue.fields.resolutiondate is not None): 
+                d1=datetime.strptime((issue.fields.resolutiondate.split('.'))[0],'%Y-%m-%dT%H:%M:%S')
+                if (d1>datetime.today()-timedelta(50)):
+                    dict={"Type de ticket":0,"Priority":0,"Nombre de participant":0,"Annee":0,"Jour":0,"Mois":0,"Nombre de Composants":0,"Nombre de Versions corrigées":0,"Type de Version":"Patch"}
+                    dict["Type de ticket"]=issue.fields.issuetype.name 
+                    dict["Priority"]=issue.fields.priority.name 
+                    dict["Nombre de participant"]=len(issue.fields.customfield_10050)
+                    dict["Annee"]=d1.year 
+                    dict["Mois"]=d1.month
+                    dict["Jour"]=d1.day 
+                    dict["Nombre de Composants"]=len(issue.fields.components)
+                    dict["Nombre de Versions corrigées"]=len(issue.fields.components)
+                    if (len(issue.fields.fixVersions) != 0):
+                        if (len((issue.fields.fixVersions)[0].name.split(".")) ==3):
+                            if (((issue.fields.fixVersions)[0].name.split("."))[0] != 0 ):
+                                dict["Type de Version"]='Majeur' 
+                            elif (((issue.fields.fixVersions)[0].name.split("."))[0] == 0 and ((issues[0].fields.fixVersions)[1].name.split("."))[0] != 0):
+                                dict["Type de Version"]='Mineur'
+                            else :
+                                dict["Type de Version"]='Patch'
+                    data.append(dict)
+                    d2=datetime.strptime((issue.fields.created.split('.'))[0],'%Y-%m-%dT%H:%M:%S')
+                    time.append(((d1-d2).seconds/3600 + (d1-d2).days*24))
+                else: 
+                    arret=True
+                    break   
+        if (arret == True):
+            break
+    return data,time,last_ticket
+
+def preparation_data(project,jira):
+    hh=prediction_time(project,jira)
+    for i in hh[0]:
+        if(i['Type de ticket']=="Bug"):
+            i['Type de ticket']="Bug"
+        elif(i['Type de ticket']=="Task"):
+            i['Type de ticket']="Tâche"
+
+        elif(i['Type de ticket']=="Improvement"):
+            i['Type de ticket']="Amélioration"
+            
+        elif(i['Type de ticket']=="Sub-task"):
+            i['Type de ticket']="Sous-tâche"
+
+        elif(i['Type de ticket']=="New Feature"):
+            i['Type de ticket']="Nouvelle fonctionnalité"
+        
+        elif(i['Type de ticket']=="Deprecation"):
+            i['Type de ticket']="Deprecation"
+        elif(i['Type de ticket']=="Epic"):
+            i['Type de ticket']="Epic"
+        elif(i['Type de ticket']=="Remove Feature"):
+            i['Type de ticket']="Remove Feature"
+        elif(i['Type de ticket']=="Patch"):
+            i['Type de ticket']="Patch"  
+
+        elif(i['Type de ticket']=="Technical task"):
+            i['Type de ticket']="Technical task"
+        elif(i['Type de ticket']=="Story"):
+            i['Type de ticket']="Story" 
+
+
+    for i in hh[0]:
+        if (i['Priority']=="Trivial"):
+            i['Priority']=1
+        elif (i['Priority']=="Minor"):
+            i['Priority']=2
+        elif (i['Priority']=="Major"):
+            i['Priority']=3
+        elif (i['Priority']=="Critical"):
+            i['Priority']=4
+        elif (i['Priority']=="Blocker"):
+            i['Priority']=5
+    
+    file = open('../IA/encoderTypeTicket', 'rb')
+    Type_ticket = pickle.load(file)
+    file.close()
+    for i in hh[0]:
+        i['Type de ticket']=(Type_ticket.transform([i['Type de ticket']]))[0]   
+    
+    file1 = open('../IA/encoderTypeVersion', 'rb')
+
+    Type_Version = pickle.load(file1)
+    file1.close()
+    for i in hh[0]:
+        i['Type de Version']=(Type_Version.transform([i['Type de Version']]))[0]
+    
+    filehandler2 = open('../IA/time', 'rb')
+
+    loaded_model = pickle.load(filehandler2)
+    filehandler2.close()
+    for i in hh[0] :
+        preds=loaded_model.predict([list(i.values())])
+        i["prediction"]=preds[0]
+    return hh
+
+
+
+
+
+def findDay(date): 
+    born = datetime.strptime(date, '%d %m %Y').weekday() 
+    return (calendar.day_name[born]) 
+def final_output_prediction_time_jira(project,jira):
+    hh=preparation_data(project,jira)
+    L=[]
+    for i in range(len(hh[0])-1):
+        dict={"Jour":"Lundi", "Prediction":0 ,"real":0}
+        t =findDay(str(hh[0][i]["Jour"])+' '+str(hh[0][i]["Mois"])+' '+str(hh[0][i]["Annee"]))
+        dict["Jour"]= t
+        dict["Prediction"] =hh[0][i]['prediction']
+        dict['real']=hh[1][i]
+        L.append(dict)
+    
+    final={"Monday":[0,0,0], "Tuesday":[0,0,0], "Wednesday":[0,0,0], "Thursday":[0,0,0],"Friday":[0,0,0], "Saturday":[0,0,0], "Sunday":[0,0,0]}
+    for i in L:
+        if i['Jour']=="Monday":
+            final["Monday"][0] = final["Monday"][0]+i['Prediction']
+            final["Monday"][1] = final["Monday"][1]+i["real"]
+            final["Monday"][2] +=1 
+        if i['Jour']=="Tuesday":
+            final["Tuesday"][0] += i['Prediction']
+            final["Tuesday"][1] += i["real"]
+            final["Tuesday"][2] +=1 
+        if i['Jour']=="Wednesday":
+            final["Wednesday"][0] += i['Prediction']
+            final["Wednesday"][1] += i["real"]
+            final["Wednesday"][2] +=1 
+        if i['Jour']=="Thursday":
+            final["Thursday"][0] += i['Prediction']
+            final["Thursday"][1] += i["real"]
+            final["Thursday"][2] +=1 
+        if i['Jour']=="Friday":
+            final["Friday"][0] += i['Prediction']
+            final["Friday"][1] += i["real"]
+            final["Friday"][2] +=1 
+        if i['Jour']=="Saturday":
+            final["Saturday"][0] += i['Prediction']
+            final["Saturday"][1] += i["real"]
+            final["Saturday"][2] +=1 
+        if i['Jour']=="Sunday":
+            final["Sunday"][0] += i['Prediction']
+            final["Sunday"][1] += i["real"]
+            final["Sunday"][2] +=1 
+
+    for i in final.keys():
+        if (final[i][2] != 0):
+            final[i][0]=final[i][0]/final[i][2]
+            final[i][1]=final[i][1]/final[i][2]
+
+    return final,hh[2]
+# fin prediction time 
+
+
+def prediction_nombre_ticket(project,jira):
+    issues = jira.search_issues('project={}'.format(project), 0,1)
+    last_ticket=issues[0].key.split("-")[1]
+    liste=["Jan","Feb","March","Apr","Mai","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+    dict={}
+    today = date.today()
+    k = today.month 
+    while (k != 13):
+        dict[liste[k-1]]=0
+        k+=1 
+    dict
+    filehandler2 = open('../IA/ticketParMois', 'rb')
+
+    loaded_model = pickle.load(filehandler2)
+    filehandler2.close()
+    # preds=loaded_model.predict([[0,today.year,today.month,today.day]])
+    for j in range(len(dict.keys())):
+        s =0
+        for i in range(31):
+            if((datetime(year=today.year, month=today.month+j, day=1)+timedelta(i)).month == today.month+j):
+                s=s+abs((loaded_model.predict([[0,today.year,today.month,i]]))[0])
+                s=s+(loaded_model.predict([[1,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[2,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[3,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[4,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[5,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[6,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[7,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[8,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[9,today.year,today.month,i]]))[0]
+                s=s+(loaded_model.predict([[10,today.year,today.month,i]]))[0]
+        dict[list(dict.keys())[j]]=int(s)
+    return dict,last_ticket
+
+def Prediction_Number_Participants(issue_type,priority,number_components,number_versions,version_type,jour,annee,mois):
+    filehandler2 = open('../IA/participant', 'rb')
+
+    loaded_model = pickle.load(filehandler2)
+    filehandler2.close()
+
+    file = open('../IA/encoderTypeTicket', 'rb')
+    Type_ticket = pickle.load(file)
+    file.close()
+
+    issue_type_enc=(Type_ticket.transform([issue_type]))[0]
+
+    file = open('../IA/encoderTypeVersion', 'rb')
+    Type_version = pickle.load(file)
+    file.close()
+
+    version_type_enc=(Type_version.transform([version_type]))[0]
+
+    return (loaded_model.predict([[issue_type_enc,int(priority),annee,jour,mois,int(number_components),int(number_versions),version_type_enc]]))[0]
+
+
+def Prediction_Number_Participants(issue_type,priority,annee,jour,mois,number_components,number_versions,version_type):
+    model_cb = CatBoostClassifier(task_type='GPU', iterations=100, random_state = 2021, eval_metric="Accuracy",boost_from_average=False)
+    model_participant=model_cb.load_model("../IA/participant")
+    
+    file = open('../IA/encoderTypeTicket', 'rb')
+    Type_ticket = pickle.load(file)
+
+    issue_type_enc=(Type_ticket.transform([issue_type]))[0]
+
+    file = open('../IA/encoderTypeVersion', 'rb')
+    Type_version = pickle.load(file)
+
+    version_type_enc=(Type_version.transform([version_type]))[0]
+
+    return (model_participant.predict([[issue_type_enc,int(priority),int(annee),int(jour),int(mois),int(number_components),int(number_versions),version_type_enc]]))[0][0]

@@ -1,0 +1,38 @@
+.inscriptionpage {
+
+    background-color: white;
+    margin-top: 100px;
+  }
+  
+  .contact-content-wrap {
+    box-shadow: 0 10px 60px 0 rgba(71, 74, 182, 0.12);
+    
+  }
+  
+  .contact-form-area {
+    padding: 45px 0 45px 30px;
+  }
+  .contact-information {
+    background-color: #1f212d;
+    height: 100%;
+    color: white;
+    padding: 45px 30px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .contact-method h3 {
+    font-weight: 600;
+    color: #2ea3dd !important;
+  }
+  
+  .contact-method .contact-form-area {
+    padding: 45px 0 45px 30px;
+  }
+  
+  
+  
+  
+  .buttonIns{
+    margin-top: 30px;
+  }
