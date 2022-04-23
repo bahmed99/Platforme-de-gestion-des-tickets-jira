@@ -105,7 +105,7 @@ function Sidebar(props) {
               <div className="count-indicator">
                 <img
                   className="img-xs rounded-circle "
-                  src={require("../Assets/images/faces/face15.jpg")}
+                  src={require("../Assets/images/face.png")}
                   alt="profile"
                 />
                 <span className="count bg-success"></span>
@@ -168,7 +168,7 @@ function Sidebar(props) {
             data-toggle="collapse"
           >
             <span className="menu-icon">
-              <i className="mdi mdi-playlist-play"></i>
+            <i class="mdi mdi-archive"></i>
             </span>
             <span className="menu-title">
               <Trans>Projects</Trans>
@@ -230,10 +230,10 @@ function Sidebar(props) {
             data-toggle="collapse"
           >
             <span className="menu-icon">
-              <i className="mdi mdi-playlist-play"></i>
+              <i className="fa fa-flask"></i>
             </span>
             <span className="menu-title">
-              <Trans>Prédictions</Trans>
+              <Trans>Predictions</Trans>
             </span>
             <i className="menu-arrow"></i>
           </div>
@@ -243,7 +243,7 @@ function Sidebar(props) {
                 <li className="nav-item">
                   {" "}
                   <Link className="nav-link" to="/PredictionNbreParticipant">
-                    <Trans>Nombre de participants</Trans>
+                    <Trans>Number of participants</Trans>
                   </Link>
                 </li>
               </ul>

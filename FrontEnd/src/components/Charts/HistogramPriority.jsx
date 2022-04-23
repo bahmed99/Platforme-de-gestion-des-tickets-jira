@@ -9,7 +9,7 @@ export default function HistogramPriority(props) {
         layout={{
           width: 812,
           height: 400,
-          title: "Ticket par priorité et par mois",
+          title: "Ticket by priority and by month",
         }}
       />
     </div>

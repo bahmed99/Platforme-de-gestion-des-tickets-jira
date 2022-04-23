@@ -40,11 +40,13 @@ export default function Home() {
       {loadingInformations === false ? (
         <div>
           <Sidebar data={data} setData={setData} loading={loading} icons={icons} setIcons={setIcons}/>
-          <div className="container-fluid page-body-wrapper">
+          <div >
+
+            
             <Navbar  style={style} setStyle={setStyle} />
           </div>
           <div className="main-panel">
-            <div className="content-wrapper" style={style === 1 ?{paddingLeft:"250px"}:{paddingLeft:"70px"}}>
+            <div className="content-wrapper" style={style === 1 ?{paddingLeft:"270px"}:{paddingLeft:"100px"}}>
               <Notifications />
             </div>
 

@@ -15,7 +15,7 @@ export default function Pie(props) {
     layout: {
       height: 400,
       width: 400,
-      title: "Nombre total de tickets par type",
+      title: "Total number of tickets by type",
     },
   });
 

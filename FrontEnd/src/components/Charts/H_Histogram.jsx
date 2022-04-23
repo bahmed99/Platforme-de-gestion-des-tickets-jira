@@ -11,7 +11,7 @@ export default function GroupedChart(props) {
       ];
     return (
       <div>
-        <Plot data={data} layout={ {width: 400, height: 400, title: 'Ticket par statut et par client'} } />
+        <Plot data={data} layout={ {width: 400, height: 400, title: 'Ticket by status'} } />
       </div>
   );
 }

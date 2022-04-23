@@ -45,9 +45,9 @@ export default function Index() {
   }
 
   return (
-    <div className="NotificationsContainer">
+    <div className="">
       {!loading ? (
-        <>
+        <div className="">
           <div className="nav1">
             <ul>
               <li className="user-post active">Notifications</li>
@@ -78,7 +78,7 @@ export default function Index() {
                                     style={
                                       e.priority === "low"
                                         ? {
-                                            color: "grey",
+                                            color: "#D1D100",
                                             fontSize: "20px",
                                             marginRight: "15px",
                                           }
@@ -148,7 +148,7 @@ export default function Index() {
               </nav>
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <div className="sweet-loading">
           <CircleLoader

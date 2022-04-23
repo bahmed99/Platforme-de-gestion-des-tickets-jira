@@ -72,7 +72,7 @@ def login_service():
 
 def forgot_password_service():
         user=User.objects(email=request.json.get('email'))
-        print(user.email)
+        
 
 
         if not(user):

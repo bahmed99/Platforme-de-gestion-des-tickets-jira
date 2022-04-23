@@ -94,7 +94,7 @@ export default function Navbar(props) {
                             className="fa fa-exclamation-triangle"
                             style={
                               element.priority === "low"
-                                ? { color: "grey" }
+                                ? { color: "#D1D100" }
                                 : element.priority === "medium"
                                 ? { color: "orange" }
                                 : { color: "red" }
@@ -130,7 +130,7 @@ export default function Navbar(props) {
               <div className="navbar-profile">
                 <img
                   className="img-xs rounded-circle"
-                  src={require("../Assets/images/faces/face15.jpg")}
+                  src={require("../Assets/images/face.png")}
                   alt="profile"
                 />
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">

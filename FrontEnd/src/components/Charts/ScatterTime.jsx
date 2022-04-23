@@ -21,14 +21,14 @@ export default function ScatterTime(props) {
             x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
             y: [props.statistics.Monday[0], props.statistics.Tuesday[0],props.statistics.Wednesday[0],props.statistics.Thursday[0],props.statistics.Friday[0],props.statistics.Saturday[0],props.statistics.Sunday[0]],
             mode: 'lines+markers',
-            name: 'Prédiction'
+            name: 'Prediction'
           };
           
         var trace2 = {
             x: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
             y: [props.statistics.Monday[1], props.statistics.Tuesday[1],props.statistics.Wednesday[1],props.statistics.Thursday[1],props.statistics.Friday[1],props.statistics.Saturday[1],props.statistics.Sunday[1]],
         mode: 'lines+markers',
-        name: 'reelle'
+        name: 'Real'
         };
     }
     else
@@ -37,14 +37,14 @@ export default function ScatterTime(props) {
             x: [],
             y: [],
             mode: 'lines+markers',
-            name: 'Prédiction'
+            name: 'Prediction'
           };
           
         var trace2 = {
         x: [],
         y: [],
         mode: 'lines+markers',
-        name: 'reelle'
+        name: 'Real'
         };
     }
     
@@ -59,7 +59,7 @@ export default function ScatterTime(props) {
         layout={{
           width: 400,
           height: 400,
-          title: "Suivi des temps pmanifiés",
+          title: "Scheduled time tracking",
         }}
       />
     </div>

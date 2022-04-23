@@ -14,7 +14,7 @@ export default function Pie(props) {
     layout: {
       height: 400,
       width: 400,
-      title: "Nombre de demandes par priorité",
+      title: "Number of requests by priority",
     },
   });
 
