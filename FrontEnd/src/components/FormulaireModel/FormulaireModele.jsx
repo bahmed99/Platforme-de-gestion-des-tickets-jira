@@ -19,6 +19,7 @@ function FormulaireModele() {
   
   function Prediction(e)
   {
+    setLoading(true)
     e.preventDefault() ;
     axios
         .post("http://localhost:5000/prediction/prediction",
@@ -36,6 +37,7 @@ function FormulaireModele() {
           },
         })
         .then((result) => {
+          setLoading(false)
           console.log(result.data.pred);
             swal.fire({
               text: `You must provide ${result.data.pred} participant(s)`,
@@ -45,7 +47,8 @@ function FormulaireModele() {
             })
         })
         .catch((err) => {
-          
+          setLoading(false)
+
         });
   }
   return (
@@ -55,7 +58,7 @@ function FormulaireModele() {
         <MDBRow >
           <MDBCol md="12">
             <form  onSubmit  ={(e)=>Prediction(e)}>
-              <p>issue Type</p>
+              <p>Issue Type</p>
               <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={issue} onChange={(event)=>setIssue(event.target.value)}>
                 <option selected value="">Open this select menu</option>
                 <option value="Bug">Bug</option>

@@ -7,7 +7,7 @@ const ContactInfo = ({address}) => {
         <Fragment>
             <div className="widget-item m-0">
              
-                <Link to="/"><img src={require('../../Assets/images/1.png')} width="100%" /></Link>
+                <Link to="/"><img src={require('../../Assets/images/1.png')} width="100%" alt=""/></Link>
             </div>
         </Fragment>
     );
