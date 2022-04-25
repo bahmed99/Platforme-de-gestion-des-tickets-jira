@@ -6,7 +6,10 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "../Assets/styles/Home.scss";
 import Dashboard from "../components/Dashboard";
+import { useParams } from "react-router-dom";
 export default function Project() {
+
+  const {project} =useParams()
   const [data, setData] = useState([]);
   const [icons, setIcons] = useState([]);
 
@@ -40,7 +43,7 @@ export default function Project() {
             }
           >
             <div>
-            <h1 style={{ color: "black", fontSize: "45px", alignItems: "center" , marginTop:"70px",marginBottom:"-70px",marginLeft:"500px"}}> HVAL Project</h1>
+            <h1 style={{ color: "black", fontSize: "45px", alignItems: "center" , marginTop:"70px",marginBottom:"-70px",marginLeft:"500px"}}> {project} Project</h1>
             </div>
             <FilterBar
               statistics={statistics}

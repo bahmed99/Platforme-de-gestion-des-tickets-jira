@@ -103,36 +103,18 @@ def getCardData(id_user,jira_domaine,jira_token,email):
 
     if not(result):
         card=get_bugs(request.json.get('projet'),jira)
+        n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
 
         data["bugs"]=card
+        data["n_closed"]= n_closed
         visual = Visuals(id_user=id_user, visuals=visuals["visuals"],data=visuals["data"],card_data=data,last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
         visual.save()
         return jsonify({"card_data":visual["card_data"]}), 200
+
     result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
     card=get_bugs(request.json.get('projet'),jira)
+    n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
     data["bugs"]=card
+    data["n_closed"]= n_closed
     result.update(card_data=data)
-    return jsonify({"card_data":result["card_data"]}), 200
-
-
-    jira=""
-    visuals = {
-            "id_user": id_user,  # id user mich unique
-            "visuals": [],
-            "projet": request.json.get('projet'),
-            "data": {},
-            "card_data":{},
-            "last_ticket_id": "0"
-        }
-    if(jira_domaine!=""):
-        jira=connect_jira(jira_domaine,email,jira_token)
-    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
-    if not(result):
-        card=get_bugs(request.json.get('projet'),jira)
-        visual = Visuals(id_user=id_user, visuals=visuals["visuals"],data=visuals["data"],card_data=card,last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
-        visual.save()
-        return jsonify({"card_data":visual["card_data"]}), 200
-    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
-    card=get_bugs(request.json.get('projet'),jira)
-    result.update(card_data=card)
     return jsonify({"card_data":result["card_data"]}), 200

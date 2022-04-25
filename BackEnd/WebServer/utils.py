@@ -1016,11 +1016,12 @@ def Prediction_Number_Participants(issue_type,priority,annee,jour,mois,number_co
 
 def get_tickets_no_closed(jira,project):
     data=dict()
+    data["nb"]=0
     test=False
-    status=[]
     size = 100
     initial = 0
     i=0
+    now=datetime.today()
     while True:
         start= initial*size
         issues = jira.search_issues('project={}'.format(project),  start,size)
@@ -1032,7 +1033,10 @@ def get_tickets_no_closed(jira,project):
             test=True
         
         for issue in issues:
-            print(issue)
-        
-
+            a=int(issue.fields.created.split("-")[0])
+            m=int(issue.fields.created.split("-")[1])
+            j=int(issue.fields.created.split("-")[2][:2])
+            d=date(a,m,j)
+            if(((date(now.year,now.month,now.day)-d).days<=7 ) and issue.fields.status.name=="Open" ):
+                 data["nb"]+=1
     return data 

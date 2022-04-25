@@ -8,7 +8,7 @@ import { Card, CardBody, CardTitle, Row, Col } from "reactstrap";
 
 const Header = () => {
   const { project } = useParams(); 
-  const [cards,setCards]=useState({"bugs":{}});
+  const [cards,setCards]=useState({"bugs":{},"n_closed":{}});
   useEffect(() => {
   axios
         .post(
@@ -143,20 +143,20 @@ const Header = () => {
         <Row>
           <div className="col">
             <CardTitle tag="h5" className="text-uppercase text-muted mb-0">
-              Free employees
+              Ticket not closed 1 week ago 
             </CardTitle>
-            <span className="h2 font-weight-bold mb-0">4</span>
+            <span className="h2 font-weight-bold mb-0">{cards["n_closed"].nb}</span>
           </div>
           <Col className="col-auto">
-            <div className="iconDashboard icon-shape bg-info text-white rounded-circle shadow">
-              <i className="fa fa-users" />
+            <div className="iconDashboard icon-shape bg-danger text-white rounded-circle shadow text-danger">
+              <i className="fa fa-exclamation-triangle" />
             </div>
           </Col>
         </Row>
         <p className="mt-3 mb-0 text-muted text-sm">
-          <span className="text-nowrap">Total Employees : {" "}</span>
+          <span className="text-nowrap">Total tickets : {cards["n_closed"].nb}</span>
           <span className="text-danger mr-2">
-           23 
+           
           </span>
         </p>
       </CardBody>
