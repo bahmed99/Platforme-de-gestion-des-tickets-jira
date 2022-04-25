@@ -79,6 +79,7 @@ export default function Filterbar(props) {
           props.setLoading(false)
 
           props.setStatistics(res.data.result)
+          
           setTest(!test)
           
         })

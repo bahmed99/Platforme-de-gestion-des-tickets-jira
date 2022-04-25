@@ -130,7 +130,7 @@ export default function Navbar(props) {
               <div className="navbar-profile">
                 <img
                   className="img-xs rounded-circle"
-                  src={require("../Assets/images/face.png")}
+                  src={require("../Assets/images/face2.png")}
                   alt="profile"
                 />
                 <p className="mb-0 d-none d-sm-block navbar-profile-name">

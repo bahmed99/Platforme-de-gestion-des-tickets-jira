@@ -28,3 +28,8 @@ def GetResult():
 def update_visuals():
   return update_visuals_service(g.user["_id"]) 
 
+@visuals_api.route('/GetCardData', methods=['POST'])
+@require_login
+def GetCards():
+  return getCardData(g.user["_id"],g.user['jira_domaine'],g.user['jira_token'],g.user['email']) 
+

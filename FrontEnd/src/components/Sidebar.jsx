@@ -105,7 +105,7 @@ function Sidebar(props) {
               <div className="count-indicator">
                 <img
                   className="img-xs rounded-circle "
-                  src={require("../Assets/images/face.png")}
+                  src={require("../Assets/images/face2.png")}
                   alt="profile"
                 />
                 <span className="count bg-success"></span>

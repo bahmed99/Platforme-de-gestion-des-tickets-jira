@@ -82,7 +82,7 @@ export default function ModelResetPassword(props) {
               <div className="text-center">
                 <Button
                   className="my-4"
-                  color="primary"
+                  style={{backgroundColor:"#d81e05"}}
                   type="button"
                   onClick={() => ChangePassword(informations)}
                 >

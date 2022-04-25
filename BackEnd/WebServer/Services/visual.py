@@ -13,12 +13,13 @@ def SaveVisuals(id_user):
             "visuals": request.json.get('visuals'),
             "projet": request.json.get('projet'),
             "data": {},
-            "last_ticket_id": ""
+            "card_data":{},
+            "last_ticket_id": "0"
         }
         print(visuals)
         # id_visual, data, visual:suivi bug
         visual = Visuals(
-            id_user=id_user, visuals=visuals["visuals"], projet=visuals["projet"])
+            id_user=id_user, visuals=visuals["visuals"],last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
 
         check_visual = Visuals.objects(id_user=id_user,projet=visuals["projet"])
 
@@ -66,19 +67,13 @@ def GetData(id_user, jira_domaine,email,jira_token):
     jira=""
     if(jira_domaine!=""):
         jira=connect_jira(jira_domaine,email,jira_token)
-
-
-    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
-
+    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
     if not(result):
-        return jsonify({ "error": "Session expired" }), 401
-
-       
-
+        return jsonify({ "error": "Session expired" }), 401 
+    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
     data,last_ticket=convert_visuals(request.json.get('element'),result['projet'],jira_domaine,id_user,jira,result["data"])
-  
     result.update(data=data,last_ticket_id=last_ticket)
-    return jsonify({"result": result["data"]}), 200
+    return jsonify({"result": result["data"],"card_data":result["card_data"]}), 200
 
 def update_visuals_service(id_user):
     result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
@@ -91,4 +86,26 @@ def update_visuals_service(id_user):
     result.update(data=data)
     return jsonify({"result": result["data"]}), 200
 
+def getCardData(id_user,jira_domaine,jira_token,email):
+    jira=""
+    visuals = {
+            "id_user": id_user,  # id user mich unique
+            "visuals": [],
+            "projet": request.json.get('projet'),
+            "data": {},
+            "card_data":{},
+            "last_ticket_id": "0"
+        }
+    if(jira_domaine!=""):
+        jira=connect_jira(jira_domaine,email,jira_token)
+    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
+    if not(result):
+        card=get_bugs(request.json.get('projet'),jira)
+        visual = Visuals(id_user=id_user, visuals=visuals["visuals"],data=visuals["data"],card_data=card,last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
+        visual.save()
+        return jsonify({"card_data":visual["card_data"]}), 200
+    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
+    card=get_bugs(request.json.get('projet'),jira)
+    result.update(card_data=card)
+    return jsonify({"card_data":result["card_data"]}), 200
 
