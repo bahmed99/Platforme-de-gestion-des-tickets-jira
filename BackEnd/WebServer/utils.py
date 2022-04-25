@@ -1012,3 +1012,27 @@ def Prediction_Number_Participants(issue_type,priority,annee,jour,mois,number_co
     version_type_enc=(Type_version.transform([version_type]))[0]
 
     return (model_participant.predict([[issue_type_enc,int(priority),int(annee),int(jour),int(mois),int(number_components),int(number_versions),version_type_enc]]))[0][0]
+
+
+def get_tickets_no_closed(jira,project):
+    data=dict()
+    test=False
+    status=[]
+    size = 100
+    initial = 0
+    i=0
+    while True:
+        start= initial*size
+        issues = jira.search_issues('project={}'.format(project),  start,size)
+        if len(issues) == 0:
+            break
+        initial += 1
+
+        if(not test):
+            test=True
+        
+        for issue in issues:
+            print(issue)
+        
+
+    return data 

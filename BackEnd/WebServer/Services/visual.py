@@ -1,4 +1,5 @@
 
+from http.client import CannotSendRequest
 from utils import *
 from flask import jsonify, request
 from Models.visuals import Visuals
@@ -35,8 +36,6 @@ def SaveVisuals(id_user):
   
 def GetSelectedVisuals(id_user,projet,jira_domaine,email,jira_token):
     
-        
-
         visuals = Visuals.objects(id_user= id_user, projet = projet)
 
         if not(visuals):
@@ -88,6 +87,35 @@ def update_visuals_service(id_user):
 
 def getCardData(id_user,jira_domaine,jira_token,email):
     jira=""
+    data=dict()
+    visuals={
+            "id_user": id_user,  # id user mich unique
+            "visuals": [],
+            "projet": request.json.get('projet'),
+            "data": {},
+            "card_data":{},
+            "last_ticket_id": "0"
+        }
+    if(jira_domaine!=""):
+        jira=connect_jira(jira_domaine,email,jira_token)
+    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
+
+
+    if not(result):
+        card=get_bugs(request.json.get('projet'),jira)
+
+        data["bugs"]=card
+        visual = Visuals(id_user=id_user, visuals=visuals["visuals"],data=visuals["data"],card_data=data,last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
+        visual.save()
+        return jsonify({"card_data":visual["card_data"]}), 200
+    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
+    card=get_bugs(request.json.get('projet'),jira)
+    data["bugs"]=card
+    result.update(card_data=data)
+    return jsonify({"card_data":result["card_data"]}), 200
+
+
+    jira=""
     visuals = {
             "id_user": id_user,  # id user mich unique
             "visuals": [],
@@ -108,4 +136,3 @@ def getCardData(id_user,jira_domaine,jira_token,email):
     card=get_bugs(request.json.get('projet'),jira)
     result.update(card_data=card)
     return jsonify({"card_data":result["card_data"]}), 200
-

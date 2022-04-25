@@ -8,7 +8,7 @@ import { Card, CardBody, CardTitle, Row, Col } from "reactstrap";
 
 const Header = () => {
   const { project } = useParams(); 
-  const [cards,setCards]=useState({});
+  const [cards,setCards]=useState({"bugs":{}});
   useEffect(() => {
   axios
         .post(
@@ -25,7 +25,7 @@ const Header = () => {
           }
         )
         .then((res) => {
-          console.log(res.data.card_data)
+          
         setCards(res.data.card_data)
           
           
@@ -35,6 +35,11 @@ const Header = () => {
       .catch((err) => {
       });
     },[])
+
+
+    // if(cards.length===0)
+    // return "loading..."
+   
   return (
     <div>
     <Card className="card-stats mb-4 mb-xl-0">
@@ -44,7 +49,7 @@ const Header = () => {
             <CardTitle tag="h5" className="text-uppercase text-muted mb-0">
               Bugs
             </CardTitle>
-            <span className="h2 font-weight-bold mb-0">{cards["nb_bugs"]}</span>
+            <span className="h2 font-weight-bold mb-0">{cards["bugs"].nb_bugs}</span>
           </div>
           <Col className="col-auto">
             <div className="iconDashboard icon-shape bg-danger text-white rounded-circle shadow">
@@ -54,7 +59,7 @@ const Header = () => {
         </Row>
         <p className="mt-3 mb-0 text-muted text-sm">
           <span className="text-danger mr-2">
-            <i className={`fa fa-arrow-${cards["arrow"]}`}/> {cards["pourcentage"]}%
+            <i className={`fa fa-arrow-${cards.bugs.arrow}`}/> {cards.bugs.pourcentage}%
           </span>{" "}
           <span className="text-nowrap">Since last month</span>
         </p>
