@@ -50,6 +50,7 @@ def connect_jira(domaine,email,token):
     jira = JIRA(options, basic_auth=(email, token))
     return jira
 
+
 def convert_visuals(e,project,jira_domaine,id_user,jira,result):
 
     last_ticket=""
@@ -155,10 +156,8 @@ def get_issues_by_priority_month_file(project,id_user):
 
 
 
-#productivité : nom, nb ticket thalou, nb total, nb ticket mezelou,resolution(eli mathalouch)
 def productivity_jira(project,jira):
     data=[]
-    #data=[{}]
     last_ticket=""
     persons=[]
     i=0
@@ -195,9 +194,7 @@ def productivity_jira(project,jira):
                             e["closed tickets"]+=1
                         elif(issue.fields.status.name=='Open') :
                             e["in progress"]+=1
-                        #elif(eli andhom mochkla fel resolution)
-                            #e["tickets with issues"]+=1
-                    e["remain tickets"]=e["all tickets"]-e["closed tickets"] #neksa tickets with issues
+                    e["remain tickets"]=e["all tickets"]-e["closed tickets"] 
         
     return data,last_ticket
                 
@@ -609,6 +606,25 @@ def get_issues_by_priority_file(project,id_user):
     return l
 
 
+def get_bugs(project,jira):
+    month={1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May', 6:'Jun', 7:'Jul', 8:'Aug', 9:'Sep', 10:'Oct', 11:'Nov', 12:'Dec'}
+    d=get_bugs_by_month_jira(project,jira)[0]
+    now=datetime.today()
+    result={'nb_bugs':0,'pourcentage':0,'arrow':""}
+    nb_bugs_last_month=d[month[now.month-1]]
+    nb_bugs=d[month[now.month]]
+    result['nb_bugs']=nb_bugs
+    if nb_bugs_last_month!=0:
+        result['pourcentage'] = round(abs(100*((nb_bugs-nb_bugs_last_month)/nb_bugs_last_month)),2)
+    else :
+        result['pourcentage']=0
+    if nb_bugs>nb_bugs_last_month:
+        result['arrow']="up"
+    else :
+        result['arrow'] ="down"
+    return result
+    
+
 def get_projects_informations(jira,projects):
     file = open('../IA/encoderTypeTicket', 'rb')
     file_version = open('../IA/encoderTypeVersion', 'rb')
@@ -715,11 +731,11 @@ def get_projects_informations(jira,projects):
                         df =pd.DataFrame.from_dict(data)
                         x=model_participant.predict(df)[0][0]
                         if(abs(x-len(issue.fields.customfield_10050)) ==2):
-                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It is provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"low"})
+                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It was provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"low"})
                         elif(abs(x-len(issue.fields.customfield_10050)) ==3):
-                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It is provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"medium"})
+                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It was provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"medium"})
                         elif(abs(x-len(issue.fields.customfield_10050)) ==4):
-                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It is provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"heigh"})
+                            notifications[i].append({"img":p,"project":issue.fields.project.name,"key":issue.key,"msg":"It was provided "+str(x)+" participants given "+str(len(issue.fields.customfield_10050)),"priority":"heigh"})
                 else : 
                     test=True
                     break 

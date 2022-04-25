@@ -40,9 +40,9 @@ function FormulaireModele() {
           setLoading(false)
           console.log(result.data.pred);
             swal.fire({
-              text: `You must provide ${result.data.pred} participant(s)`,
+              text: `You should provide ${result.data.pred} participant(s)`,
               icon: 'success',
-              confirmButtonColor: '#2ea3dd',
+              confirmButtonColor: '#d81e05',
   
             })
         })
@@ -53,7 +53,7 @@ function FormulaireModele() {
   }
   return (
     <div className="Inscr_form">
-      <h3 className="text-center inscri-title" >Prediction Number of participant</h3> 
+      <h3 className="text-center inscri-title" >Predict number of Participants</h3> 
       <MDBContainer >
         <MDBRow >
           <MDBCol md="12">
@@ -135,9 +135,9 @@ function FormulaireModele() {
                   disabled={loading}
                   variant="contained"
                   sx={{
-                    backgroundColor: "#2ea3dd",
+                    backgroundColor: "#d81e05",
                     "&:focus": {
-                      backgroundColor: "#2ea3dd"
+                      backgroundColor: "#d81e05"
                     },
                   }}
                 >

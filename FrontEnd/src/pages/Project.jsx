@@ -13,11 +13,10 @@ export default function Project() {
   const [style, setStyle] = useState(1);
 
   const [e, setE] = useState("");
-
   const [statistics, setStatistics] = useState({});
   const [cles, setCles] = useState([]);
   const [loading, setLoading] = useState(true);
- 
+
 
   //let nameProjects = statistics.keys()
   //console.log(statistics[(Object.keys(statistics))[4]]);
@@ -33,13 +32,16 @@ export default function Project() {
           setIcons={setIcons}
         />
 
-<div >
+        <div >
           <div
             className="content-wrapper"
             style={
               style === 1 ? { paddingLeft: "250px" } : { paddingLeft: "70px" }
             }
           >
+            <div>
+            <h1 style={{ color: "black", fontSize: "45px", alignItems: "center" , marginTop:"70px",marginBottom:"-70px",marginLeft:"500px"}}> HVAL Project</h1>
+            </div>
             <FilterBar
               statistics={statistics}
               setStatistics={setStatistics}
@@ -50,24 +52,24 @@ export default function Project() {
               e={e}
               setE={setE}
             />
-           
-              <>
-                <Dashboard
-                  e={e}
-                  statistics={statistics}
-                  setStatistics={setStatistics}
-                  cles={cles}
-                  setCles={setCles}
-                  loading={loading}
-                />
-              </>
-         
+
+            <>
+              <Dashboard
+                e={e}
+                statistics={statistics}
+                setStatistics={setStatistics}
+                cles={cles}
+                setCles={setCles}
+                loading={loading}
+              />
+            </>
+
           </div>
         </div>
         <div >
           <Navbar style={style} setStyle={setStyle} />
         </div>
-        
+
       </div>
     </div>
   );

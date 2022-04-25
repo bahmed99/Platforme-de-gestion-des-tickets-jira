@@ -9,6 +9,7 @@ class Visuals(db.Document):
     projet=db.StringField(max_length=100)
     last_ticket_id=db.StringField(max_length=100)
     data=db.DictField()
+    card_data=db.DictField()
 
 
 

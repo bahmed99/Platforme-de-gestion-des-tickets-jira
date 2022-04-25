@@ -13,7 +13,7 @@
     padding: 45px 0 45px 30px;
   }
   .contact-information {
-    background-color: #1f212d;
+    background-color: #262626;
     height: 100%;
     color: white;
     padding: 45px 30px;
@@ -23,7 +23,7 @@
   
   .contact-method h3 {
     font-weight: 600;
-    color: #2ea3dd !important;
+    color: #d81e05 !important;
   }
   
   .contact-method .contact-form-area {
