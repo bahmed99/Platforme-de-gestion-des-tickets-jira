@@ -245,6 +245,9 @@ function Sidebar(props) {
                   <Link className="nav-link" to="/PredictionNbreParticipant">
                     <Trans>Number of participants</Trans>
                   </Link>
+                  <Link className="nav-link" to="/PredictionNbreHours">
+                    <Trans>Number of hours for a task</Trans>
+                  </Link>
                 </li>
               </ul>
             </div>

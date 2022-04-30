@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import HomePage from "./pages/HomePage";
 import Project from "./pages/Project";
 import NbreParticipant from "./pages/NbreParticipants";
+import NbreHours from "./pages/NbreHours";
 
 export default function MainRouter() {
   const jwt = localStorage.getItem("jwt");
@@ -19,7 +20,8 @@ export default function MainRouter() {
     if (jwt) {
       if (
         !location.pathname.startsWith("/project") &&
-        !location.pathname.startsWith("/PredictionNbreParticipant")
+        !location.pathname.startsWith("/PredictionNbreParticipant") &&
+        !location.pathname.startsWith("/PredictionNbreHours")
       ) {
         navigate("/");
       }
@@ -54,6 +56,12 @@ export default function MainRouter() {
         exact
         path={"/PredictionNbreParticipant"}
         element={<NbreParticipant />}
+      />
+
+      <Route
+        exact
+        path={"/PredictionNbreHours"}
+        element={<NbreHours />}
       />
     </Routes>
   );

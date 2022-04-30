@@ -1014,6 +1014,8 @@ def Prediction_Number_Participants(issue_type,priority,annee,jour,mois,number_co
     return (model_participant.predict([[issue_type_enc,int(priority),int(annee),int(jour),int(mois),int(number_components),int(number_versions),version_type_enc]]))[0][0]
 
 
+
+
 def get_tickets_no_closed(jira,project):
     data=dict()
     data["nb"]=0
@@ -1040,3 +1042,25 @@ def get_tickets_no_closed(jira,project):
             if(((date(now.year,now.month,now.day)-d).days<=7 ) and issue.fields.status.name=="Open" ):
                  data["nb"]+=1
     return data 
+
+
+def Prediction_Number_Hours(issue_type,priority,annee,jour,mois,number_components,number_versions,version_type,nb_participant):
+   
+    
+    file = open('../IA/encoderTypeTicket', 'rb')
+    Type_ticket = pickle.load(file)
+
+    issue_type_enc=(Type_ticket.transform([issue_type]))[0]
+
+    file = open('../IA/encoderTypeVersion', 'rb')
+    Type_version = pickle.load(file)
+
+    version_type_enc=(Type_version.transform([version_type]))[0]
+
+    file = open('../IA/time', 'rb')
+    model_hours = pickle.load(file)
+
+
+
+    return (model_hours.predict([[issue_type_enc,int(priority),int(nb_participant),int(annee),int(jour),int(mois),int(number_components),int(number_versions),version_type_enc]]))[0]
+
