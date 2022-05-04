@@ -6,7 +6,7 @@ import { Card, CardBody, CardTitle, Row, Col } from "reactstrap";
 
 const Header = () => {
   const { project } = useParams();
-  const [cards, setCards] = useState({ bugs: {}, n_closed: {}, dateDebut: [] });
+  const [cards, setCards] = useState({ bugs: {}, n_closed: {}, dateDebut: [] , open:0 , closed:0 });
   useEffect(() => {
     axios
       .post(
@@ -66,20 +66,17 @@ const Header = () => {
           <Row>
             <div className="col">
               <CardTitle tag="h5" className="text-uppercase text-muted mb-0">
-                Free employees
+                Tickets closed today
               </CardTitle>
-              <span className="h2 font-weight-bold mb-0">4</span>
+              <br />
+              <span className="h3 font-weight-bold mb-0">{cards.closed[0]}</span>
             </div>
             <Col className="col-auto">
-              <div className="iconDashboard icon-shape bg-info text-white rounded-circle shadow">
-                <i className="fa fa-users" />
+              <div className="iconDashboard icon-shape bg-info-closed text-white rounded-circle shadow">
+                <i className="fa fa-ticket" />
               </div>
             </Col>
           </Row>
-          <p className="mt-3 mb-0 text-muted text-sm">
-            <span className="text-nowrap">Total Employees : </span>
-            <span className="text-danger mr-2">23</span>
-          </p>
         </CardBody>
       </Card>
       <br />
@@ -90,18 +87,16 @@ const Header = () => {
               <CardTitle tag="h5" className="text-uppercase text-muted mb-0">
                 Tickets opened today
               </CardTitle>
-              <span className="h2 font-weight-bold mb-0">4</span>
+              <br />
+              <span className="h3 font-weight-bold mb-0">{cards.open[0]}</span>
             </div>
             <Col className="col-auto">
-              <div className="iconDashboard icon-shape bg-info text-white rounded-circle shadow">
-                <i className="fa fa-users" />
+              <div className="iconDashboard icon-shape bg-info-open text-white rounded-circle shadow">
+                <i className="fa fa-ticket" />
               </div>
             </Col>
           </Row>
-          <p className="mt-3 mb-0 text-muted text-sm">
-            <span className="text-nowrap">Total Employees : </span>
-            <span className="text-danger mr-2">23</span>
-          </p>
+         
         </CardBody>
       </Card>
       <br />

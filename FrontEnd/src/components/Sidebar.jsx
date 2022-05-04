@@ -168,7 +168,7 @@ function Sidebar(props) {
             data-toggle="collapse"
           >
             <span className="menu-icon">
-            <i class="mdi mdi-archive"></i>
+            <i className="mdi mdi-archive"></i>
             </span>
             <span className="menu-title">
               <Trans>Projects</Trans>

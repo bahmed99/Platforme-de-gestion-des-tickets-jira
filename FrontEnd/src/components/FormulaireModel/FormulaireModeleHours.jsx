@@ -61,7 +61,7 @@ function FormulaireModele() {
           <MDBCol md="12">
             <form  onSubmit  ={(e)=>Prediction(e)}>
               <p>Issue Type</p>
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={issue} onChange={(event)=>setIssue(event.target.value)}>
+              <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={issue} onChange={(event)=>setIssue(event.target.value)}>
                 <option selected value="">Open this select menu</option>
                 <option value="Bug">Bug</option>
                 <option value="Tâche">Task</option>
@@ -79,7 +79,7 @@ function FormulaireModele() {
               </select>
 
               <p>Priority</p>
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={priority} onChange={(event)=>setPriority(event.target.value)}>
+              <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={priority} onChange={(event)=>setPriority(event.target.value)}>
                 <option selected value="">Open this select menu</option>
                 <option value="1">Trivial</option>
                 <option value="2">Minor</option>
@@ -89,7 +89,7 @@ function FormulaireModele() {
               </select>
 
               <p>Number of components</p>
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"  value={component} onChange={(event)=>setComponent(event.target.value)}>
+              <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example"  value={component} onChange={(event)=>setComponent(event.target.value)}>
                 <option selected value="">Open this select menu</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -98,7 +98,7 @@ function FormulaireModele() {
               </select>
 
               <p>Number of versions</p>
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={version} onChange={(event)=>setVersion(event.target.value)}>
+              <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={version} onChange={(event)=>setVersion(event.target.value)}>
                 <option selected value="">Open this select menu</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -107,7 +107,7 @@ function FormulaireModele() {
               </select>
 
               <p>Versions type</p>
-              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={typeversion} onChange={(event)=>setTypeversion(event.target.value)} >
+              <select className="form-select form-select-lg mb-3" aria-label=".form-select-lg example" value={typeversion} onChange={(event)=>setTypeversion(event.target.value)} >
                 <option selected value="">Open this select menu</option>
                 <option value="Majeur">Major</option>
                 <option value="Mineur">Minor</option>
@@ -115,7 +115,7 @@ function FormulaireModele() {
               </select>
 
               <p>Number of participant</p>
-              <input class="form-select form-select-lg mb-3" type="number" onChange={(event)=>setNumber(event.target.value)} min="1"/>
+              <input className="form-select form-select-lg mb-3" type="number" onChange={(event)=>setNumber(event.target.value)} min="1"/>
             
               <p>Date</p>
               {/* <MDBInput
@@ -132,7 +132,7 @@ function FormulaireModele() {
                   onChange={handleBirthdayChange}
                   onBlur={handleBirthdayChange}
                 /> */}
-                <input class="form-select form-select-lg mb-3" type="date" value={date} onChange={(event)=>setDate(event.target.value)}></input>
+                <input className="form-select form-select-lg mb-3" type="date" value={date} onChange={(event)=>setDate(event.target.value)}></input>
               <div className="text-center buttonIns">
                 <Button
                 

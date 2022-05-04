@@ -4,6 +4,8 @@ from utils import *
 from flask import jsonify, request
 from Models.visuals import Visuals
 import os
+import threading
+
 
 from jira.client import JIRA
 
@@ -98,29 +100,25 @@ def getCardData(id_user,jira_domaine,jira_token,email):
         }
     if(jira_domaine!=""):
         jira=connect_jira(jira_domaine,email,jira_token)
-    result=Visuals.objects(id_user=id_user,projet=request.json.get('projet'))
 
+   
+    threads=[]
+    data["dateDebut"]=[0,0,0]
+    data["bugs"]={'nb_bugs':0,'pourcentage':0,'arrow':""}
+    data["n_closed"]={}
+    data["open"]=[-1]
+    data["closed"]=[-1]
+      
+    threads.append(threading.Thread(target=date_debut_projet,args=(jira,request.json.get('projet'),data["dateDebut"])))
+    threads.append(threading.Thread(target=get_bugs,args=(request.json.get('projet'),jira,data["bugs"])))
+    threads.append(threading.Thread(target=get_tickets_no_closed,args=(jira,request.json.get('projet'),data["n_closed"])))
+    threads.append(threading.Thread(target=ticketsToday,args=(jira,request.json.get('projet'),data["open"])))
+    threads.append(threading.Thread(target=ticketsTodayClosed,args=(jira,request.json.get('projet'),data["closed"])))
+    for t in threads:
+        t.start()
 
-    if not(result):
-        card=get_bugs(request.json.get('projet'),jira)
-        n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
-        cardDate= date_debut_projet(jira,request.json.get('projet'))
-        data["dateDebut"]=cardDate
+    for t in threads:
+        t.join()
 
-        data["bugs"]=card
-        data["n_closed"]= n_closed
-        visual = Visuals(id_user=id_user, visuals=visuals["visuals"],data=visuals["data"],card_data=data,last_ticket_id=visuals["last_ticket_id"],projet=visuals["projet"])
-        visual.save()
-        return jsonify({"card_data":visual["card_data"]}), 200
-
-    result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
-    card=get_bugs(request.json.get('projet'),jira)
-    n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
-
-    cardDate= date_debut_projet(jira,request.json.get('projet'))
-    data["dateDebut"]=cardDate
-
-    data["bugs"]=card
-    data["n_closed"]= n_closed
-    result.update(card_data=data)
-    return jsonify({"card_data":result["card_data"]}), 200
+    
+    return jsonify({"card_data":data}), 200
