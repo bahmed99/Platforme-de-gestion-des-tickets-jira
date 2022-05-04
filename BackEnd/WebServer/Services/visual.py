@@ -104,6 +104,8 @@ def getCardData(id_user,jira_domaine,jira_token,email):
     if not(result):
         card=get_bugs(request.json.get('projet'),jira)
         n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
+        cardDate= date_debut_projet(jira,request.json.get('projet'))
+        data["dateDebut"]=cardDate
 
         data["bugs"]=card
         data["n_closed"]= n_closed
@@ -114,6 +116,10 @@ def getCardData(id_user,jira_domaine,jira_token,email):
     result=Visuals.objects.get(id_user=id_user,projet=request.json.get('projet'))
     card=get_bugs(request.json.get('projet'),jira)
     n_closed=get_tickets_no_closed(jira,request.json.get('projet'))
+
+    cardDate= date_debut_projet(jira,request.json.get('projet'))
+    data["dateDebut"]=cardDate
+
     data["bugs"]=card
     data["n_closed"]= n_closed
     result.update(card_data=data)

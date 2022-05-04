@@ -571,6 +571,9 @@ button.bg-success:focus {
 .bg-info {
   background-color: #11cdef !important; }
 
+  .bg-info-date {
+    background-color: #24a46d !important; }
+
 a.bg-info:hover, a.bg-info:focus,
 button.bg-info:hover,
 button.bg-info:focus {

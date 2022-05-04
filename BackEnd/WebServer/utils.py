@@ -1064,3 +1064,19 @@ def Prediction_Number_Hours(issue_type,priority,annee,jour,mois,number_component
 
     return (model_hours.predict([[issue_type_enc,int(priority),int(nb_participant),int(annee),int(jour),int(mois),int(number_components),int(number_versions),version_type_enc]]))[0]
 
+def date_debut_projet(jira,projet):
+    i=0
+    t = ""
+    j=0
+    while (1):
+        issues = jira.search_issues('project={}'.format(projet),  j-1,j+100)
+        i = len(issues)
+        if (len(issues) == 0 ):
+            break
+        t = issues[i-1]
+        if (i!=100):
+            break 
+        j+=100
+    d1=datetime.strptime((t.fields.created.split('.'))[0],'%Y-%m-%dT%H:%M:%S')
+    L=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    return [d1.day,L[d1.month-1],d1.year]
