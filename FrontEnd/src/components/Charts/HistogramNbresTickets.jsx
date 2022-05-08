@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
 export default function HistogramPriority(props) {
-    console.log(props.statistics);
+
     var data = [
         {
           x: Object.keys(props.statistics),

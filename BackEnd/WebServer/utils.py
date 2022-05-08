@@ -640,7 +640,7 @@ def get_projects_informations(jira,projects):
     for project in projects :
         nb_bug_month=0
         nb_bug_last_month=0
-        print(i)
+      
         p=jira.search_issues('project={}'.format(project), maxResults=1,json_result=True)["issues"][0]["fields"]["project"]['avatarUrls']["24x24"]
         notifications.append([])
 

@@ -138,12 +138,7 @@ const Header = () => {
               </div>
             </Col>
           </Row>
-          <p className="mt-3 mb-0 text-muted text-sm">
-            <span className="text-nowrap">
-              Total tickets : {cards["n_closed"].nb}
-            </span>
-            <span className="text-danger mr-2"></span>
-          </p>
+
         </CardBody>
       </Card>
     </div>

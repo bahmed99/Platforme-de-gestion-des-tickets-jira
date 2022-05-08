@@ -6,7 +6,7 @@ import axios from "axios";
 import "../Assets/css/Filterbar.styles.css";
 
 export default function Filterbar(props) {
-  const { project } = useParams(); 
+  const {project} = useParams(); 
   const [checked, setChecked] = useState([]);
   const [test, setTest] = useState(true);
  
@@ -140,8 +140,8 @@ export default function Filterbar(props) {
     <div className='filterbarcontainer'>
       <div className="row">
       <form id="formulaire">
-        <fieldset disabled={props.loading} >
-          
+        <fieldset disabled={props.loading} className="fieldsetFilter" >
+          <legend className='legendFilterBar'>choose visualisations</legend>
             <label className="control" style={props.loading?{cursor:"not-allowed"}:{cursor:"pointer"}} >
               <input  className='StyleInput' type="checkbox" name="Suivi des bugs"  onChange={(event) =>handleCheck(event)} checked={checked.includes("Suivi des bugs")}  ></input>
               <span className="control__content">

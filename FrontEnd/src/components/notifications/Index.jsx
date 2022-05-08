@@ -60,7 +60,7 @@ export default function Index() {
                   <ul className="message">
                     {data.map((element, index) =>
                       element.slice(prec, next).map((e, i) => (
-                        <li key={i}>
+                        <li>
                           <div className="media ">
                             <div className="msg-img">
                               <img src={e.img} alt="img" />

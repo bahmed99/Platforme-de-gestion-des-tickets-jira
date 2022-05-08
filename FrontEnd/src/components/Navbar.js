@@ -83,7 +83,7 @@ export default function Navbar(props) {
               <Dropdown.Divider />
               {data.map((e, i) =>
                 e.slice(0, 3).map((element, index) => (
-                  <div key={index}>
+                  <div key={(index+1)*100+i +Math.floor(Math.random() * 5000)}>
                     <Dropdown.Item
                       className="dropdown-item preview-item"
                       onClick={(evt) => evt.preventDefault()}

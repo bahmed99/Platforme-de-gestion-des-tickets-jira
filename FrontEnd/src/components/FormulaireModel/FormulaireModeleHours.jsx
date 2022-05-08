@@ -40,7 +40,7 @@ function FormulaireModele() {
         })
         .then((result) => {
           setLoading(false)
-          console.log(result.data.pred);
+         
             swal.fire({
               text: `This ticket will take ${result.data.pred} hours to be resolved`,
               icon: 'success',

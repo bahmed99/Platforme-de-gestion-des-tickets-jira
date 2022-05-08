@@ -38,7 +38,7 @@ function FormulaireModele() {
         })
         .then((result) => {
           setLoading(false)
-          console.log(result.data.pred);
+         
             swal.fire({
               text: `You should provide ${result.data.pred} participant(s)`,
               icon: 'success',

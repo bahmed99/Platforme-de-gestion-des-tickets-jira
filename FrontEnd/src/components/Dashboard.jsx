@@ -24,7 +24,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Nombre de demandes par priorité") ? (
           <PiePriority
@@ -35,7 +35,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Ticket par priorité et par mois") ? (
           <HistogramPriority
@@ -46,7 +46,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Suivi des bugs") ? (
           <Histogram statistics={props.statistics["Suivi des bugs"]} />
@@ -55,7 +55,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Ticket par statut et par client") ? (
           <HistogramStatus
@@ -66,7 +66,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Suivi des temps planifiés") ? (
           <ScatterTime
@@ -77,7 +77,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
         {props.cles.includes("Gestion des incidents") ? (
           <HistogramNbresTickets
@@ -88,7 +88,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
       </div>
       <div className="Card_Two_Style">
@@ -104,7 +104,7 @@ export default function Cards(props) {
             <Spinner animation="border" role="status" variant="danger" />
           </div>
         ) : (
-          ""
+          null
         )}
       </div>
     </div>

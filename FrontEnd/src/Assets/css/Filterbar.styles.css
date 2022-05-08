@@ -1,32 +1,41 @@
 
 .filterbarcontainer{
-  padding-top: 100px;
-    padding-left: 0.1cm;
-    margin-left: 4cm;
+  padding-top: 20px;
+  padding-left: 0.1cm;
+  margin-left: 1cm;
+  
 
 }
+.legendFilterBar
+{
+  text-align: center;
+  font-family: 'Gilroy-Light', sans-serif;
+  font-size:25px; font-weight:300; color:#222; letter-spacing:1px;
+
+  grid-template-columns: 1fr max-content 1fr;
+  grid-template-rows: 27px 0;
+  grid-gap: 20px;
+}
+
+
   .sweet-loading{
     margin-top: 100px;
   }
-  fieldset {
-    border: 0;
+  .fieldsetFilter {
+    margin-left: -25px !important;
+    padding: 5px !important;
+    border: 1px solid black !important;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 50px;
+    background-color: rgb(255,245,238,0.5);
   }
   
-  legend {
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    height: 1px;
-    width: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-  }
+  
   
   .control {
     display: inline-flex;
     position: relative;
-    margin: 3px;
+    margin: 4px;
     cursor: pointer;
     border-radius: 99em;}
     

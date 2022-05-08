@@ -23,13 +23,11 @@ import {
 import "./argon-dashboard-react.css";
 
 const Tables = (props) => {
-  //console.log(props.statistics[0])
   const [compteur, setCompteur] = useState(0);
   return (
     <>
-      {/* Page content */}
+    
       <Container className="mt--7" fluid style={{ paddingTop: "100px" }}>
-        {/* Table */}
         <Row>
           <div className="col">
             <Card className="shadow">
@@ -52,7 +50,7 @@ const Tables = (props) => {
                     return (
                       <>
                         {index >= compteur && index <= compteur + 5 ? (
-                          <tr key={index}>
+                          <tr key={index }>
                             <th scope="row">
                               <Media className="align-items-center">
                                 <span className="mb-0 text-sm">
@@ -78,11 +76,11 @@ const Tables = (props) => {
                             </td>
                             <td>
                               <div className="d-flex align-items-center">
-                                <span className="mr-2">60%</span>
+                                <span className="mr-2">{Math.round(((Object.values(props.statistics[index])[1])/(Object.values(props.statistics[index])[0]))*(100))}%</span>
                                 <div>
                                   <Progress
                                     max="100"
-                                    value="60"
+                                    value={Math.round(((Object.values(props.statistics[index])[1])/(Object.values(props.statistics[index])[0]))*(100))}
                                     barClassName="bg-danger"
                                   />
                                 </div>
@@ -102,7 +100,7 @@ const Tables = (props) => {
                                 </DropdownToggle>
                                 <DropdownMenu
                                   className="dropdown-menu-arrow"
-                                  right
+                                  end
                                 >
                                   <DropdownItem
                                     href="#pablo"
@@ -127,7 +125,7 @@ const Tables = (props) => {
                             </td>
                           </tr>
                         ) : (
-                          ""
+                          null
                         )}
                       </>
                     );
@@ -142,7 +140,7 @@ const Tables = (props) => {
                   >
                     <PaginationItem>
                       <PaginationLink
-                        href="#pablo"
+                  
                         onClick={() => {
                           if (compteur > 0) {
                             setCompteur(compteur - 5);
@@ -156,7 +154,7 @@ const Tables = (props) => {
                     </PaginationItem>
                     <PaginationItem className="active">
                       <PaginationLink
-                        href="#pablo"
+                     
                         onClick={(e) => e.preventDefault()}
                       >
                         1
@@ -172,7 +170,7 @@ const Tables = (props) => {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        href="#pablo"
+                     
                         onClick={(e) => e.preventDefault()}
                       >
                         3
@@ -180,7 +178,7 @@ const Tables = (props) => {
                     </PaginationItem>
                     <PaginationItem>
                       <PaginationLink
-                        href="#pablo"
+                        
                         onClick={() => setCompteur(compteur + 5)}
                       >
                         <i className="fa fa-angle-right" />
